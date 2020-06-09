@@ -10,7 +10,7 @@
 <body>
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
 	<%
-		response.sendRedirect(request.getContextPath() + "/main/mainView");
+		response.sendRedirect(request.getContextPath() + "/main/mainView"); 
 	
 	%>
 	
