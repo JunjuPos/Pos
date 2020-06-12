@@ -39,19 +39,6 @@
 			<table>
 				<tr><th>시간</th><th>메뉴</th><th>수량</th></tr>
 				<tr><td>19:07:32</td><td>칼국수</td><td>1</td></tr>			
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>
-				<tr><td>19:07:32</td><td>제육볶음(중)</td><td>1</td></tr>				
 			</table>
 		</div>
 		<div id="resultPriceZone">
@@ -72,15 +59,43 @@
 <script>
 	$(function(){
 		$("#cash").click(function(){	//현금 결제 버튼
-			$.ajax(){
+			$.ajax({
+				type:"get",
+				url : "<%=request.getContextPath()%>/payment",
+				data: {},
+				success:function(data){
 					
-			}
+				},
+				error:function(data){
+					
+				}
+			});
 		})
 		$("#card").click(function(){	//카드 결제
-			
+			$.ajax({
+				type:"get",
+				url : "<%=request.getContextPath()%>/payment",
+				data: {},
+				success:function(data){
+					
+				},
+				error:function(data){
+					
+				}
+			});
 		})
 		$("#credit").click(function(){	//외상
-			
+			$.ajax({
+				type:"get",
+				url : "<%=request.getContextPath()%>/payment",
+				data: {},
+				success:function(data){
+					
+				},
+				error:function(data){
+					
+				}
+			});
 		})
 	})
 </script>
