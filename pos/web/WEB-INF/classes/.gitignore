@@ -1,2 +1,8 @@
-/order/
+/common/
+/driver.properties
 /main/
+/mapper/
+/mybatis-config.xml
+/order/
+/scripts/
+/menu/

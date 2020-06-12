@@ -10,88 +10,107 @@ public class Order implements Serializable {
 	 */
 	private static final long serialVersionUID = 4496711903518213668L;
 
-	private String orderPri;	// primary key
-	private int order_no;		// 주문번호
-	private int amount;			// 수량
-	private String menu;		// 메뉴
-	private Date orderDate;		// 주문시간
-	private int tableNo;		// 테이블 번호
-	private int payYn;			// 결제여부
-	private int totalPrice;		// 합계금액
+	private String ORDER_PRI;	// primary key
+	private int ORDER_NO;		// 주문번호
+	private int AMOUNT;			// 수량
+	private String MENU2;		// 메뉴
+	private Date ORDER_DATE;		// 주문시간
+	private int TABLE_NO;		// 테이블 번호
+	private int PAY_YN;			// 결제여부
+	private int TOTAL_PRICE;		// 합계금액
 	
 	public Order() {
 		super();
 	}
-	public Order(String orderPri, int order_no, int amount, String menu, Date orderDate, int tableNo, int payYn,
-			int totalPrice) {
+
+	public Order(String oRDER_PRI, int oRDER_NO, int aMOUNT, String mENU2, Date oRDER_DATE, int tABLE_NO, int pAY_YN,
+			int tOTAL_PRICE) {
 		super();
-		this.orderPri = orderPri;
-		this.order_no = order_no;
-		this.amount = amount;
-		this.menu = menu;
-		this.orderDate = orderDate;
-		this.tableNo = tableNo;
-		this.payYn = payYn;
-		this.totalPrice = totalPrice;
+		ORDER_PRI = oRDER_PRI;
+		ORDER_NO = oRDER_NO;
+		AMOUNT = aMOUNT;
+		MENU2 = mENU2;
+		ORDER_DATE = oRDER_DATE;
+		TABLE_NO = tABLE_NO;
+		PAY_YN = pAY_YN;
+		TOTAL_PRICE = tOTAL_PRICE;
 	}
-	public String getOrderPri() {
-		return orderPri;
+
+	public String getORDER_PRI() {
+		return ORDER_PRI;
 	}
-	public void setOrderPri(String orderPri) {
-		this.orderPri = orderPri;
+
+	public void setORDER_PRI(String oRDER_PRI) {
+		ORDER_PRI = oRDER_PRI;
 	}
-	public int getOrder_no() {
-		return order_no;
+
+	public int getORDER_NO() {
+		return ORDER_NO;
 	}
-	public void setOrder_no(int order_no) {
-		this.order_no = order_no;
+
+	public void setORDER_NO(int oRDER_NO) {
+		ORDER_NO = oRDER_NO;
 	}
-	public int getAmount() {
-		return amount;
+
+	public int getAMOUNT() {
+		return AMOUNT;
 	}
-	public void setAmount(int amount) {
-		this.amount = amount;
+
+	public void setAMOUNT(int aMOUNT) {
+		AMOUNT = aMOUNT;
 	}
-	public String getMenu() {
-		return menu;
+
+	public String getMENU2() {
+		return MENU2;
 	}
-	public void setMenu(String menu) {
-		this.menu = menu;
+
+	public void setMENU2(String mENU2) {
+		MENU2 = mENU2;
 	}
-	public Date getOrderDate() {
-		return orderDate;
+
+	public Date getORDER_DATE() {
+		return ORDER_DATE;
 	}
-	public void setOrderDate(Date orderDate) {
-		this.orderDate = orderDate;
+
+	public void setORDER_DATE(Date oRDER_DATE) {
+		ORDER_DATE = oRDER_DATE;
 	}
-	public int getTableNo() {
-		return tableNo;
+
+	public int getTABLE_NO() {
+		return TABLE_NO;
 	}
-	public void setTableNo(int tableNo) {
-		this.tableNo = tableNo;
+
+	public void setTABLE_NO(int tABLE_NO) {
+		TABLE_NO = tABLE_NO;
 	}
-	public int getPayYn() {
-		return payYn;
+
+	public int getPAY_YN() {
+		return PAY_YN;
 	}
-	public void setPayYn(int payYn) {
-		this.payYn = payYn;
+
+	public void setPAY_YN(int pAY_YN) {
+		PAY_YN = pAY_YN;
 	}
-	public int getTotalPrice() {
-		return totalPrice;
+
+	public int getTOTAL_PRICE() {
+		return TOTAL_PRICE;
 	}
-	public void setTotalPrice(int totalPrice) {
-		this.totalPrice = totalPrice;
+
+	public void setTOTAL_PRICE(int tOTAL_PRICE) {
+		TOTAL_PRICE = tOTAL_PRICE;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public String toString() {
-		return "Order [orderPri=" + orderPri + ", order_no=" + order_no + ", amount=" + amount + ", menu=" + menu
-				+ ", orderDate=" + orderDate + ", tableNo=" + tableNo + ", payYn=" + payYn + ", totalPrice="
-				+ totalPrice + "]\n";
+		return "Order [ORDER_PRI=" + ORDER_PRI + ", ORDER_NO=" + ORDER_NO + ", AMOUNT=" + AMOUNT + ", MENU2=" + MENU2
+				+ ", ORDER_DATE=" + ORDER_DATE + ", TABLE_NO=" + TABLE_NO + ", PAY_YN=" + PAY_YN + ", TOTAL_PRICE="
+				+ TOTAL_PRICE + "]";
 	}
-	
+
 	
 	
 }

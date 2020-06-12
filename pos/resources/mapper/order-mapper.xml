@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="orderMapper">
+	<select id="totalOnePriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 1 AND PAY_YN = 'N'
+	</select>
+	<select id="totalTwoPriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 2 AND PAY_YN = 'N'
+	</select>
+	<select id="totalThreePriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 3 AND PAY_YN = 'N'
+	</select>
+	<select id="totalFourPriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 4 AND PAY_YN = 'N'
+	</select>
+	<select id="totalFivePriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 5 AND PAY_YN = 'N'
+	</select>
+	<select id="totalSixPriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 6 AND PAY_YN = 'N'
+	</select>
+	<select id="totalSevenPriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 7 AND PAY_YN = 'N'
+	</select>
+	<select id="totalEightPriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 8 AND PAY_YN = 'N'
+	</select>
+	<select id="totalNinePriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 9 AND PAY_YN = 'N'
+	</select>
+	<select id="totalTenPriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 10 AND PAY_YN = 'N'
+	</select>
+	
+	<select id="menuList" resultType="Menu">
+		SELECT MENU, PRICE
+		FROM MENU
+		WHERE MENU_YN = 'Y'
+	</select>
+	
+</mapper>
