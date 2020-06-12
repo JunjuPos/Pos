@@ -73,7 +73,7 @@
 	$(function(){
 		$("#cash").click(function(){	//현금 결제 버튼
 			$.ajax(){
-				
+					
 			}
 		})
 		$("#card").click(function(){	//카드 결제
