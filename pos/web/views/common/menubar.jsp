@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 <style>
 	body{background-color:#566270;}
-	#side_nav{position: fixed; top: 100px; right: 0px; width: 200px; height: 310px; border: 0px;}
+	#side_nav{position: fixed; top: 100px; right: 0px; width: 200px; height: 310px; border: 0px; margin-top:100px;}
 	#side_nav>table{width:100%; border:0px;}
 	#side_nav>table td{width:100%;}
 	#side_nav button{display: block; margin: 0px; width:200px; height:100px; font-size: 25px; font-weight:600; color:#black; background-color:#E0E3DA; border-radius:20px; }
@@ -27,12 +27,13 @@
 			<tr><td><button onclick="creditManage()">외상 결제</button></td></tr>
 		</table>
 	</div>
+	
 </body>
 
 <script>
 	//서블릿으로 이동
 	function mainPage(){
-		location.href="${contextPath}/#";
+		location.href="${contextPath}/main/mainView";
 	}
 	function salesManage(){
 		location.href="${contextPath}/#";
