@@ -108,7 +108,7 @@ public class Order implements Serializable {
 	public String toString() {
 		return "Order [ORDER_PRI=" + ORDER_PRI + ", ORDER_NO=" + ORDER_NO + ", AMOUNT=" + AMOUNT + ", MENU2=" + MENU2
 				+ ", ORDER_DATE=" + ORDER_DATE + ", TABLE_NO=" + TABLE_NO + ", PAY_YN=" + PAY_YN + ", TOTAL_PRICE="
-				+ TOTAL_PRICE + "]";
+				+ TOTAL_PRICE + "]\n";
 	}
 
 	

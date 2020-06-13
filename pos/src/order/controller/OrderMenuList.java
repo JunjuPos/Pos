@@ -1,7 +1,7 @@
 package order.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,18 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import menu.model.vo.Menu;
 import order.model.service.OrderServiceImpl;
+import order.model.vo.OrderMenu;
 
 /**
  * Servlet implementation class OrderMenu
  */
 @WebServlet("/order/orderMenu")
-public class OrderMenu extends HttpServlet {
+public class OrderMenuList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderMenu() {
+    public OrderMenuList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +35,20 @@ public class OrderMenu extends HttpServlet {
 		OrderServiceImpl oService = new OrderServiceImpl();
 		String tableNo = request.getParameter("tableNo");
 
-		ArrayList<Menu> menuList = oService.selectMenuList(tableNo); 
+		List<Menu> menuList = oService.selectMenuList(); 
+		List<OrderMenu> orderList = oService.selectOrderList(tableNo);
+		
+		if(orderList.isEmpty()) {
+			request.setAttribute("orderList", orderList);
+			request.setAttribute("menuList", menuList);
+			request.setAttribute("tableNo", tableNo);
+			request.getRequestDispatcher("/views/order/orderList.jsp").forward(request, response);
+		}else {
+			request.setAttribute("orderList", orderList);
+			request.setAttribute("menuList", menuList);
+			request.setAttribute("tableNo", tableNo);
+			request.getRequestDispatcher("/views/order/orderList.jsp").forward(request, response);
+		}
 		
 	
 	}

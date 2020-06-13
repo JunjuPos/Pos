@@ -3,12 +3,14 @@ package order.model.service;
 import static common.Template.getSqlSession;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
 import menu.model.vo.Menu;
 import order.model.dao.OrderDao;
 import order.model.vo.Order;
+import order.model.vo.OrderMenu;
 public class OrderServiceImpl implements OrderService {
 
 	@Override
@@ -102,14 +104,38 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public ArrayList<Menu> selectMenuList(String tableNo) {
+	public List<Menu> selectMenuList() {
 		SqlSession session = getSqlSession();
-		ArrayList<Menu> menuList = new OrderDao().selectMenuList(session, tableNo);
+		List<Menu> menuList = new OrderDao().selectMenuList(session);
 		
-		if(menuList.isEmpty()) {
+		/*
+		 * if(menuList.isEmpty()) { session.close(); }
+		 */
+		return menuList;
+	}
+
+	@Override
+	public List<OrderMenu> selectOrderList(String tableNo) {
+		SqlSession session = getSqlSession();
+		
+		List<OrderMenu> orderList = new OrderDao().selectOrderList(session, tableNo);
+		
+		if(orderList.isEmpty()) {
 			session.close();
 		}
-		return menuList;
+		return orderList;
+	}
+
+	@Override
+	public int updateAmountOrder(String tableNo, OrderMenu om) {
+		System.out.println("update로 왔따.");
+		return 0;
+	}
+
+	@Override
+	public int insertOrderList(String tableNo, OrderMenu om) {
+		System.out.println("insert로 왔다.");
+		return 0;
 	}
 
 }

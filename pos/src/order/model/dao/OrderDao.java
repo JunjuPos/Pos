@@ -3,18 +3,20 @@ package order.model.dao;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
 import menu.model.vo.Menu;
 import order.model.vo.Order;
+import order.model.vo.OrderMenu;
 
 public class OrderDao {
 
 	public Order selectOneTotalPrice(SqlSession session) {
 		Order oneTable = null;
 		oneTable = (Order) session.selectOne("orderMapper.totalOnePriceList");
-		
+	
 		return oneTable;
 	}
 
@@ -81,12 +83,20 @@ public class OrderDao {
 		return tenTable;
 	}
 
-	public ArrayList<Menu> selectMenuList(SqlSession session, String tableNo) {
-		ArrayList<Menu> menuList = new ArrayList<>();
-		menuList = (ArrayList)session.selectList("orderMapper.menuList");
-		
-		System.out.println("dao menuList : " + menuList);
+	public List<Menu> selectMenuList(SqlSession session) {
+		List<Menu> menuList = session.selectList("orderMapper.menuList");
+
+//		System.out.println("dao menuList : " + menuList);
 		return menuList;
+	}
+
+	public List<OrderMenu> selectOrderList(SqlSession session, String tableNo) {
+		 List<OrderMenu> orderList = null;
+		orderList = session.selectList("orderMapper.orderList",tableNo);
+		
+//		System.out.println("tableNo : " + tableNo);
+		System.out.println("dao orderList : " + orderList);
+		return orderList;
 	}
 
 }

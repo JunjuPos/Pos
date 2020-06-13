@@ -52,10 +52,27 @@
 		WHERE TABLE_NO = 10 AND PAY_YN = 'N'
 	</select>
 	
-	<select id="menuList" resultType="Menu">
-		SELECT MENU, PRICE
+	<select id="menuList" resultType="MENU">
+		SELECT MENU, PRICE, CATEGORY
 		FROM MENU
 		WHERE MENU_YN = 'Y'
 	</select>
 	
+	<select id="orderList" parameterType="string" resultMap="orderMenuList">
+		SELECT ORDER_PRI, ORDER_NO, AMOUNT, MENU2, ORDER_DATE, TABLE_NO, TOTAL_PRICE, MENU, PRICE
+		FROM JUMUN J 
+        LEFT JOIN MENU M ON (J.MENU2 = M.MENU)
+		WHERE TABLE_NO =  #{tableNo}  AND PAY_YN = 'N'
+	</select>
+	<resultMap type="OrderMenu" id="orderMenuList">
+		<id property="ORDER_PRI" column="ORDER_PRI"/>
+		<result property="ORDER_NO" column="ORDER_NO"/>
+		<result property="AMOUNT" column="AMOUNT"/>
+		<result property="MENU2" column="MENU2"/>
+		<result property="ORDER_DATE" column="ORDER_DATE"/>
+		<result property="TABLE_NO" column="TABLE_NO"/>
+		<result property="TOTAL_PRICE" column="TOTAL_PRICE"/>
+		<result property="PRICE" column="PRICE"/>
+	</resultMap> 
+
 </mapper>

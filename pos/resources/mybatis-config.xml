@@ -10,7 +10,8 @@
 	
 	<typeAliases>
 		<typeAlias type="order.model.vo.Order" alias="Order"/>
-		<typeAlias type="menu.model.vo.Menu" alias="Menu"/>
+		<typeAlias type="order.model.vo.OrderMenu" alias="OrderMenu"/>
+		<typeAlias type="menu.model.vo.Menu" alias="MENU"/>
 	</typeAliases>
 	
 	<environments default="development">

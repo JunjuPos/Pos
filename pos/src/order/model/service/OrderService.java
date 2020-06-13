@@ -1,9 +1,10 @@
 package order.model.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import menu.model.vo.Menu;
 import order.model.vo.Order;
+import order.model.vo.OrderMenu;
 
 public interface OrderService {
 
@@ -18,8 +19,11 @@ public interface OrderService {
 	Order selectNineTotalPrice();
 	Order selectTenTotalPrice();
 	
-	ArrayList<Menu> selectMenuList(String tableNo);
+	List<Menu> selectMenuList();
+	List<OrderMenu> selectOrderList(String tableNo);
 	
+	int updateAmountOrder(String tableNo, OrderMenu om);
+	int insertOrderList(String tableNo, OrderMenu om);
 }
 
 

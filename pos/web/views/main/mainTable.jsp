@@ -13,15 +13,12 @@
             body{background: rgb(65, 56, 71);}
             #table{margin-left:200px; width: 50%; padding-top: 40px;}
             td>#btn{border-radius: 10px; width: 280px; height: 180px; font-size: 30px; font-weight: 600; background: #E0E3DA; color: black;}
-            td>#btn:hover{background:#A593E0; color:#fffff3;}
+            td>#btn:hover{background:#A593E0; color:#fffff3;cursor:pointer;}
             td>#area{border-radius: 10px;}
             .area1{background: white; color: black; height: 30px; line-height: 30px; font-size: 20px; font-weight: 600;padding-left:20px;}
 			a:link { color: red; text-decoration: none;}
  			a:visited { color: black; text-decoration: none;}
- 			a:hover { color: #fffff3; text-decoration: none;}
-
-출처: https://it77.tistory.com/126 [시원한물냉의 사람사는 이야기]
-            
+ 			a:hover { color: #fffff3; text-decoration: none;}          
         </style>
 </head>
 <body>
