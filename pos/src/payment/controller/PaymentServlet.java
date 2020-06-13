@@ -27,6 +27,12 @@ public class PaymentServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("paymentServlet");
+		
+		String resultPrice = request.getParameter("resultPrice");
+		String price = request.getParameter("price");
+		
+		System.out.println("resultPrice : " + resultPrice + ", price : " + price);
+				
 	}
 
 	/**

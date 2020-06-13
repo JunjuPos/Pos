@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>전주손칼국수</title>
 <style>
 	.payment{float:left;}
 	#orderView{width:700px; margin-left:50px;}
@@ -53,18 +53,31 @@
 	</div>
 	<br clear="both">
 	<div id="btnArea">
-		<button type="button" id="cash">현금</button><button type="button" id="card">카드</button><button type="button" id="credit">외상</button>
+		<button type="button" id="cash">현금</button>
+		<button type="button" id="card">카드</button>
+		<!-- 외상결제 시 조건문으로 처리로 있고없고 -->
+		<button type="button" id="credit">외상</button>
 	</div>
 </body>
 <script>
 	$(function(){
 		$("#cash").click(function(){	//현금 결제 버튼
+			$resultPrice = (Number)($("#resultPrice").val());
+			$price = (Number)($("#price").val());
 			$.ajax({
 				type:"get",
 				url : "<%=request.getContextPath()%>/payment",
-				data: {},
+				data: {resultPrice:$resultPrice, price:$price},
 				success:function(data){
+					//분할계산을 하지않으면 결제 성공시 table페이지로 이동
+					if($resultPrice == $price){
+						location.href="#";
+					}
 					
+					//분할계산시 총 금액을 차감되고 페이지 이동을 하지 않음
+					if($resultPrice > $price){
+						
+					}
 				},
 				error:function(data){
 					
