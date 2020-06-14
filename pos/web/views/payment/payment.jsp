@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.util.*" %>
+<%
+	DecimalFormat formatter = new DecimalFormat("###,###");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +33,7 @@
 	#keypad{margin:auto; width:100%;}
 	#keypad>button{width:166.66px; height:60px; font-size:25px; border-radius:10px; background-color:#fffff3;}
 	
-	#btnArea{position:fixed; left:850px; top:760px;}
+	#btnArea{position:fixed; left:850px; top:770px;}
 	#btnArea>button{width:200px; height:80px; margin-right:15px; border-radius:10px; background-color:#E0E3DA; font-size: 25px; font-weight:600; color:#black;}
 </style>
 </head>
@@ -45,7 +50,7 @@
 			</table>
 		</div>
 		<div id="resultPriceZone">
-			<p ><label>총 금액 : </label><input type="text" name="totalPrice" id="resultPrice" value="100000" readonly></p>
+			<p ><label>총 금액 : </label><input type="text" name="totalPrice" id="resultPrice" value="<%=formatter.format(100000) %>" readonly></p>
 		</div>
 	</div>
 	
@@ -53,7 +58,8 @@
 		<p><label>회사명 : </label><input type="text" name="company"></p>
 		<p><label>부서명 : </label><input type="text" name="department"></p>
 		<p><label>결제 금액 : </label><input type="text" id="price" name="price" style="text-align:right;"></p>
-		<br clear="both"><br><br><br>
+		<p><label>결제 시간 : </label><input type="text" id="payment_toDate" readonly></p>
+		<br clear="both">
 		<div id="keypad">
 			<button type="button" id="one" class="number">1</button><button type="button" id="two" class="number">2</button><button type="button" id="tree" class="number">3</button>
 			<button type="button" id="four" class="number">4</button><button type="button" id="five" class="number">5</button><button type="button" id="six" class="number">6</button>
@@ -72,6 +78,9 @@
 </body>
 <script>
 	$(function(){
+		var date = new Date();
+		$("#payment_toDate").val(date.getFullYear()+""+(date.getMonth()+1)+""+date.getDate()+"-" + date.getHours()+":"+date.getMinutes()+":"+date.getSeconds());
+		
 		$number = "";
 		$(".number").click(function(){	//숫자패드 클릭시
 			$number += $(this).html();

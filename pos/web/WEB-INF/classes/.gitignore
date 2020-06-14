@@ -1,1 +1,7 @@
+/common/
+/driver.properties
+/main/
+/mybatis-config.xml
 /payment/
+/scripts/
+/mappers/
