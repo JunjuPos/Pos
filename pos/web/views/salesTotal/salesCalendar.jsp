@@ -6,11 +6,20 @@
 <meta charset="UTF-8">
 <title>매출통계</title>
 <!-- request.getContextPath대신 ${contextPath}로 하니까 실행이 안되는 이유? -->
-<link href="css/core_main.css" rel='stylesheet'/>
-<link href="css/daygrid_main.css" rel='stylesheet'/>
-<script src="js/core_main.js"></script>
-<script src="js/inter_main.js"></script>
-<script src="js/daygrid_main.js"></script>
+<link href="../../css/core_main.css" rel='stylesheet'/>
+<link href="../../css/daygrid_main.css" rel='stylesheet'/>
+<script src="../../js/core_main.js"></script>
+<script src="../../js/inter_main.js"></script>
+<script src="../../js/daygrid_main.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<style>
+	#calendar{width:80%; font-size:20px !important; margin-left:100px; margin-top:50px; background-color:#E0E3DA;}
+	#subMenu{margin:0 auto; text-align:center;}
+	#salesTotal{text-style:bold; color:#E0E3DA;}
+	.sales:hover{color:#A593E0;}
+	.sales{display:inline-block;}
+	
+</style>
 </head>
 <body>
 <jsp:include page="${contextPath }/views/common/header.jsp"/>
@@ -41,14 +50,41 @@
 					alert("ajax failed");
 				}
 			})
-	  	}
-	  });
-	  
-	  
+	  	},
+	  	events:[
+	  		{
+	  			title:'200,000,000',
+	  			color:'#A593E0',
+	  			start:'2020-06-15'
+	  		},
+	  		{
+	  			title:'190,000,000',
+	  			color:'#A593E0',
+	  			start:'2020-06-14'
+	  		},
+	  		{
+	  			title:'10,000,000',
+	  			color:'#A593E0',
+	  			start:'2020-06-13'
+	  		},
+	  	]
+	  });	  
 	  calendar.render();
 	});
 </script>
 </body>
+<div id="subMenu">
+	<h1 id="salesTotal" class="sales">매출통계</h1>&nbsp;&nbsp;&nbsp;
+	<h1 id="salesMenu" class="sales">메뉴통계</h1>
+</div>
+<script>
+
+ $(function(){
+		$("#salesMenu").click(function(){
+			location.href="/sales.menu";
+		})
+	});
+ </script>
 <div id="calendar"></div>
 
 </html>

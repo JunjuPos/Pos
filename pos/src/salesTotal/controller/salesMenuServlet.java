@@ -28,7 +28,9 @@ public class salesMenuServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher view = request.getRequestDispatcher("views/salesTotal/salesMenu.jsp");
+		RequestDispatcher view=null;
+		
+		view=request.getRequestDispatcher("views/salesTotal/salesMenu.jsp");
 		
 		request.setAttribute("menu", "서블릿에서 온 메뉴입니다");
 		request.setAttribute("price", "서블릿에서 온 갯수입니다.");

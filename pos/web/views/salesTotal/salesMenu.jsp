@@ -10,6 +10,8 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <style>
 	#bar_chart_div{width:80%; margin:0 auto;  margin-top:100px; margin-left:130px;}
+	.sales{display:inline-block;}
+	
 </style>
 </head>
 <body>
@@ -17,8 +19,19 @@
   <jsp:include page="${contextPatn }/views/common/header.jsp"/>
   <jsp:include page="${contextPath }/views/common/menubar.jsp"/>
   <div id="bar_chart_div"></div>
+  <div id="subMenu">
+		<h1 id="salesTotal" class="sales">매출통계</h1>&nbsp;&nbsp;&nbsp;
+		<h1 id="salesMenu" class="sales">메뉴통계</h1>
+  </div>
 </body>
- 
+<script>
+
+ $(function(){
+		$("#salesTotal").click(function(){
+			location.href="views/salesTotal/salesCalendar.jsp"
+		})
+	});
+ </script>
 <script>
 google.charts.load('current', {'packages':['bar','corechart']});
  
