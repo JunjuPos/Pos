@@ -99,4 +99,18 @@ public class OrderDao {
 		return orderList;
 	}
 
+	public int insertZeroOrder(SqlSession session, String tableNo, List<OrderMenu> insertList, String inOrderNo) {
+		int result = 0;
+		result = session.insert("orderMapper.insertZeroOrder",insertList); 
+		System.out.println("result : " + result);
+		
+		return result;
+	}
+
+	public int insertOrder(SqlSession session, String tableNo, List<OrderMenu> insertList, String inOrderNo) {
+		int result = 0;
+		
+		return result;
+	}
+
 }

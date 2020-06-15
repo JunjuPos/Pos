@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import menu.model.vo.Menu;
 import order.model.service.OrderServiceImpl;
 import order.model.vo.OrderMenu;
 
@@ -45,40 +44,41 @@ public class OrderInsert extends HttpServlet {
 		int orderInsert = 0;
 		String inOrderNo = "";
 		OrderMenu om = null;
-		  
-		  System.out.println("servlet orderNo :" + orderNo.length);
-		  System.out.println("servlet orderMenu :" + orderMenu.length);
-		  System.out.println("servlet orderAmount :" + orderAmount.length);
-		  System.out.println("servlet orderPrice :" + orderPrice.length);
-		  System.out.println("servlet orderDate :" + orderDate.length);
+		ArrayList<OrderMenu> orderList = new ArrayList<>();
+//		  System.out.println("servlet orderNo :" + orderNo.length);
+//		  System.out.println("servlet orderMenu :" + orderMenu.length);
+//		  System.out.println("servlet orderAmount :" + orderAmount.length);
+//		  System.out.println("servlet orderPrice :" + orderPrice.length);
+//		  System.out.println("servlet orderDate :" + orderDate.length);
 		
-//		System.out.println("servlet tableNo : " +  tableNo);
+
 		  for(int i = 0 ; i < orderMenu.length ; i++) {
+//			  System.out.println("servlet orderNo : "+ orderNo[i]);
 //			  System.out.println("servlet orderMenu :" + orderMenu[i]);
 //			  System.out.println("servlet orderAmount :" + orderAmount[i]);
 //			  System.out.println("servlet orderPrice :" + orderPrice[i]);
 //			  System.out.println("servlet orderDate :" + orderDate[i]);
 			  
-			  if(orderNo.equals("zero")) {
-				  orderNo[i] = "null";
-			  }else {
-				  
+			  if(!orderNo[i].equals("zero")) {
 				  System.out.println("servlet orderNo : " +  orderNo[i]);
 				  inOrderNo = orderNo[i];
 				  System.out.println("servlet inOrderNo : " + inOrderNo);
-				  
-				 
+				
+			  }else {
+				  inOrderNo = "zero";
 			  }
-			  om= new OrderMenu(orderNo[i],orderMenu[i], orderDate[i], orderPrice[i], orderAmount[i], tableNo);
-
+			  om= new OrderMenu(inOrderNo, orderMenu[i], orderDate[i], orderPrice[i], orderAmount[i], tableNo);
+			  System.out.println("servlet om :" + om);
+			  orderList.add(om);
+			  
 		  }	// for end
 		 
-		 ArrayList<Menu> basicMenu = new ArrayList<Menu>();
-		 for(Menu basic : basicMenu) {
-			 if(basic.getMENU().equals(orderMenu)) {	// 기존메뉴있을떄
-				 orderUpdate = oService.updateAmountOrder(tableNo, om);
+		 System.out.println("inOrderNo : " + inOrderNo);
+		 for(OrderMenu o : orderList) {
+			 if(o.getORDER_NO().equals("zero")) {	
+				 orderInsert = oService.insertOrderList(tableNo,orderList,inOrderNo);
 			 }else {
-				 orderInsert = oService.insertOrderList(tableNo,om);
+				 orderUpdate = oService.updateAmountOrder(tableNo, orderList);
 			 }
 		 }
 	}

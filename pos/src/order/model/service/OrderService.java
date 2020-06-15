@@ -1,5 +1,6 @@
 package order.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import menu.model.vo.Menu;
@@ -22,8 +23,9 @@ public interface OrderService {
 	List<Menu> selectMenuList();
 	List<OrderMenu> selectOrderList(String tableNo);
 	
-	int updateAmountOrder(String tableNo, OrderMenu om);
-	int insertOrderList(String tableNo, OrderMenu om);
+	
+	int updateAmountOrder(String tableNo, ArrayList<OrderMenu> orderList);
+	int insertOrderList(String tableNo,  ArrayList<OrderMenu> orderList, String inOrderNo);
 }
 
 

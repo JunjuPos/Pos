@@ -74,5 +74,14 @@
 		<result property="TOTAL_PRICE" column="TOTAL_PRICE"/>
 		<result property="PRICE" column="PRICE"/>
 	</resultMap> 
+	
+	<insert id="insertZeroOrder" parameterType="java.util.List">
+		INSERT INTO JUMUN(ORDER_PRI, ORDER_NO, AMOUNT, MENU2, ORDER_DATE, TABLE_NO, PAY_YN, TOTAL_PRICE)
+		VALUES
+		<foreach collection="list" item="o" separator=" , ">
+			(SEQ_ORDER.NEXTVAL, "${o.ORDER_NO}", "${o.AMOUNT}", "${o.MENU2}", "${o.ORDER_DATE}", "${o.TABLE_NO}", 'N', 1000 )
+		</foreach>
+		
+	</insert>
 
 </mapper>

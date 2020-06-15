@@ -26,6 +26,7 @@
 			.menuTable td{display:inline-block;}
             
             #pricearea{margin-left:452px; width: 300px; height: 50px; line-height: 30px; background: rgb(46, 44, 44); color: white; border-radius: 10px;}
+            #totalPrice{background:rgb(46, 44, 44); color:#fffff3; font-size:20px; border:0px; border-radius:10px;}
         </style>
 </head>
 <body>
@@ -40,43 +41,43 @@
                         <table id="orderZone">
                         	<tr><input type="hidden" name="tableNo" value="${tableNo }"></tr>
                         	<tr><input type="hidden" name="tableNo" value="${requstScope.orderList.ORDER_NO[0] }"></tr>
+                        	
                             <tr><th>시간</th><th>메뉴</th><th>가격</th><th>수량</th></tr>
+                            
                             <c:if test="${!empty requestScope.orderList}">
-                            <tr>
-                            	<%-- <td><input type="text" value="${requestScope.orderList.ORDER_PRI[0]}" name="orderPri"></td> --%> 	
-                            </tr>
-                            <c:forEach var = "o" items="${requestScope.orderList}">
-                            <c:url var="orderNo" value="/order/orderInsert">
-                            	<%-- <c:param name="orderNo" value="${o.ORDER_NO}"/> --%>
-                            	<c:param name="orderDate" value="${o.ORDER_DATE}"/>
-                            </c:url> 
-                            <tr>
-                            	<c:if test="${!empty o.ORDER_NO }">
-                            	<input type="hidden" class="orderInfo" value="${o.ORDER_NO }" name="orderNo">
-                            	</c:if>
-                            	<c:if test="${empty o.ORDER_NO }">
-                            	<input type="hidden" class="orderInfo" value="zero" name="orderNo">
-                            	</c:if>
-                            	<td><input type="text" class="orderInfo" value="${o.ORDER_DATE }" name="orderDate" readonly></td>
-                            	<td><input type="text" class="orderInfo" value="${o.MENU2 }" name="orderMenu" readonly></td>
-                            	<!-- ★ 수량높이면 가격도 높일 수 있게   -->
-                            	<td><input type="text" id="orderPrice" class="orderInfo orderPrice" value="${o.AMOUNT * o.PRICE }" name="orderPrice" readonly></td>
-                            	<td><input type="number" id="orderAmount" class="orderInfo" min="1" value="${o.AMOUNT }"  name="orderAmount" onkeyup="plusTotal(this.value);"></td>	
-                            </tr>
+                           	 <c:forEach var = "o" items="${requestScope.orderList}">
+	                            <c:url var="orderNo" value="/order/orderInsert">
+	                            	<%-- <c:param name="orderNo" value="${o.ORDER_NO}"/> --%>
+	                            	<c:param name="orderDate" value="${o.ORDER_DATE}"/>
+	                            </c:url> 
+	                            <tr>
+	                            	<c:if test="${!empty o.ORDER_NO }">
+	                            		<input type="hidden" class="orderInfo" value="${o.ORDER_NO }" name="orderNo">
+	                            	</c:if>
+		                            	<td><input type="text" id="orderDate" class="orderInfo" value="${o.ORDER_DATE }" name="orderDate" readonly></td>
+		                            	<td><input type="text" class="orderInfo" value="${o.MENU2 }" name="orderMenu" readonly></td>
+		                            	<!-- ★ 수량높이면 가격도 높일 수 있게   -->
+		                            	<td><input type="text" id="orderPrice" class="orderInfo orderPrice" value="${o.PRICE }" name="orderPrice" readonly></td>
+		                            	<td><input type="number" id="orderAmount" class="orderInfo" min="1" value="${o.AMOUNT }"  name="orderAmount" ></td>	
+	                            </tr>
+	                            <script>
+	                            	$(function(){
+	                            		$("#orderAmount").change(function(){
+	                            		var oPrice =(Number)("<c:out value='${o.PRICE}'/>");
+	                            		console.log(oPrice);
+	                            		var oAmount = (Number)($(this).val());
+	                            		console.log(oAmount);
+	                            		var total = oPrice * oAmount;
+	                            		console.log(total);
+	                            		$("#orderPrice").val(total);
+	                            		})
+	                            	})
+	                            </script>
                             </c:forEach>
                             </c:if>
                             <c:if test="${empty requestScope.orderList}">
-                            	<c:forEach var = "o" items="${requestScope.orderList}">
-                            		<c:if test="${!empty o.ORDER_NO }">
-	                            		<input type="hidden" class="orderInfo" value="${o.ORDER_NO }" name="orderNo">
-	                            	</c:if>
-	                            	<c:if test="${empty o.ORDER_NO }">
-	                            		<input type="hidden" class="orderInfo" value="zero" name="orderNo">
-	                            	</c:if>
-		                             <c:url var="orderNo" value="/order/orderInsert">
-		                            	<c:param name="orderNo" value="${o.ORDER_NO}"/>
-		                             </c:url> 
-	                            </c:forEach>
+
+                           		<input type="hidden" class="orderInfo" value="zero" name="orderNo">	                          
                             </c:if>
                         </table>
                     </div>
@@ -111,14 +112,15 @@
             
             <br clear="both">
             
-            <div id="pricearea"></div>
+            <div id="pricearea"><input type="text" id="totalPrice"></div>
+            
          </section>
          
          <script>
                 $(function(){
                     $orderZone = $("#orderZone");
                     var html = "";
-                    $pricearea = $("#pricearea");
+                    $totalPrice = $("#totalPrice");
                     
                     var total = 0;
                     $(".menu").click(function(){
@@ -127,25 +129,37 @@
                         var $tr = $("<tr>");
                         var menu = $(this).text();
                         var price = (Number)($(this).val());
-						
+						var $input = $("<input type='hidden' class='orderInfo' value='zero' name='orderNo'>");
                         
-/*                         Number(totalPrice) += price; */
+
 
                         $tr.append(
                             "<td><input type='text' class='orderInfo' name='orderDate' value=  " + d.getFullYear()+(d.getMonth()+1)+d.getDate()+'-'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds() + " readonly></td>" + 
                             "<td><input type='text' class='orderInfo' name='orderMenu' value=  " + $(this).text() + " readonly></td>" +
-                            "<td><input type='text' id='orderPrice' class='orderInfo' name='orderPrice' value=  " + $(this).val() * $("#orderAmount").val() + " readonly></td>" +
+                            "<td><input type='text' id='orderPrice' class='orderInfo' name='orderPrice' value=  " + (Number)($(this).val())+ " readonly></td>" +
                             "<td><input type='number' id='orderAmount' class='orderInfo'name='orderAmount' min='1' value='1'></td>"
                         )
+                        
+                        $orderZone.append($input);
                         $orderZone.append($tr);
                        
                         
                         
                         
-                        total =+ parseInt($(this).val()); 
+                        total += price; 
                         
-                    	$pricearea.append(total); 
+                    	$totalPrice.val(total); 
                     })
+                    
+                   /* $("#orderAmount").change(function(){
+                    	var $upPrice = (Number)($(this).parents().children().children().eq(2).val());
+                    	var $amount = (Number)($(this).val());
+                    	var $plusPrice = upPrice * amount;
+                    	console.log(plusPrice);
+                    	$(this).parents().children().children().eq(2).val(plusPrice);
+                    	var $price1 = "<c:out value='${pi.currentPage}'/>";
+                            
+                    }) */
                 })
 
                 function order(){
