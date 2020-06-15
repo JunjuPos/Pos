@@ -65,7 +65,7 @@
 	                            		$("#orderAmount").change(function(){
 	                            		var oPrice =(Number)("<c:out value='${o.PRICE}'/>");
 	                            		console.log(oPrice);
-	                            		var oAmount = (Number)($(this).val());
+	                            		var oAmount = (Number)($().val());
 	                            		console.log(oAmount);
 	                            		var total = oPrice * oAmount;
 	                            		console.log(total);
