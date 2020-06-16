@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,21 +54,14 @@
 			})
 	  	},
 	  	events:[
-	  		{
-	  			title:'200,000,000',
-	  			color:'#A593E0',
-	  			start:'2020-06-15'
-	  		},
-	  		{
-	  			title:'190,000,000',
-	  			color:'#A593E0',
-	  			start:'2020-06-14'
-	  		},
-	  		{
-	  			title:'10,000,000',
-	  			color:'#A593E0',
-	  			start:'2020-06-13'
-	  		},
+	  		<c:forEach var="item" items="${list}">
+		  		{
+		  			title:'200,000,000',
+		  			color:'#A593E0',
+		  			start:'2020-06-15'
+		  		},
+	  		</c:forEach>
+	  		
 	  	]
 	  });	  
 	  calendar.render();
