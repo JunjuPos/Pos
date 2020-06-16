@@ -62,6 +62,20 @@
 			<tr><td><button onclick="goDetail();">메뉴1</button></td></tr>
 		</table>
 		
+		
+		<br>
+		<p>기타</p>
+		<hr>
+		<table>
+			<tr><td><button onclick="goDetail();">메뉴1</button></td></tr>
+			<tr><td><button onclick="goDetail();">메뉴1</button></td></tr>
+			<tr><td><button onclick="goDetail();">메뉴1</button></td></tr>
+			<tr><td><button onclick="goDetail();">메뉴1</button></td></tr>
+			<tr><td><button onclick="goDetail();">메뉴1</button></td></tr>
+			<tr><td><button onclick="goDetail();">메뉴1</button></td></tr>
+		</table>
+		
+		
 	</div>
 	
 </body>

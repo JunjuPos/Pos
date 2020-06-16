@@ -16,10 +16,12 @@
 	
 	#memberChargeBtn{width:45%; height:50px; border-radius:10px; font-size:20px; font-weight:600;}
 	#memberUpdateBtn{width:45%; height:50px; border-radius:10px; font-size:20px; font-weight:600;}
+	#memberChargeBtn:hover{background-color:#A593E0; color:#fffff3;}
+	#memberUpdateBtn:hover{background-color:#A593E0; color:#fffff3;}
 	
 	#memberArea>#btnArea{margin:0 auto; width:30%; top:800px; left:600px;}
 	#memberArea>#btnArea>button{width:50%; height:50px; border-radius:10px; font-size:28px; font-weight:600; margin-left:120px;}
-	
+	#btnArea button:hover{background-color:#A593E0; color:#fffff3;}
 </style>
 </head>
 <body>
