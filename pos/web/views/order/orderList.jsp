@@ -58,16 +58,17 @@
 		                            	<td><input type="text" class="orderInfo" value="${o.MENU2 }" name="orderMenu" readonly></td>
 		                            	<!-- ★ 수량높이면 가격도 높일 수 있게   -->
 		                            	<td><input type="text" id="orderPrice" class="orderInfo orderPrice" value="${o.PRICE }" name="orderPrice" readonly></td>
-		                            	<td><input type="number" id="orderAmount" class="orderInfo" min="1" value="${o.AMOUNT }"  name="orderAmount" ></td>	
+		                            	<td><input type="number" id="orderAmount" class="orderInfo orderAmount" min="1" value="${o.AMOUNT }"  name="orderAmount" ></td>	
 	                            </tr>
 	                            <script>
 	                            	$(function(){
-	                            		$("#orderAmount").change(function(){
-	                            		var oPrice =(Number)("<c:out value='${o.PRICE}'/>");
-	                            		console.log(oPrice);
-	                            		var oAmount = (Number)($().val());
+	                            		$(".orderAmount").change(function(){
+	                            		var cPrice = "<c:out value='${o.PRICE}'/>";
+	                            		/* var oPrice = (Number)($(this).parents().children().children().eq(2).val())); */
+	                            		console.log(cPrice);
+	                            		var oAmount = (Number)($(this).val());
 	                            		console.log(oAmount);
-	                            		var total = oPrice * oAmount;
+	                            		var total = cPrice * oAmount;
 	                            		console.log(total);
 	                            		$("#orderPrice").val(total);
 	                            		})
@@ -136,8 +137,8 @@
                         $tr.append(
                             "<td><input type='text' class='orderInfo' name='orderDate' value=  " + d.getFullYear()+(d.getMonth()+1)+d.getDate()+'-'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds() + " readonly></td>" + 
                             "<td><input type='text' class='orderInfo' name='orderMenu' value=  " + $(this).text() + " readonly></td>" +
-                            "<td><input type='text' id='orderPrice' class='orderInfo' name='orderPrice' value=  " + (Number)($(this).val())+ " readonly></td>" +
-                            "<td><input type='number' id='orderAmount' class='orderInfo'name='orderAmount' min='1' value='1'></td>"
+                            "<td><input type='text' id='orderPrice' class='orderInfo orderPrice' name='orderPrice' value=  " + (Number)($(this).val())+ " readonly></td>" +
+                            "<td><input type='number' id='orderAmount' class='orderInfo orderAmount' name='orderAmount' min='1' value='1'></td>"
                         )
                         
                         $orderZone.append($input);
@@ -151,15 +152,15 @@
                     	$totalPrice.val(total); 
                     })
                     
-                   /* $("#orderAmount").change(function(){
+                $(".orderAmount").change(function(){
                     	var $upPrice = (Number)($(this).parents().children().children().eq(2).val());
                     	var $amount = (Number)($(this).val());
                     	var $plusPrice = upPrice * amount;
                     	console.log(plusPrice);
                     	$(this).parents().children().children().eq(2).val(plusPrice);
-                    	var $price1 = "<c:out value='${pi.currentPage}'/>";
+                    	
                             
-                    }) */
+                    }) 
                 })
 
                 function order(){
