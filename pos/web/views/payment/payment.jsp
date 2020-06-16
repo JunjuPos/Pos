@@ -50,7 +50,7 @@
 			</table>
 		</div>
 		<div id="resultPriceZone">
-			<p ><label>총 금액 : </label><input type="text" name="totalPrice" id="resultPrice" value="<%=formatter.format(100000) %>" readonly></p>
+			<p ><label>총 금액 : </label><input type="text" name="totalPrice" id="resultPrice" value="100000" readonly></p>
 		</div>
 	</div>
 	
