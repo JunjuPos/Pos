@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="orderMapper">
+	<select id="totalOnePriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 1 AND PAY_YN = 'N'
+	</select>
+	<select id="totalTwoPriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 2 AND PAY_YN = 'N'
+	</select>
+	<select id="totalThreePriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 3 AND PAY_YN = 'N'
+	</select>
+	<select id="totalFourPriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 4 AND PAY_YN = 'N'
+	</select>
+	<select id="totalFivePriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 5 AND PAY_YN = 'N'
+	</select>
+	<select id="totalSixPriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 6 AND PAY_YN = 'N'
+	</select>
+	<select id="totalSevenPriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 7 AND PAY_YN = 'N'
+	</select>
+	<select id="totalEightPriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 8 AND PAY_YN = 'N'
+	</select>
+	<select id="totalNinePriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 9 AND PAY_YN = 'N'
+	</select>
+	<select id="totalTenPriceList" resultType="Order">
+		SELECT TABLE_NO, TOTAL_PRICE
+		FROM JUMUN
+		WHERE TABLE_NO = 10 AND PAY_YN = 'N'
+	</select>
+	
+	<select id="menuList" resultType="MENU">
+		SELECT MENU, PRICE, CATEGORY
+		FROM MENU
+		WHERE MENU_YN = 'Y'
+	</select>
+	
+	<select id="orderList" parameterType="string" resultMap="orderMenuList">
+		SELECT ORDER_PRI, ORDER_NO, AMOUNT, MENU2, ORDER_DATE, TABLE_NO, TOTAL_PRICE, MENU, PRICE
+		FROM JUMUN J 
+        LEFT JOIN MENU M ON (J.MENU2 = M.MENU)
+		WHERE TABLE_NO =  #{tableNo}  AND PAY_YN = 'N'
+	</select>
+	<resultMap type="OrderMenu" id="orderMenuList">
+		<id property="ORDER_PRI" column="ORDER_PRI"/>
+		<result property="ORDER_NO" column="ORDER_NO"/>
+		<result property="AMOUNT" column="AMOUNT"/>
+		<result property="MENU2" column="MENU2"/>
+		<result property="ORDER_DATE" column="ORDER_DATE"/>
+		<result property="TABLE_NO" column="TABLE_NO"/>
+		<result property="TOTAL_PRICE" column="TOTAL_PRICE"/>
+		<result property="PRICE" column="PRICE"/>
+	</resultMap> 
+	
+	<insert id="insertZeroOrder" parameterType="java.util.List">
+		INSERT INTO JUMUN(ORDER_PRI, ORDER_NO, AMOUNT, MENU2, ORDER_DATE, TABLE_NO, PAY_YN, TOTAL_PRICE)
+		VALUES
+		<foreach collection="list" item="o" separator=" , ">
+			(SEQ_ORDER.NEXTVAL, "${o.ORDER_NO}", "${o.AMOUNT}", "${o.MENU2}", "${o.ORDER_DATE}", "${o.TABLE_NO}", 'N', 1000 )
+		</foreach>
+		
+	</insert>
+
+</mapper>
