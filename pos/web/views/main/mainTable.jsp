@@ -26,7 +26,7 @@
 		<jsp:include page="../common/menubar.jsp"/>
         <section id="table">
             <article>
-            <c:if test="${requestScope.zeroPrice == 0}">
+            <c:if test="${empty requestScope.list}">
                 <table>
                     <tr>
                         <c:url var="tableNo" value="/order/orderMenu"><c:param name="tableNo" value="1"/></c:url>
@@ -74,6 +74,8 @@
                 
                 <c:if test="${!empty requestScope.list}">
                 <table>
+               
+                
                     <tr>
                     	<c:url var="tableNo" value="/order/orderMenu"><c:param name="tableNo" value="1"/></c:url>
                         <td><button id="btn" class="table1 btn" type="button" onclick="location.href='${tableNo}'">1번 테이블</button></td>
@@ -87,11 +89,23 @@
                         <td><button id="btn" class="table5 btn" type="button" onclick="location.href='${tableNo}'">5번 테이블</button></td>
                     </tr>
                     <tr>
-                   		<td><div id="area" class="area area1 table1price"> 가격: <fmt:formatNumber value="${requestScope.oneTable.TOTAL_PRICE}" groupingUsed="true"/> </div></td>
-                        <td><div id="area" class="area area1 table2price"> 가격: <fmt:formatNumber value="${requestScope.twoTable.TOTAL_PRICE}" groupingUsed="true"/> </div></td>
-                        <td><div id="area" class="area area1 table3price"> 가격: <fmt:formatNumber value="${requestScope.threeTable.TOTAL_PRICE}" groupingUsed="true"/> </div></td>
-                        <td><div id="area" class="area area1 table4price"> 가격: <fmt:formatNumber value="${requestScope.fourTable.TOTAL_PRICE}" groupingUsed="true"/> </div></td>
-                        <td><div id="area" class="area area1 table5price"> 가격: <fmt:formatNumber value="${requestScope.fiveTable.TOTAL_PRICE}" groupingUsed="true"/> </div></td>
+                     <c:forEach var = "o" items="${requestScope.list}" varStatus="i" end="10">
+                    	<c:if test="${ list[i.index].TABLE_NO  eq 1 }">
+                   		<td><div id="area" class="area area1 table1price">가격: <fmt:formatNumber value="${list[i.index].PRICE}" groupingUsed="true"/> </div></td>
+                   		</c:if>
+                   		<c:if test="${ list[i.index].TABLE_NO  eq 2 }">
+                        <td><div id="area" class="area area1 table2price"> 가격: <fmt:formatNumber value="${list[i.index].PRICE}" groupingUsed="true"/> </div></td>
+                        </c:if>
+                        <c:if test="${ list[i.index].TABLE_NO  eq 3 }">
+                        <td><div id="area" class="area area1 table3price"> 가격: <fmt:formatNumber value="${list[i.index].PRICE}" groupingUsed="true"/> </div></td>
+                        </c:if>
+                        <c:if test="${ list[i.index].TABLE_NO  eq 4 }">
+                        <td><div id="area" class="area area1 table4price"> 가격: <fmt:formatNumber value="${list[i.index].PRICE}" groupingUsed="true"/> </div></td>
+                        </c:if>
+                        <c:if test="${ list[i.index].TABLE_NO  eq 5 }">
+                        <td><div id="area" class="area area1 table5price"> 가격: <fmt:formatNumber value="${list[i.index].PRICE}" groupingUsed="true"/> </div></td>
+ 						</c:if>
+ 					</c:forEach>                    
                     </tr>
 
 
@@ -108,13 +122,26 @@
                         <td><button id="btn" class="table10 btn" type="button" onclick="location.href='${tableNo}'">10번 테이블</button></td>
                     </tr>
                     <tr>
-                        
-                        <td><div id="area" class="area1 table6price"> 가격: <fmt:formatNumber value="${requestScope.sixTable.TOTAL_PRICE}" groupingUsed="true"/> </div></td>
-                        <td><div id="area" class="area1 table7price"> 가격: <fmt:formatNumber value="${requestScope.sevenTable.TOTAL_PRICE}" groupingUsed="true"/></div></td>
-                        <td><div id="area" class="area1 table8price"> 가격: <fmt:formatNumber value="${requestScope.eightTable.TOTAL_PRICE}" groupingUsed="true"/></div></td>
-                        <td><div id="area" class="area1 table9price"> 가격: <fmt:formatNumber value="${requestScope.nineTable.TOTAL_PRICE}" groupingUsed="true"/></div></td>
-                        <td><div id="area" class="area1 table10price"> 가격: <fmt:formatNumber value="${requestScope.tenTable.TOTAL_PRICE}" groupingUsed="true"/></div></td>
+                        <c:forEach var = "o" items="${requestScope.list}" varStatus="i" end="10">
+                        <c:if test="${ list[i.index].TABLE_NO  eq 6 }">
+                        <td><div id="area" class="area1 table6price"> 가격: <fmt:formatNumber value="${list[i.index].PRICE}" groupingUsed="true"/> </div></td>
+                        </c:if>
+                        <c:if test="${ list[i.index].TABLE_NO  eq 7 }">
+                        <td><div id="area" class="area1 table7price"> 가격: <fmt:formatNumber value="${list[i.index].PRICE}" groupingUsed="true"/></div></td>
+                        </c:if>
+                        <c:if test="${ list[i.index].TABLE_NO  eq 8 }">
+                        <td><div id="area" class="area1 table8price"> 가격: <fmt:formatNumber value="${list[i.index].PRICE}" groupingUsed="true"/></div></td>
+                          </c:if>
+                      
+                        <c:if test="${ list[i.index].TABLE_NO  eq 9 }">
+                        <td><div id="area" class="area1 table9price"> 가격: <fmt:formatNumber value="${list[i.index].PRICE}" groupingUsed="true"/></div></td>
+                          </c:if>
+                        <c:if test="${ list[i.index].TABLE_NO  eq 10 }">
+                        <td><div id="area" class="area1 table10price"> 가격: <fmt:formatNumber value="${list[i.index].PRICE}" groupingUsed="true"/></div></td>
+                   		  </c:if>
+                   		</c:forEach>   
                     </tr>
+                   
                 </table>
                 </c:if> <!-- !empty requestScope.list 일 때 -->
             </article>
