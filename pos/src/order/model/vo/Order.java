@@ -10,38 +10,28 @@ public class Order implements Serializable {
 	 */
 	private static final long serialVersionUID = 4496711903518213668L;
 
-	private String ORDER_PRI;	// primary key
+
 	private int ORDER_NO;		// 주문번호
+	private String MENU;		// 메뉴
 	private int AMOUNT;			// 수량
-	private String MENU2;		// 메뉴
-	private Date ORDER_DATE;		// 주문시간
+	private Date ORDER_DATE;	// 주문시간
 	private int TABLE_NO;		// 테이블 번호
 	private int PAY_YN;			// 결제여부
-	private int TOTAL_PRICE;		// 합계금액
+	private int PRICE;			// 합계 가격
 	
 	public Order() {
 		super();
 	}
 
-	public Order(String oRDER_PRI, int oRDER_NO, int aMOUNT, String mENU2, Date oRDER_DATE, int tABLE_NO, int pAY_YN,
-			int tOTAL_PRICE) {
+	public Order(int oRDER_NO, String mENU, int aMOUNT, Date oRDER_DATE, int tABLE_NO, int pAY_YN, int pRICE) {
 		super();
-		ORDER_PRI = oRDER_PRI;
 		ORDER_NO = oRDER_NO;
+		MENU = mENU;
 		AMOUNT = aMOUNT;
-		MENU2 = mENU2;
 		ORDER_DATE = oRDER_DATE;
 		TABLE_NO = tABLE_NO;
 		PAY_YN = pAY_YN;
-		TOTAL_PRICE = tOTAL_PRICE;
-	}
-
-	public String getORDER_PRI() {
-		return ORDER_PRI;
-	}
-
-	public void setORDER_PRI(String oRDER_PRI) {
-		ORDER_PRI = oRDER_PRI;
+		PRICE = pRICE;
 	}
 
 	public int getORDER_NO() {
@@ -52,20 +42,20 @@ public class Order implements Serializable {
 		ORDER_NO = oRDER_NO;
 	}
 
+	public String getMENU() {
+		return MENU;
+	}
+
+	public void setMENU(String mENU) {
+		MENU = mENU;
+	}
+
 	public int getAMOUNT() {
 		return AMOUNT;
 	}
 
 	public void setAMOUNT(int aMOUNT) {
 		AMOUNT = aMOUNT;
-	}
-
-	public String getMENU2() {
-		return MENU2;
-	}
-
-	public void setMENU2(String mENU2) {
-		MENU2 = mENU2;
 	}
 
 	public Date getORDER_DATE() {
@@ -92,12 +82,12 @@ public class Order implements Serializable {
 		PAY_YN = pAY_YN;
 	}
 
-	public int getTOTAL_PRICE() {
-		return TOTAL_PRICE;
+	public int getPRICE() {
+		return PRICE;
 	}
 
-	public void setTOTAL_PRICE(int tOTAL_PRICE) {
-		TOTAL_PRICE = tOTAL_PRICE;
+	public void setPRICE(int pRICE) {
+		PRICE = pRICE;
 	}
 
 	public static long getSerialversionuid() {
@@ -106,11 +96,11 @@ public class Order implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Order [ORDER_PRI=" + ORDER_PRI + ", ORDER_NO=" + ORDER_NO + ", AMOUNT=" + AMOUNT + ", MENU2=" + MENU2
-				+ ", ORDER_DATE=" + ORDER_DATE + ", TABLE_NO=" + TABLE_NO + ", PAY_YN=" + PAY_YN + ", TOTAL_PRICE="
-				+ TOTAL_PRICE + "]\n";
+		return "Order [ORDER_NO=" + ORDER_NO + ", MENU=" + MENU + ", AMOUNT=" + AMOUNT + ", ORDER_DATE=" + ORDER_DATE
+				+ ", TABLE_NO=" + TABLE_NO + ", PAY_YN=" + PAY_YN + ", PRICE=" + PRICE + "]\n";
 	}
 
+	
 	
 	
 }
