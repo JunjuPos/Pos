@@ -142,9 +142,7 @@
                         console.log("$input " + $input.val());
                         $orderZone.append($tr);
 
-                        total += price; 
-                        
-                       $totalPrice.val(total); 
+                       
                     })
                       
                     $toPrice = (Number)($(this).parents().children().children().eq(2).val());
@@ -159,7 +157,13 @@
                        $upPrice =  $basicPrice * $amount;
                        $(this).parents().children().children().eq(2).val($upPrice);
                        
+                       
+                       var $price = (Number)($(this).parents().children().children().eq(2).val());
+                       console.log("$price : " + $price);
+                       total += $price; 
+                       
                    
+                       $totalPrice.val(total); 
                    })
                     
                 }) 
