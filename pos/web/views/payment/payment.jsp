@@ -38,19 +38,23 @@
 </style>
 </head>
 <body>
-	<jsp:include page="${contextPatn }/views/common/header.jsp"/>
-	<jsp:include page="${contextPath }/views/common/menubar.jsp"/>
+	<%-- <jsp:include page="${contextPath}/views/common/header.jsp"/> --%>
+	<%-- <jsp:include page="${contextPath}/views/common/menubar.jsp"/> --%>
+	<%@ include file="/views/common/header.jsp" %>
+	<%@ include file="/views/common/menubar.jsp" %>
 	
 	<div class="payment" id="orderView">
-		<h2><input type="text" name="tableNo" value="3">번 테이블</h2>
+		<h2><input type="text" name="tableNo" value="${tableNo }">번 테이블</h2>
 		<div id="orderList">
 			<table>
 				<tr><th>시간</th><th>메뉴</th><th>수량</th></tr>
-				<tr><td>19:07:32</td><td>칼국수</td><td>1</td></tr>			
+				<c:forEach var="orderList" items="${orderList }">
+					<tr><td>${orderList.ORDER_DATE }</td><td>${orderList.MENU }</td><td>${orderList.AMOUNT }</td></tr>
+				</c:forEach>
 			</table>
 		</div>
 		<div id="resultPriceZone">
-			<p ><label>총 금액 : </label><input type="text" name="totalPrice" id="resultPrice" value="100000" readonly></p>
+			<p ><label>총 금액 : </label><input type="text" name="totalPrice" id="resultPrice" value="${totalPrice }" readonly></p>
 		</div>
 	</div>
 	

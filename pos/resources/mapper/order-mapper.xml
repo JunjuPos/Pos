@@ -32,14 +32,15 @@
 		
 	</select>
 	<resultMap type="OrderMenu" id="orderMenuList">
-		<id property="ORDER_PRI" column="ORDER_PRI"/>
 		<result property="ORDER_NO" column="ORDER_NO"/>
 		<result property="AMOUNT" column="AMOUNT"/>
 		<result property="MENU" column="MENU"/>
 		<result property="ORDER_DATE" column="ORDER_DATE"/>
 		<result property="TABLE_NO" column="TABLE_NO"/>
-		<result property="TOTAL_PRICE" column="TOTAL_PRICE"/>
+		<result property="PAY_YN" column="PAY_YN"/>
 		<result property="PRICE" column="PRICE"/>
+		<result property="MENU_YN" column="MENU_YN"/>
+		<result property="CATEGORY" column="CATEGORY"/>
 	</resultMap> 
 	
 	<insert id="insertZeroOrder" parameterType="java.util.List">
@@ -50,5 +51,29 @@
 		</foreach>
 		
 	</insert>
-
+	
+	<!-- 상원 payment용 -->
+	<select id="selectPaymentPrice" parameterType="_int" resultMap="selectTotalPrice">
+		SELECT TABLE_NO, SUM(PRICE) AS PRICE
+		FROM JUMUN J
+		JOIN MENU M ON J.MENU = M.MENU
+		WHERE TABLE_NO = #{tableNo}
+		GROUP BY TABLE_NO
+	</select>
+	<resultMap type="Order" id="selectTotalPrice" >
+		<id property="ORDER_NO" column="ORDER_NO"/>
+		<result property="MENU" column="MENU"/>
+		<result property="AMOUNT" column="AMOUNT"/>
+		<result property="ORDER_DATE" column="ORDER_DATE"/>
+		<result property="TABLE_NO" column="TABLE_NO"/>
+		<result property="PAY_YN" column="PAY_YN"/>
+		<result property="PRICE" column="PRICE"/>
+	</resultMap>
+	<select id="orderList1" parameterType="_int" resultMap="orderMenuList">
+		SELECT ORDER_NO, AMOUNT, M.MENU, ORDER_DATE, TABLE_NO, PRICE
+		FROM JUMUN J 
+        LEFT JOIN MENU M ON (J.MENU = M.MENU)
+		WHERE TABLE_NO = #{tableNo}  AND PAY_YN = 'N'
+		
+	</select>
 </mapper>
