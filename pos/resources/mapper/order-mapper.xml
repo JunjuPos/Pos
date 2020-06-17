@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="orderMapper">
+
+	<!-- 주문 목록 불러오기 -->
 	<select id="selectOrderTotalList" resultMap="selectOrderTotal">
 		SELECT TABLE_NO, SUM(PRICE) AS PRICE
 		FROM JUMUN J
@@ -8,7 +10,7 @@
 		GROUP BY TABLE_NO, J.TABLE_NO
 		ORDER BY TABLE_NO
 	</select>
-	<resultMap type="Order" id="selectOrderTotal" >
+	<resultMap type="OrderMenu" id="selectOrderTotal" >
 		<id property="ORDER_NO" column="ORDER_NO"/>
 		<result property="MENU" column="MENU"/>
 		<result property="AMOUNT" column="AMOUNT"/>
@@ -18,6 +20,7 @@
 		<result property="PRICE" column="PRICE"/>
 	</resultMap>
 	
+	<!-- 메뉴리스트 불러오기 -->
 	<select id="menuList" resultType="MENU">
 		SELECT MENU, PRICE, CATEGORY
 		FROM MENU
