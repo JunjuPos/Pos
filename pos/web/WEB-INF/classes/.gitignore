@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /common/
 /driver.properties
 /main/
@@ -5,3 +6,10 @@
 /payment/
 /scripts/
 /mappers/
+=======
+/main/
+/payment/
+/mapper/
+/menu/
+/order/
+>>>>>>> refs/remotes/origin/dev30

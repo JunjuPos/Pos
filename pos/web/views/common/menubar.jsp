@@ -27,12 +27,13 @@
 			<tr><td><button onclick="creditManage()">외상 결제</button></td></tr>
 		</table>
 	</div>
+	
 </body>
 
 <script>
 	//서블릿으로 이동
 	function mainPage(){
-		location.href="${contextPath}/#";
+		location.href="${contextPath}/main/mainView";
 	}
 	function salesManage(){
 		location.href="${contextPath}/#";
