@@ -22,7 +22,7 @@
 	<div id="side_nav">
 		<table>
 			<tr><td><button onclick="mainPage();">테이블 이동</button></td></tr>
-			<tr><td><button onclick="salesManage()">매출 관리</button></td></tr>
+			<tr><td><button onclick="salesManage();">매출 관리</button></td></tr>
 			<tr><td><button onclick="menuManage()">메뉴 관리</button></td></tr>
 			<tr><td><button onclick="memberManage()">고객 관리</button></td></tr>
 			<tr><td><button onclick="receiptManage()">영수증 관리</button></td></tr>
@@ -38,7 +38,7 @@
 		location.href="${contextPath}/main/mainView";
 	}
 	function salesManage(){
-		location.href="${contextPath}/#";
+		location.href="${contextPath}/sales/cal";
 	}
 	function menuManage(){
 		location.href="${contextPath}/#";
