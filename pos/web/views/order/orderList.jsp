@@ -110,7 +110,7 @@
             
             <br clear="both">
             
-            <div id="pricearea"><input type="text" id="totalPrice"></div>
+            <div id="pricearea"><input type="text" id="totalPrice" value="0"></div>
             
          </section>
          
@@ -118,9 +118,10 @@
                 $(function(){
                     $orderZone = $("#orderZone");
                     var html = "";
-                    $totalPrice = $("#totalPrice");
                     
+                    $totalPrice = $("#totalPrice");
                     var total = 0;
+                    $appendPrice = 0;	// append 된 가격
                     
                     
                     $(".menu").click(function(){		// 메뉴를 클릭했을 때 주문칸에 메뉴와 가격 입력
@@ -158,19 +159,48 @@
                        $(this).parents().children().children().eq(2).val($upPrice);
                        
                        
-                       var $price = (Number)($(this).parents().children().children().eq(2).val());
+                       // append 합계금액
+                      /*  var $price = (Number)($(this).parents().children().children().eq(2).val());
                        console.log("$price : " + $price);
                        total += $price; 
                        
-                   
-                       $totalPrice.val(total); 
+                   		
+                       $totalPrice.val(total);   */
                    })
-                    
+                   
+                   
+                    $(document).on("mouseenter",".orderPrice",function(){	
+                    	 $appendPrice = 0;
+                    	  $('.orderPrice').each(function(){
+                    		  
+                       	   $appendPrice += (Number)($(this).val());
+                       	   
+                       	   })
+                       	   
+                       	 console.log("$appendPrice : " + $appendPrice);
+                    	  $totalPrice.val($appendPrice);
+                       	  
+                   })
+                   
+                   
+                // select된 것 totalPrice
+               	
+               	
+               	$('.orderPrice').each(function(){
+               		total += (Number)($(this).val());
+               		
+               	})
+               		console.log("total 가격 : " + total);
+
                 }) 
-               
+             	
+                
                 function order(){
                     $("#orderform").submit();
                 }
+                
+                	
+               
                
         </script>
 </body>
