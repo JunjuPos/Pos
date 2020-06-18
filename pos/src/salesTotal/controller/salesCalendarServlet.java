@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import salesTotal.model.controller.SalesCalendarService;
+import salesTotal.model.vo.SalesTotalPrice;
 
 /**
  * Servlet implementation class salesCalendarServlet
@@ -34,8 +35,9 @@ public class salesCalendarServlet extends HttpServlet {
 	
 		SalesCalendarService scs = new SalesCalendarService();
 		
-		ArrayList<String> salesList = new ArrayList<>();
+		ArrayList<SalesTotalPrice> salesTotalPrice = new ArrayList<>();
 		
+//		salesTotalPrice = scs.salesTotalPrice();
 		
 		RequestDispatcher view=null;
 		
