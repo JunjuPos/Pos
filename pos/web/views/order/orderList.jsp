@@ -102,7 +102,7 @@
                         <tr>
                             <td><button id="order" style="background: gray;" onclick="order();">주문</button></td>
                             <td><button style="background: gray;">주문 취소</button></td>
-                            <td><button style="background: gray;">결제</button></td>
+                            <td><button id="payment" style="background: gray;">결제</button></td>
                         </tr>
                     </table>
                 </article>
@@ -160,6 +160,11 @@
                        $(this).parents().children().children().eq(2).val($upPrice);
                        
                    
+                   })
+                   
+                   $("#payment").click(function(){
+                	   var tableNo = $('input[name=tableNo]').val();
+                	   location.href="<%=request.getContextPath()%>/paymentSelect?tableNo=" + tableNo;
                    })
                     
                 }) 
