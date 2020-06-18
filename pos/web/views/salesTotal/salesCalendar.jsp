@@ -35,34 +35,28 @@
 	
 	document.addEventListener('DOMContentLoaded', function() {
 	  var calendarEl = document.getElementById('calendar');
-
+	  var salesTotalList = new Array();
+	  <c:forEach items="${salesTotalPriceList}" var="list">
+	      salesTotalList.push('${list.salesTotal}');
+	      salesTotalList.push('${list.salesDate}');
+	  </c:forEach> 
+	    console.log(salesTotalList)
 	  var calendar = new FullCalendar.Calendar(calendarEl, {
 	    plugins: [ 'interaction','dayGrid' ],	//월 캘린더
 	  	dateClick : function(info){
 //	  		alert("내가 클릭한 날짜는 "+info.dateStr);   
-			var clickDate = info.dateStr;
-			
-			$.ajax({
-				url:"${contextPath}/sales.cal",
-				type:"post",
-				data:{clickDate:clickDate},
-				success:function(data){
-					
-				},
-				error:function(data){
-					alert("ajax failed");
-				}
-			})
+
 	  	},
-	  	events:[
-	  		<%for(int i = 0; i<10;i++){%>
-		  		{
-		  			title:'200,000,000',
-		  			color:'#A593E0',
-		  			start:'2020-0'+<%=i%>+'-01'
-		  		},
-	  		<%}%>
-	  	]
+		events:[
+		  		<%for(int i = 0; i<10;i++){%>
+			  		{
+			  			title:'salesTotalList[i].salesTotal',
+			  			color:'#A593E0',
+			  			start:'salesTotalList[i].salesDate'
+			  		},
+		  		<%}%>
+		]
+	  
 	  });	  
 	  calendar.render();
 	});

@@ -12,6 +12,7 @@
 		<typeAlias type="order.model.vo.Order" alias="Order"/>
 		<typeAlias type="order.model.vo.OrderMenu" alias="OrderMenu"/>
 		<typeAlias type="menu.model.vo.Menu" alias="MENU"/>
+		<typeAlias type="salesTotal.model.vo.SalesTotalPrice" alias="SalesTotalPrice"/>
 	</typeAliases>
 	
 	<environments default="development">
@@ -28,5 +29,7 @@
 	
 	<mappers>
 			<mapper resource="/mapper/order-mapper.xml"/>
+			<mapper resource="/mapper/sales-mapper.xml"/>
+			
 	</mappers>
 </configuration>

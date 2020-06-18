@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="salesMapper">
-	<select id="selectSalesMenuList" resultMap="selectSalesMenu">
+<!-- 	<select id="selectSalesMenuList" resultMap="selectSalesMenu">
 		SELECT MENU, SUM(AMOUNT), SUM(AMOUNT * PRICE)
 		FROM BILL
-		GROUP BY MENU;
-	</select>
+		GROUP BY MENU
+	</select> -->
 	
-	<select id="selectSalesTotalPriceList" resultMap="selectSalesTotalPrice">
+	<select id="selectSalesTotalPriceList" resultMap="salesTotalPriceList">
 		SELECT PAY_DATE,SUM(TOTAL_PRICE) AS PRICE
 		FROM PAYMENT
-		WHERE TO_CHAR(PAY_DATE,'YY/MM') = '20/07'
-		GROUP BY PAY_DATE;
+		GROUP BY PAY_DATE
 	</select>
-	<resultMap type="SalesTotalPrice" id="selectSalesTotalPrice">
+	<resultMap type="SalesTotalPrice" id="salesTotalPriceList">
 		<id property="salesDate" column="PAY_DATE"/>
-		<result property="salesTotal" column="TOTAL"/> 
+		<result property="salesTotal" column="PRICE"/>
 	</resultMap>
+
 </mapper>
