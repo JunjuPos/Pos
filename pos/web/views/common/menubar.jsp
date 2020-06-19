@@ -36,7 +36,7 @@
 		location.href="${contextPath}/main/mainView";
 	}
 	function salesManage(){
-		location.href="${contextPath}/sales.menu";
+		location.href="${contextPath}/sales/cal";
 	}
 	function menuManage(){
 		location.href="${contextPath}/#";

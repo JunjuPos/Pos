@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class salesMenuServlet
  */
-@WebServlet("/sales.menu")
+@WebServlet("/sales/menu")
 public class salesMenuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,8 +29,7 @@ public class salesMenuServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher view=null;
-		
-		view=request.getRequestDispatcher("views/salesTotal/salesMenu.jsp");
+		view=request.getRequestDispatcher("/views/salesTotal/salesMenu.jsp");
 		
 		request.setAttribute("menu", "서블릿에서 온 메뉴입니다");
 		request.setAttribute("price", "서블릿에서 온 갯수입니다.");
