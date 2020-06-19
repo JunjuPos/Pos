@@ -34,15 +34,14 @@ public class OrderInsert extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		OrderServiceImpl oService = new OrderServiceImpl();
-		String[] orderNo = request.getParameterValues("orderNo");
+		
 		String[] orderDate = request.getParameterValues("orderDate");
 		String[] orderMenu = request.getParameterValues("orderMenu");
 		String[] orderPrice = request.getParameterValues("orderPrice");
 		String[] orderAmount = request.getParameterValues("orderAmount");
 		String tableNo = request.getParameter("tableNo");
-		int orderUpdate = 0;
-		int orderInsert = 0;
-		String inOrderNo = "";
+		
+		
 		OrderMenu om = null;
 		ArrayList<OrderMenu> orderList = new ArrayList<>();
 //		  System.out.println("servlet orderNo :" + orderNo.length);
@@ -53,34 +52,18 @@ public class OrderInsert extends HttpServlet {
 		
 
 		  for(int i = 0 ; i < orderMenu.length ; i++) {
-//			  System.out.println("servlet orderNo : "+ orderNo[i]);
+			  
 //			  System.out.println("servlet orderMenu :" + orderMenu[i]);
 //			  System.out.println("servlet orderAmount :" + orderAmount[i]);
 //			  System.out.println("servlet orderPrice :" + orderPrice[i]);
 //			  System.out.println("servlet orderDate :" + orderDate[i]);
-			  
-			  if(!orderNo[i].equals("zero")) {
-				  System.out.println("servlet orderNo : " +  orderNo[i]);
-				  inOrderNo = orderNo[i];
-				  System.out.println("servlet inOrderNo : " + inOrderNo);
-				
-			  }else {
-				  inOrderNo = "zero";
-			  }
-			  om= new OrderMenu(inOrderNo, orderMenu[i], orderDate[i], orderPrice[i], orderAmount[i], tableNo);
-			  System.out.println("servlet om :" + om);
+//			  
+			  om= new OrderMenu(orderAmount[i], orderMenu[i], orderDate[i], tableNo, orderPrice[i] );
 			  orderList.add(om);
-			  
+			  System.out.println("orderList : "+ orderList);
 		  }	// for end
 		 
-		 System.out.println("inOrderNo : " + inOrderNo);
-		 for(OrderMenu o : orderList) {
-			 if(o.getORDER_NO().equals("zero")) {	
-				 orderInsert = oService.insertOrderList(tableNo,orderList,inOrderNo);
-			 }else {
-				 orderUpdate = oService.updateAmountOrder(tableNo, orderList);
-			 }
-		 }
+	
 	}
 
 	/**

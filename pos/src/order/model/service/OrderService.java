@@ -13,9 +13,7 @@ public interface OrderService {
 	List<Menu> selectMenuList();
 	List<OrderMenu> selectOrderList(String tableNo);
 	
-	
-	int updateAmountOrder(String tableNo, ArrayList<OrderMenu> orderList);
-	int insertOrderList(String tableNo,  ArrayList<OrderMenu> orderList, String inOrderNo);
+	int insertOrderList(ArrayList<OrderMenu> orderList);
 }
 
 
