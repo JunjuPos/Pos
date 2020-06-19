@@ -1,4 +1,4 @@
-package main.controller;
+package order.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import menu.model.vo.Menu;
 import order.model.service.OrderServiceImpl;
-import order.model.vo.Order;
+import order.model.vo.OrderMenu;
 
 /**
- * Servlet implementation class MainServlet
+ * Servlet implementation class OrderMenu
  */
-@WebServlet("/main/mainView")
-public class MainServlet extends HttpServlet {
+@WebServlet("/order/orderMenu")
+public class OrderMenuList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainServlet() {
+    public OrderMenuList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,16 +32,25 @@ public class MainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Order> list = new OrderServiceImpl().selectOrderTotalList();
-	
-		if(list.isEmpty()) {
-			request.setAttribute("list", list);
-			request.getRequestDispatcher("/views/main/mainTable.jsp").forward(request, response);;
-			
+		OrderServiceImpl oService = new OrderServiceImpl();
+		String tableNo = request.getParameter("tableNo");
+
+		List<Menu> menuList = oService.selectMenuList(); 
+		List<OrderMenu> orderList = oService.selectOrderList(tableNo);
+		
+		if(orderList.isEmpty()) {
+			request.setAttribute("orderList", orderList);
+			request.setAttribute("menuList", menuList);
+			request.setAttribute("tableNo", tableNo);
+			request.getRequestDispatcher("/views/order/orderList.jsp").forward(request, response);
 		}else {
-			request.setAttribute("list", list);
-			request.getRequestDispatcher("/views/main/mainTable.jsp").forward(request, response);
+			request.setAttribute("orderList", orderList);
+			request.setAttribute("menuList", menuList);
+			request.setAttribute("tableNo", tableNo);
+			request.getRequestDispatcher("/views/order/orderList.jsp").forward(request, response);
 		}
+		
+	
 	}
 
 	/**

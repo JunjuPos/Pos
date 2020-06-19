@@ -2,8 +2,8 @@
     <wb-module deploy-name="pos">
         <wb-resource deploy-path="/" source-path="/web" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
         <property name="context-root" value="pos"/>
         <property name="java-output-path" value="/pos/build/classes"/>
     </wb-module>
