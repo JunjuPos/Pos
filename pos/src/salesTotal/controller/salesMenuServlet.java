@@ -1,6 +1,7 @@
 package salesTotal.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,6 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import menu.model.vo.Menu;
+import salesTotal.model.controller.SalesMenuServiceImpl;
+import salesTotal.model.vo.SalesTotalMenu;
 
 /**
  * Servlet implementation class salesMenuServlet
@@ -28,14 +33,17 @@ public class salesMenuServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		SalesMenuServiceImpl sms = new SalesMenuServiceImpl();
+		List<SalesTotalMenu> menuCountList = sms.selectMenuCountList();
+		List<Menu> menu = sms.selectMenuList();
+//		System.out.println(menuCountList);
+		
 		RequestDispatcher view=null;
 		view=request.getRequestDispatcher("/views/salesTotal/salesMenu.jsp");
-		
-		request.setAttribute("menu", "서블릿에서 온 메뉴입니다");
-		request.setAttribute("price", "서블릿에서 온 갯수입니다.");
+		request.setAttribute("menuCountList", menuCountList);
+		request.setAttribute("menu", menu);
 		view.forward(request, response);
 		
-//		response.sendRedirect("views/salesTotal/salesMenu.jsp");
 	}
 
 	/**

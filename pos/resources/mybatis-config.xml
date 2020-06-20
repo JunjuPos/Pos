@@ -13,6 +13,7 @@
 		<typeAlias type="order.model.vo.OrderMenu" alias="OrderMenu"/>
 		<typeAlias type="menu.model.vo.Menu" alias="MENU"/>
 		<typeAlias type="salesTotal.model.vo.SalesTotalPrice" alias="SalesTotalPrice"/>
+		<typeAlias type="salesTotal.model.vo.SalesTotalMenu" alias="SalesTotalMenu"/>
 	</typeAliases>
 	
 	<environments default="development">

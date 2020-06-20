@@ -36,14 +36,19 @@ public class salesCalendarServlet extends HttpServlet {
 		SalesCalendarServiceImpl scs = new SalesCalendarServiceImpl();
 		
 		List<SalesTotalPrice> salesTotalPrice = scs.salesTotalPriceaboutMonth();
-		
+		List<SalesTotalPrice> salesCardTotalPrice = scs.salesCardTotalPrice();
+		List<SalesTotalPrice> salesCashTotalPrice = scs.salesCashTotalPrice();
 		System.out.println(salesTotalPrice);
+		System.out.println(salesCardTotalPrice);
+		System.out.println(salesCashTotalPrice);
+
 		RequestDispatcher view=null;
 		
 		view=request.getRequestDispatcher("/views/salesTotal/salesCalendar.jsp");
 		
 		request.setAttribute("salesTotalPriceList", salesTotalPrice);
-		
+		request.setAttribute("salesCardTotalPrice", salesCardTotalPrice);
+		request.setAttribute("salesCashPrice", salesCashTotalPrice);
 		view.forward(request, response);
 	
 	}
