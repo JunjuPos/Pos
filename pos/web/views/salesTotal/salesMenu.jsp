@@ -67,7 +67,6 @@ google.charts.load('current', {'packages':['bar','corechart']});
 	   	         				menu = m.getMENU();
 	   	    	         		count = stm.getSalesCount();
 	   	    	         		price = stm.getSalesCountPrice();
-	   	         				System.out.println("일치:"+menu+"-"+count);
 	   	         			}else{
 	   	         				menu=m.getMENU();
 	   	         				count=0;
