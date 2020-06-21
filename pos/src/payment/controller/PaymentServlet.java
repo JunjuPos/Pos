@@ -28,10 +28,31 @@ public class PaymentServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("paymentServlet");
 		
-		String resultPrice = request.getParameter("resultPrice");
-		String price = request.getParameter("price");
+		int resultPrice = Integer.valueOf(request.getParameter("resultPrice"));
+		int price = Integer.valueOf(request.getParameter("price"));
+		String payMethod = request.getParameter("payMethod");
 		
-		System.out.println("resultPrice : " + resultPrice + ", price : " + price);
+		System.out.println("resultPrice : " + resultPrice + ", price : " + price + ", payMethod : " + payMethod);
+		
+		if(payMethod.equals("credit"))
+		{
+			
+		}
+		else
+		{
+			
+		}
+		
+		//총 결재금액과 결제 금액과 같으면 바로 tablePage로 이동
+		if(resultPrice == price)
+		{
+			
+		}
+		else if(resultPrice > price)
+		{
+			
+		}
+		
 				
 	}
 
