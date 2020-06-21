@@ -57,7 +57,7 @@ public class OrderDao {
 	public int deleteOrderList(SqlSession session, String tableNo) {
 		int result = session.delete("orderMapper.deleteOrderList",tableNo);
 				
-		System.out.println("dao deleteList : " + result);
+		System.out.println("dao 삭제 된 행의 갯수 : " + result);
 		
 		session.commit();
 		return result;

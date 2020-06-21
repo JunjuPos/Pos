@@ -69,7 +69,7 @@ public class OrderInsert extends HttpServlet {
 		 
 		 int result = oService.insertOrderList(orderList);
 	
-//		 response.sendRedirect("/main/mainView");
+		 response.sendRedirect("/main/mainView");
 	}
 
 	/**

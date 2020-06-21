@@ -67,10 +67,26 @@
 	
 	<!-- 주문 목록 insert -->
 	<insert id="insertOrderList" parameterType="java.util.List">
-		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
+		INSERT INTO JUMUN(ORDER_NO, MENU, AMOUNT, ORDER_DATE, TABLE_NO, PAY_YN)
+		SELECT SEQ_JUMUN.NEXTVAL , J.*
+		FROM (
+		<foreach collection="list" item="item" index="ix" separator="UNION ALL">
+			SELECT #{item.MENU} AS MENU , #{item.AMOUNT} AS AMOUNT , TO_CHAR(TO_DATE(SYSDATE,'YYYY-MM-DD HH24:MI:SS')) AS ORDER_DATE , #{item.TABLE_NO} AS TABLE_NO, 'N'
+			FROM DUAL 
+		</foreach>
+		)J
+	
+	
+<!-- 	INSERT INTO JUMUN(ORDER_NO, MENU, AMOUNT, ORDER_DATE, TABLE_NO, PAY_YN)
+		SELECT SEQ_JUMUN.NEXTVAL , J.*
+		FROM (
+			SELECT '부대찌개' AS MENU , 3 AS AMOUNT , TO_CHAR(TO_DATE(SYSDATE,'YYYY-MM-DD HH24:MI:SS')) AS ORDER_DATE, 3 AS TABLE_NO, 'N'
+			FROM DUAL
+		)J -->
+		<!-- <foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
 		INTO JUMUN(ORDER_NO, MENU, AMOUNT, ORDER_DATE, TABLE_NO, PAY_YN) 
 		VALUES(SEQ_JUMUN.NEXTVAL, #{item.MENU}, #{item.AMOUNT}, TO_CHAR(TO_DATE(SYSDATE,'YYYY-MM-DD HH24:MI:SS')), #{item.TABLE_NO}, 'N')
-		</foreach>
+		</foreach> -->
 		<!-- 
 		INSERT INTO JUMUN(ORDER_PRI, ORDER_NO, AMOUNT, MENU2, ORDER_DATE, TABLE_NO, PAY_YN, TOTAL_PRICE)
 		VALUES
