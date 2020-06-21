@@ -82,7 +82,7 @@
 	
 	<!-- 상원 payment용 -->
 	<select id="selectPaymentPrice" parameterType="_int" resultMap="selectTotalPrice">
-		SELECT TABLE_NO, SUM(PRICE) AS PRICE
+		SELECT TABLE_NO, SUM(PRICE * AMOUNT) AS PRICE
 		FROM JUMUN J
 		JOIN MENU M ON J.MENU = M.MENU
 		WHERE TABLE_NO = #{tableNo}
@@ -98,10 +98,10 @@
 		<result property="PRICE" column="PRICE"/>
 	</resultMap>
 	<select id="orderList1" parameterType="_int" resultMap="orderMenuList">
-		SELECT ORDER_NO, AMOUNT, M.MENU, ORDER_DATE, TABLE_NO, PRICE 
-		FROM JUMUN J 
-        LEFT JOIN MENU M ON (J.MENU = M.MENU)
-		WHERE TABLE_NO = #{tableNo}  AND PAY_YN = 'N'
-		
+		SELECT TABLE_NO, ORDER_DATE, J.MENU, SUM(AMOUNT) AS AMOUNT, SUM(PRICE) AS PRICE
+		FROM JUMUN J
+		JOIN MENU M ON J.MENU = M.MENU
+		WHERE TABLE_NO = #{tableNo} AND PAY_YN = 'N'
+		GROUP BY TABLE_NO, ORDER_DATE, J.MENU		
 	</select>
 </mapper>
