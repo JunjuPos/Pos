@@ -14,11 +14,11 @@
 <style>
 	.payment{float:left;}
 	#orderView{width:700px; margin-left:50px;}
-	#orderList{width:100%; height:550px; border:2px solid #fffff3; overflow:auto; border-radius:10px;}
+	#orderList{width:100%; height:550px; border:2px solid #fffff3; overflow:auto; border-radius:10px; background-color:black; color:white;}
 	#orderView>h2>input{width:20px; height:25px; background-color:#566270; border:0px; font-size:25px; font-weight:600;}
 	#orderView>h2{text-align:center;}
 	#orderView>#orderList>table{width:100%;}
-	#orderView>#orderList>table th{width:33.33%; font-size:20px; border-bottom:1px solid black;}
+	#orderView>#orderList>table th{width:25%; font-size:20px; border-bottom:1px solid black;}
 	#orderView>#orderList>table td{text-align:center; height:30px; font-size:20px;}
 	
 	#orderView>#resultPriceZone{width:100%; height:50px; border:2px solid #fffff3; border-radius:10px; margin-top:10px; background-color:#E0E3DA;}
@@ -27,11 +27,12 @@
 	
 	#inputArea{margin-left:150px; margin-top:100px; width:500px; height:500px; }
 	#inputArea>p{margin-bottom:10px; float:right;}
-	#inputArea>p>label{font-size:20px; font-weight:600;}
+	#inputArea>p>label{font-size:20px; font-weight:600; color:white;}
 	#inputArea>p>input{width:200px; height:30px; font-size:20px;}
 	
 	#keypad{margin:auto; width:100%;}
 	#keypad>button{width:166.66px; height:60px; font-size:25px; border-radius:10px; background-color:#fffff3;}
+	#keypad>button:hover{background-color:#A593E0; color:#fffff3;}
 	
 	#btnArea{position:fixed; left:850px; top:770px;}
 	#btnArea>button{width:200px; height:80px; margin-right:15px; border-radius:10px; background-color:#E0E3DA; font-size: 25px; font-weight:600; color:#black;}
@@ -47,9 +48,14 @@
 		<h2><input type="text" name="tableNo" value="${tableNo }">번 테이블</h2>
 		<div id="orderList">
 			<table>
-				<tr><th>시간</th><th>메뉴</th><th>수량</th></tr>
+				<tr><th>시간</th><th>메뉴</th><th>수량</th><th>가격</th></tr>
 				<c:forEach var="orderList" items="${orderList }">
-					<tr><td>${orderList.ORDER_DATE }</td><td>${orderList.MENU }</td><td>${orderList.AMOUNT }</td></tr>
+					<tr>
+						<td>${orderList.ORDER_DATE }</td>
+						<td>${orderList.MENU }</td>
+						<td>${orderList.AMOUNT }</td>
+						<td>${orderList.PRICE }원</td>
+					</tr>
 				</c:forEach>
 			</table>
 		</div>
@@ -102,47 +108,68 @@
 		$("#cash").click(function(){	//현금 결제 버튼
 			$resultPrice = (Number)($("#resultPrice").val());
 			$price = (Number)($("#price").val());
-			$.ajax({
-				type:"get",
-				url : "<%=request.getContextPath()%>/payment",
-				data: {resultPrice:$resultPrice, price:$price, payMethod:"cash"},
-				success:function(data){
-					
-				},
-				error:function(data){
-					
-				}
-			});
+			if($resultPrice >= $price){
+				$.ajax({
+					type:"get",
+					url : "<%=request.getContextPath()%>/payment",
+					data: {resultPrice:$resultPrice, price:$price, payMethod:"cash"},
+					success:function(data){
+						
+					},
+					error:function(data){
+						
+					}
+				});				
+			}
+			else{
+				alert("총 결제금액보다 많습니다.");
+				$("#price").val("");
+				$("#price").focus();
+			}
 		})
 		$("#card").click(function(){	//카드 결제
 			$resultPrice = (Number)($("#resultPrice").val());
 			$price = (Number)($("#price").val());
-			$.ajax({
-				type:"get",
-				url : "<%=request.getContextPath()%>/payment",
-				data: {resultPrice:$resultPrice, price:$price, payMethod:"card"},
-				success:function(data){
-					
-				},
-				error:function(data){
-					
-				}
-			});
+			if($resultPrice >= $price){
+				$.ajax({
+					type:"get",
+					url : "<%=request.getContextPath()%>/payment",
+					data: {resultPrice:$resultPrice, price:$price, payMethod:"card"},
+					success:function(data){
+						
+					},
+					error:function(data){
+						
+					}
+				});
+			}
+			else{
+				alert("총 결제금액보다 많습니다.");
+				$("#price").val("");
+				$("#price").focus();
+			}
 		})
 		$("#credit").click(function(){	//외상
 			$resultPrice = (Number)($("#resultPrice").val());
 			$price = (Number)($("#price").val());
-			$.ajax({
-				type:"get",
-				url : "<%=request.getContextPath()%>/payment",
-				data: {resultPrice:$resultPrice, price:$price, payMethod:"credit"},
-				success:function(data){
-					
-				},
-				error:function(data){
-					
-				}
-			});
+			if($resultPrice >= $price){
+				$.ajax({
+					type:"get",
+					url : "<%=request.getContextPath()%>/payment",
+					data: {resultPrice:$resultPrice, price:$price, payMethod:"credit"},
+					success:function(data){
+						
+					},
+					error:function(data){
+						
+					}
+				});				
+			}
+			else{
+				alert("총 결제금액보다 많습니다.");
+				$("#price").val("");
+				$("#price").focus();
+			}
 		})
 	})
 </script>
