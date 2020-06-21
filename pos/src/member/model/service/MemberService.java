@@ -10,5 +10,9 @@ public interface MemberService {
 	int getListCount();
 	
 	ArrayList<Member> selectMemberList(PageInfo pi);
+
+	Member selectMemberDetail(String mNo);
+
+	int insertMember(Member m);
 	
 }

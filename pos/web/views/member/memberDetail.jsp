@@ -30,19 +30,19 @@
 		<br>
 		<table>
 			<tr>
-				<th>회사명</th><td><input type="text" id="cName" name="cName"></td>
+				<th>회사명</th><td><input type="text" id="cName" name="cName" value="${m.company }"></td>
 			</tr>
 			<tr>
-				<th>부서명</th><td><input type="text" id="dep" name="dep"></td>
+				<th>부서명</th><td><input type="text" id="dep" name="dep" value="${m.dept }"></td>
 			</tr>
 			<tr>
-				<th>연락처</th><td><input type="tel" id="phone" name="phone"></td>
+				<th>연락처</th><td><input type="tel" id="phone" name="phone" value="${m.phone }"></td>
 			</tr>
 			<tr>
-				<th>외상금액</th><td><input type="number" id="charge" name="charge"></td>
+				<th>외상금액</th><td><input type="number" id="charge" name="charge" value="${m.cMoney }"></td>
 			</tr>
 			<tr>
-				<th>선불금액</th><td><input type="number" id="prePaid" name="perPaid"></td>
+				<th>선불금액</th><td><input type="number" id="prePaid" name="perPaid" value="${m.Deposit }"></td>
 			</tr>
 			<tr>
 				<th>탈퇴여부</th>

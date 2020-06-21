@@ -31,6 +31,17 @@ public class Member implements Serializable{
 		this.mDeposit = mDeposit;
 		this.status = status;
 	}
+	
+	
+
+	public Member(String company, String dept, String phone, int cMoney, int mDeposit, String status) {
+		this.company = company;
+		this.dept = dept;
+		this.phone = phone;
+		this.cMoney = cMoney;
+		this.mDeposit = mDeposit;
+		this.status = status;
+	}
 
 	public int getmNo() {
 		return mNo;

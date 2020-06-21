@@ -31,7 +31,7 @@ public class MemberDao {
 		
 		list = (ArrayList)session.selectList("memberMapper.selectMemberList", null, rowBounds);
 		
-//		System.out.println("DAO에서 리스트 : " + list);
+		System.out.println("DAO에서 리스트 : " + list);
 		
 		if(list.isEmpty()) {
 			session.close();
@@ -41,6 +41,39 @@ public class MemberDao {
 		
 		
 		return list;
+	}
+
+
+	public Member selectMemberDetail(SqlSession session, String mNo) {
+		
+		Member m = null;
+		
+		m = session.selectOne("memberMapper.selectMemberDetail", mNo);
+		
+		if(m == null) {
+			session.close();
+		}
+		
+		return m;
+	}
+
+
+	public int insertMember(SqlSession session, Member m) {
+		
+		int result = 0;
+		
+		result = session.insert("memberMapper.insertMember", m);
+		
+//		System.out.println("dao에서 result : " + result);
+		
+		if(result > 0) {
+			session.commit();
+		}else {
+			session.rollback();
+			session.close();
+		}
+		
+		return result;
 	}
 
 }

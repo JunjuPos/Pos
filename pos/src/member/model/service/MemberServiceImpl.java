@@ -35,6 +35,29 @@ public class MemberServiceImpl implements MemberService{
 		return list;
 	}
 
+	@Override
+	public Member selectMemberDetail(String mNo) {
+		SqlSession session = getSqlSession();
+		
+		Member m = null;
+		
+		m = new MemberDao().selectMemberDetail(session, mNo);
+		
+		session.close();
+		
+		return m;
+	}
+
+	@Override
+	public int insertMember(Member m) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = new MemberDao().insertMember(session,m);
+		
+		return result;
+	}
+
 	
 	}
 
