@@ -67,15 +67,18 @@ google.charts.load('current', {'packages':['bar','corechart']});
 	   	         				menu = m.getMENU();
 	   	    	         		count = stm.getSalesCount();
 	   	    	         		price = stm.getSalesCountPrice();
+			   	         		/* System.out.println(m.getMENU()+"/"+stm.getSalesMenu());
+			   	         		System.out.println(stm.getSalesMenu()+"/"+stm.getSalesCount()); */
 	   	         			}else{
 	   	         				menu=m.getMENU();
 	   	         				count=0;
 	   	         				price=0;
-	   	         			}
-	   	         		}
+	   	         			}%>
+	   	         		
    	         		
-   	         	%>
-                	<%=price%>, <%=count%>,
+   	         
+              		<%}%>
+                		<%=price%>,<%=count%>,
               	<%}%>
 
                 ] //앞에있는 숫자가 마우스 오버시 나타나는 데이터, 뒤에 있는 숫자가 화면 로드시 바로 보여지는 데이터 
