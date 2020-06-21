@@ -2,6 +2,7 @@ package order.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,15 +36,18 @@ public class OrderInsert extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		OrderServiceImpl oService = new OrderServiceImpl();
 		
+		
+		
 		String[] orderDate = request.getParameterValues("orderDate");
 		String[] orderMenu = request.getParameterValues("orderMenu");
 		String[] orderPrice = request.getParameterValues("orderPrice");
 		String[] orderAmount = request.getParameterValues("orderAmount");
 		String tableNo = request.getParameter("tableNo");
 		
+		int deleteResult = oService.deleteOrderList(tableNo);
 		
 		OrderMenu om = null;
-		ArrayList<OrderMenu> orderList = new ArrayList<>();
+		List<OrderMenu> orderList = new ArrayList<>();
 //		  System.out.println("servlet orderNo :" + orderNo.length);
 //		  System.out.println("servlet orderMenu :" + orderMenu.length);
 //		  System.out.println("servlet orderAmount :" + orderAmount.length);
@@ -63,7 +67,9 @@ public class OrderInsert extends HttpServlet {
 			  System.out.println("orderList : "+ orderList);
 		  }	// for end
 		 
+		 int result = oService.insertOrderList(orderList);
 	
+//		 response.sendRedirect("/main/mainView");
 	}
 
 	/**

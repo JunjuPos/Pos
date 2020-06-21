@@ -2,7 +2,6 @@ package order.model.dao;
 
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -40,12 +39,27 @@ public class OrderDao {
 	}
 
 	// 주문 목록 추가_혜린
-	public int insertOrderList(SqlSession session, ArrayList<OrderMenu> orderList) {
+	public int insertOrderList(SqlSession session, List<OrderMenu> orderList) {
 //		INSERT INTO JUMUN(ORDER_NO, MENU, AMOUNT, ORDER_DATE, TABLE_NO, PAY_YN) VALUES(SEQ_JUMUN.NEXTVAL, '김치찌개', 3, SYSDATE, 3, 'N'   );
-		OrderMenu om = OrderList.get[0];
+		int result = 0;
 //		int result = session.insert("orderMapper.insertOrderList", orderList);
-		int result = session.insert("orderMapper.insertOrderList", om);	// mapper주석하고 하나 복사하기
+		
+			
+			result = session.insert("orderMapper.insertOrderList", orderList);	// mapper주석하고 하나 복사하기
+		
+
 		System.out.println("Dao 추가 된 행의 갯수 : " + result);
+		
+		session.commit();
+		return result;
+	}
+
+	public int deleteOrderList(SqlSession session, String tableNo) {
+		int result = session.delete("orderMapper.deleteOrderList",tableNo);
+				
+		System.out.println("dao deleteList : " + result);
+		
+		session.commit();
 		return result;
 	}
 

@@ -29,11 +29,24 @@
 	
 	<!-- 주문 목록 불러오기 -->
 	<select id="orderList" parameterType="string" resultMap="orderMenuList">
+		 SELECT TABLE_NO, MAX(ORDER_DATE) AS ORDER_DATE, J.MENU AS MENU , SUM(AMOUNT) AS AMOUNT, SUM(PRICE * AMOUNT) AS PRICE
+        FROM JUMUN J
+		JOIN MENU M ON J.MENU = M.MENU
+		WHERE TABLE_NO = #{tableNo}   AND PAY_YN = 'N'
+        GROUP BY TABLE_NO, J.MENU
+		<!--
+		SELECT TABLE_NO, ORDER_DATE, J.MENU, SUM(AMOUNT) AS AMOUNT, SUM(PRICE * AMOUNT) AS PRICE
+		FROM JUMUN J
+		JOIN MENU M ON J.MENU = M.MENU
+		WHERE TABLE_NO =  #{tableNo}  AND PAY_YN = 'N'
+		GROUP BY TABLE_NO, ORDER_DATE, J.MENU
+		-->
+		<!-- 
 		SELECT ORDER_NO, AMOUNT, M.MENU, ORDER_DATE, TABLE_NO, PRICE * AMOUNT AS PRICE
 		FROM JUMUN J 
         LEFT JOIN MENU M ON (J.MENU = M.MENU)
 		WHERE TABLE_NO = #{tableNo}  AND PAY_YN = 'N'
-		
+		 -->
 	</select>
 	<resultMap type="OrderMenu" id="orderMenuList">
 		<result property="ORDER_NO" column="ORDER_NO"/>
@@ -47,14 +60,24 @@
 		<result property="CATEGORY" column="CATEGORY"/>
 	</resultMap> 
 	
+	<!-- 주문 목록 delete  -->
+	<delete id="deleteOrderList" parameterType="string">
+		DELETE JUMUN WHERE TABLE_NO =  #{tableNo} AND PAY_YN ='N'
+	</delete>
+	
 	<!-- 주문 목록 insert -->
-	<insert id="insertOrderList" parameterType="arraylist">
+	<insert id="insertOrderList" parameterType="java.util.List">
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
+		INTO JUMUN(ORDER_NO, MENU, AMOUNT, ORDER_DATE, TABLE_NO, PAY_YN) 
+		VALUES(SEQ_JUMUN.NEXTVAL, #{item.MENU}, #{item.AMOUNT}, TO_CHAR(TO_DATE(SYSDATE,'YYYY-MM-DD HH24:MI:SS')), #{item.TABLE_NO}, 'N')
+		</foreach>
+		<!-- 
 		INSERT INTO JUMUN(ORDER_PRI, ORDER_NO, AMOUNT, MENU2, ORDER_DATE, TABLE_NO, PAY_YN, TOTAL_PRICE)
 		VALUES
 		<foreach collection="list" item="o" separator=" , ">
 			(SEQ_JUMUN.NEXTVAL, "${o.ORDER_NO}", "${o.AMOUNT}", "${o.MENU2}", "${o.ORDER_DATE}", "${o.TABLE_NO}", 'N', 1000 )
 		</foreach>
-		
+		 -->
 	</insert>
 	
 	<!-- 상원 payment용 -->

@@ -13,7 +13,9 @@ public interface OrderService {
 	List<Menu> selectMenuList();
 	List<OrderMenu> selectOrderList(String tableNo);
 	
-	int insertOrderList(ArrayList<OrderMenu> orderList);
+//	int insertOrderList(ArrayList<OrderMenu> orderList);
+	int insertOrderList(List<OrderMenu> orderList);
+	
 }
 
 

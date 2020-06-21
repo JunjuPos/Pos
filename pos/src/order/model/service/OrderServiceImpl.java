@@ -46,10 +46,17 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int insertOrderList(ArrayList<OrderMenu> orderList) {
+	public int insertOrderList(List<OrderMenu> orderList) {
 		SqlSession session = getSqlSession();
 		int result = new OrderDao().insertOrderList(session, orderList);
 		return result;
 	}
+
+	public int deleteOrderList(String tableNo) {
+		SqlSession session = getSqlSession();
+		int result = new OrderDao().deleteOrderList(session,tableNo);
+		return result;
+	}
+
 
 }
