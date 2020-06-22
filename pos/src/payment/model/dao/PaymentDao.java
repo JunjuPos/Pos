@@ -28,5 +28,11 @@ public class PaymentDao {
 		return orderList;
 	}
 
+	public int insertBill(SqlSession session,int fristPrice, ArrayList<OrderMenu> orderList) {
+		
+		
+		return 0;
+	}
+
 
 }

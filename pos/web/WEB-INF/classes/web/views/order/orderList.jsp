@@ -54,7 +54,6 @@
                                		 <input type="hidden" id="basicPrice" class="basicPrice" value="${o.PRICE }" name="orderBasic" readonly>
                                      <td><input type="text" id="orderDate" class="orderInfo" value="${o.ORDER_DATE }" name="orderDate" readonly></td>
                                      <td><input type="text" class="orderInfo" value="${o.MENU }" name="orderMenu" readonly></td>
-                                     <!-- ★ 수량높이면 가격도 높일 수 있게   -->
                                      <td><input type="text" id="orderPrice" class="orderInfo orderPrice" value="${o.PRICE }" name="orderPrice" readonly></td>
                                      <td><input type="number"  class="orderInfo orderAmount" min="1" value="${o.AMOUNT }"  name="orderAmount" ></td>   
                                </tr>
@@ -110,7 +109,7 @@
             
             <br clear="both">
             
-            <div id="pricearea"><input type="text" id="totalPrice"></div>
+            <div id="pricearea"><input type="text" id="totalPrice" value="0"></div>
             
          </section>
          
@@ -118,9 +117,10 @@
                 $(function(){
                     $orderZone = $("#orderZone");
                     var html = "";
-                    $totalPrice = $("#totalPrice");
                     
+                    $totalPrice = $("#totalPrice");
                     var total = 0;
+                    $appendPrice = 0;	// append 된 가격
                     
                     
                     $(".menu").click(function(){		// 메뉴를 클릭했을 때 주문칸에 메뉴와 가격 입력
@@ -135,16 +135,14 @@
                             "<td><input type='text' class='orderInfo' name='orderDate' value=  " + d.getFullYear()+(d.getMonth()+1)+d.getDate()+'-'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds() + " readonly></td>" + 
                             "<td><input type='text' class='orderInfo' name='orderMenu' value=  " + $(this).text() + " readonly></td>" +
                             "<td> <input type='text' class='orderInfo orderPrice' name='orderPrice' value=  " + (Number)($(this).val())+ " readonly></td>" +
-                            "<td><input type='number' class='orderInfo orderAmount' name='orderAmount1' min='1' value='1'></td>" 
+                            "<td><input type='number' class='orderInfo orderAmount' name='orderAmount' min='1' value='1'></td>" 
                             
                         )
 
                         console.log("$input " + $input.val());
                         $orderZone.append($tr);
 
-                        total += price; 
-                        
-                       $totalPrice.val(total); 
+                       
                     })
                       
                     $toPrice = (Number)($(this).parents().children().children().eq(2).val());
@@ -159,19 +157,57 @@
                        $upPrice =  $basicPrice * $amount;
                        $(this).parents().children().children().eq(2).val($upPrice);
                        
-                   
+                       
+                       // append 합계금액
+                      /*  var $price = (Number)($(this).parents().children().children().eq(2).val());
+                       console.log("$price : " + $price);
+                       total += $price; 
+                       
+                   		
+                       $totalPrice.val(total);   */
                    })
                    
+
+                   
+                    $(document).on("mouseenter",".orderPrice",function(){	
+                    	 $appendPrice = 0;
+                    	  $('.orderPrice').each(function(){
+                    		  
+                       	   $appendPrice += (Number)($(this).val());
+                       	   
+                       	   })
+                       	   
+                       	 console.log("$appendPrice : " + $appendPrice);
+                    	  $totalPrice.val($appendPrice);
+                       	  
+                   })
+                   
+                   
+                // select된 것 totalPrice
+               	
+               	
+               	$('.orderPrice').each(function(){
+               		total += (Number)($(this).val());
+               		
+               	})
+               		console.log("total 가격 : " + total);
+
+
                    $("#payment").click(function(){
                 	   var tableNo = $('input[name=tableNo]').val();
                 	   location.href="<%=request.getContextPath()%>/paymentSelect?tableNo=" + tableNo;
                    })
                     
+
                 }) 
-               
+             	
+                
                 function order(){
                     $("#orderform").submit();
                 }
+                
+                	
+               
                
         </script>
 </body>
