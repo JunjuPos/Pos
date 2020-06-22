@@ -73,4 +73,12 @@ public class OrderDao {
 		return result;
 	}
 
+	public List<Menu> selectDrinkList(SqlSession session) {
+		List<Menu> drinkList = session.selectList("orderMapper.drinkList");
+
+		System.out.println("dao menuList : " + drinkList);
+		return drinkList;
+	}
+
+
 }
