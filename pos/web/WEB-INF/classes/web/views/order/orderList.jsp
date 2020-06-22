@@ -10,7 +10,7 @@
  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
         <style>
             .middle{margin:0; margin-left:100px; width: 90%;}
-         h2{text-align:center; color:#fffff3;}
+         h1{text-align:center; color:#fffff3;}
             span{display: inline-block;}
 
             button{background: white; font-size: 20px; font-weight:700; width:180px; height: 71px; border-radius: 10px; }
@@ -20,23 +20,26 @@
             #menuarea>table>tr>th{height:100px; width:150px; background: black; font-size:16px;}
             #menuarea>table>tr>td{text-align:center; height:20px; width:170px; font-size:16px;}
             
-            #removeOrderBtn{width:50px; height:30px; font-size:13px;}
+            #removeOrderBtn{width:80px; height:50px; font-size:18px;}
        	   .orderInfo{text-align:center; height:20px; width:150px; font-size:16px; background: rgb(46, 44, 44); color:white; border:0px; }
          
        	  .menuTable{width:800px;padding-left:50px; padding-top:15px;}
        	  .menuTable td{display:inline-block;}
        	     
             #pricearea{margin-left:452px; width: 300px; height: 50px; line-height: 30px; background: rgb(46, 44, 44); color: white; border-radius: 10px;}
-            #totalPrice{background:rgb(46, 44, 44); color:#fffff3; font-size:20px; border:0px; border-radius:10px;}
+            #totalPrice{background:rgb(46, 44, 44); color:#fffff3; font-size:20px; border:0px; border-radius:10px; margin-top:13px; width:90%; text-align:right;}
             
             .basicPrice{maigin:0px; padding:0px; width:0px; height:0px;}
+            
+            h2{color:#fffff3; margin-left:100px;}
         </style>
 </head>
 <body>
    <jsp:include page="../common/header.jsp"/>
    <jsp:include page="../common/menubar.jsp"/>
    
-      <h2>메뉴 주문</h2>
+      <h1 align="center">메뉴 주문</h1>
+      <h2 align="left">${tableNo}번 테이블</h2>  
         <section class="middle">
         
         	<!-- 주문 시작 -->
@@ -55,9 +58,10 @@
                                		 <input type="hidden" id="basicPrice" class="basicPrice" value="${o.PRICE }" name="orderBasic" readonly>
                                      <td><input type="text" id="orderDate" class="orderInfo" value="${o.ORDER_DATE }" name="orderDate" readonly></td>
                                      <td><input type="text" class="orderInfo" value="${o.MENU }" name="orderMenu" readonly></td>
+                               <%--       <td><input type="text" id="orderPrice" class="orderInfo orderPrice" value="${o.PRICE }" name="orderPrice" readonly></td> --%>
                                      <td><input type="text" id="orderPrice" class="orderInfo orderPrice" value="${o.PRICE }" name="orderPrice" readonly></td>
                                      <td><input type="number"  class="orderInfo orderAmount" min="1" value="${o.AMOUNT }"  name="orderAmount" ></td>
-                                     <td><button type="button" id="removeOrderBtn" onclick="removeOrder();">삭제</button></td>   
+                                     <td><button type="button" id="removeOrderBtn" >취소</button></td>   
                                </tr>
                             </c:forEach>
                             </c:if>
@@ -101,9 +105,8 @@
                         </c:forEach> --%>
                        
                         <tr>
-                            <td><button id="order" style="background: gray;" onclick="order();">주문</button></td>
-                            <td><button style="background: gray;">주문 취소</button></td>
-                            <td><button id="payment" style="background: gray;">결제</button></td>
+                            <td colspan="2"><button id="order" style="background: gray; width:365px;"  onclick="order();">주문</button></td>
+                            <td colspan="2"><button id="payment" style="background: gray; width:365px;">결제</button></td>
                         </tr>
                     </table>
                 </article>
@@ -125,6 +128,16 @@
                     $appendPrice = 0;	// append 된 가격
                     
                     
+                    // select된 것 totalPrice
+                 /*   	$('.orderPrice').each(function(){
+                   		total += (Number)($(this).val());
+                   		
+                   	})
+                   
+                   		console.log("total 가격 : " + total); */
+
+
+                    
                     $(".menu").click(function(){		// 메뉴를 클릭했을 때 주문칸에 메뉴와 가격 입력
                         
                         var d = new Date();
@@ -132,7 +145,7 @@
                         var menu = $(this).text();
                         var price = (Number)($(this).val());
                 		$input = $("<input type='hidden' class='basicPrice' name='basicPrice' value=" + (Number)($(this).val())+ " readonly>"); 
-                		$removeBtn = $("<td><button type='button' id='removeOrderBtn' onclick='removeOrder();'>삭제</button></td>");
+                		$removeBtn = $("<td><button type='button' id='removeOrderBtn' >취소</button></td>");
 						$tr.prepend($input);
                         $tr.append(
                             "<td><input type='text' class='orderInfo' name='orderDate' value=  " + d.getFullYear()+(d.getMonth()+1)+d.getDate()+'-'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds() + " readonly></td>" + 
@@ -145,7 +158,7 @@
                         console.log("$input " + $input.val());
                         $orderZone.append($tr);
 						
-                       
+                    	
                     })
                       
                     $toPrice = (Number)($(this).parents().children().children().eq(2).val());
@@ -170,32 +183,23 @@
                        $totalPrice.val(total);   */
                    })
                    
-
                    
-                    $(document).on("mouseenter",".orderPrice",function(){	
+				// ★ 되는 합계 코드
+                    
+                    $(document).on("mouseenter","#orderform",function(){	
                     	 $appendPrice = 0;
                     	  $('.orderPrice').each(function(){
                     		  
                        	   $appendPrice += (Number)($(this).val());
                        	   
                        	   })
-                       	   
                        	 console.log("$appendPrice : " + $appendPrice);
                     	  $totalPrice.val($appendPrice);
                        	  
                    })
+                    
                    
-                   
-                // select된 것 totalPrice
-               	
-               	
-               	$('.orderPrice').each(function(){
-               		total += (Number)($(this).val());
-               		
-               	})
-               		console.log("total 가격 : " + total);
-
-
+      
                    $("#payment").click(function(){
                 	   var tableNo = $('input[name=tableNo]').val();
                 	   location.href="<%=request.getContextPath()%>/paymentSelect?tableNo=" + tableNo;
@@ -209,9 +213,14 @@
                     $("#orderform").submit();
                 }
                 
-                	
+
+				$("removeOrderBtn").click(function(){
+					$(this).closest('tr').remove();
+				})
                
-               
+               	$(document).on("click","#removeOrderBtn",function(){
+               		$(this).closest('tr').remove();
+               	})
         </script>
 </body>
 </html>
