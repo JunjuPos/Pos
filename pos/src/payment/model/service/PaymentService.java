@@ -3,6 +3,10 @@ package payment.model.service;
 import java.util.ArrayList;
 
 import order.model.vo.OrderMenu;
+import payment.exception.BillException;
+import payment.exception.PaymentException;
+import payment.model.vo.Bill;
+import payment.model.vo.Payment;
 
 public interface PaymentService {
 
@@ -10,7 +14,9 @@ public interface PaymentService {
 	
 	ArrayList<OrderMenu> selectOrderList(int tableNo);
 
-	int billInsert(int fristPrice, ArrayList<OrderMenu> orderList);
+	int billInsert(ArrayList<Bill> billList) throws BillException;
+
+	int paymentInsert(Payment payment) throws BillException;
 	
 	
 }

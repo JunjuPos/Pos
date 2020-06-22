@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import order.model.vo.OrderMenu;
+import payment.exception.BillException;
 import payment.model.service.PaymentServiceImpl;
+import payment.model.vo.Bill;
+import payment.model.vo.Payment;
 
 /**
  * Servlet implementation class PaymentServlet
@@ -33,6 +36,8 @@ public class PaymentServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PaymentServiceImpl paymentServiceImpl = new PaymentServiceImpl();
 		ArrayList<OrderMenu> orderList = new ArrayList<>(); 
+		ArrayList<Bill> billList = new ArrayList<>();
+		
 		System.out.println("paymentServlet");
 		
 		int tableNo = Integer.valueOf(request.getParameter("tableNo"));
@@ -43,11 +48,34 @@ public class PaymentServlet extends HttpServlet {
 		System.out.println("tableNo : " + tableNo + ", resultPrice : " + resultPrice + ", price : " + price + ", payMethod : " + payMethod);
 		
 		//처음 최종 결제금액 가져오기
-		int fristPrice = paymentServiceImpl.paymentPrice(tableNo);
+		int originPrice = paymentServiceImpl.paymentPrice(tableNo);
 		
 		//해당 테이블의 메뉴, 메뉴합계 금액, 수량 가져오기
 		orderList = paymentServiceImpl.selectOrderList(tableNo);
 		
+		//billList에 넣기
+		
+		for(OrderMenu o : orderList)
+		{
+			Bill b = new Bill();
+			b.setAmount(Integer.valueOf(o.getAMOUNT()));
+			b.setMenu(o.getMENU());
+			b.setPrice(Integer.valueOf(o.getPRICE()));
+			b.setTotalPrice(originPrice);
+			billList.add(b);
+		}
+		
+		//payment객체 만들기
+		Payment payment = new Payment();
+		payment.setPay_method(payMethod);
+		payment.setPrice(price);
+		payment.setTotal_Price(originPrice);
+		
+		//billList출력
+//		for(Bill b : billList)
+//		{
+//			System.out.println(b);
+//		}
 		//외상
 		if(payMethod.equals("credit"))
 		{
@@ -76,7 +104,13 @@ public class PaymentServlet extends HttpServlet {
 			if(resultPrice == price)
 			{
 				//영수증 테이블 insert
-				int billInsert = paymentServiceImpl.billInsert(fristPrice, orderList);
+				try {
+					int billInsert = paymentServiceImpl.billInsert(billList);
+					int paymentInsert = paymentServiceImpl.paymentInsert(payment);
+				} catch (BillException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				//payment insert
 
 				//jumun테이블에 해당 테이블번호의 데이터 delete

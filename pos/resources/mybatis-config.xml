@@ -14,6 +14,8 @@
 		<typeAlias type="order.model.vo.OrderMenu" alias="OrderMenu"/>
 		<typeAlias type="order.model.vo.OrderTotalPrice" alias="OrderTotalPrice"/>
 		<typeAlias type="menu.model.vo.Menu" alias="MENU"/>
+		<typeAlias type="payment.model.vo.Bill" alias="Bill"/>
+		<typeAlias type="payment.model.vo.Payment" alias="Payment"/>
 
 	</typeAliases>
 	
@@ -32,5 +34,6 @@
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml"/>
 		<mapper resource="/mapper/order-mapper.xml"/>
+		<mapper resource="/mapper/payment_mapper.xml"/>
 	</mappers>
 </configuration>

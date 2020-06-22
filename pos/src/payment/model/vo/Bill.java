@@ -14,18 +14,20 @@ public class Bill implements Serializable{
 	private int bi_no;		//영수증 번호
 	private String menu;	//메뉴
 	private int price;		//가격
+	private int totalPrice; //총가격
 	private int amount;		//수량
 	private int pay_row;	//결제 행번호
 	
 	public Bill() {
 		super();
 	}
-	public Bill(int bill_row, int bi_no, String menu, int price, int amount, int pay_row) {
+	public Bill(int bill_row, int bi_no, String menu, int price, int totalPrice, int amount, int pay_row) {
 		super();
 		this.bill_row = bill_row;
 		this.bi_no = bi_no;
 		this.menu = menu;
 		this.price = price;
+		this.totalPrice = totalPrice;
 		this.amount = amount;
 		this.pay_row = pay_row;
 	}
@@ -53,6 +55,12 @@ public class Bill implements Serializable{
 	public void setPrice(int price) {
 		this.price = price;
 	}
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 	public int getAmount() {
 		return amount;
 	}
@@ -70,9 +78,10 @@ public class Bill implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Bill [bill_row=" + bill_row + ", bi_no=" + bi_no + ", menu=" + menu + ", price=" + price + ", amount="
-				+ amount + ", pay_row=" + pay_row + "]";
+		return "Bill [bill_row=" + bill_row + ", bi_no=" + bi_no + ", menu=" + menu + ", price=" + price
+				+ ", totalPrice=" + totalPrice + ", amount=" + amount + ", pay_row=" + pay_row + "]";
 	}
 	
+		
 	
 }

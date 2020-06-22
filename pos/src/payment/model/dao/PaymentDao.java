@@ -6,6 +6,10 @@ import org.apache.ibatis.session.SqlSession;
 
 import order.model.vo.Order;
 import order.model.vo.OrderMenu;
+import payment.exception.BillException;
+import payment.exception.PaymentException;
+import payment.model.vo.Bill;
+import payment.model.vo.Payment;
 
 public class PaymentDao {
 
@@ -28,9 +32,36 @@ public class PaymentDao {
 		return orderList;
 	}
 
-	public int insertBill(SqlSession session,int fristPrice, ArrayList<OrderMenu> orderList) {
+	public int insertBill(SqlSession session, ArrayList<Bill> billList) throws BillException {
 		
+		int result = session.insert("paymentMapper.billInsert", billList);
 		
+		if(result > 0)
+		{
+			System.out.println(result + "insert 성공");
+			session.commit();
+		}
+		else
+		{
+			session.rollback();
+			throw new BillException("BillInsert실패");
+		}
+		return result;
+	}
+
+	public int paymentInsert(SqlSession session, Payment payment) throws BillException {
+		
+		int result = session.insert("paymentMapper.paymentInsert", payment);
+		
+		if(result > 0)
+		{
+			session.commit();
+		}
+		else
+		{
+			session.rollback();
+			throw new BillException("payment insert실패");
+		}
 		return 0;
 	}
 
