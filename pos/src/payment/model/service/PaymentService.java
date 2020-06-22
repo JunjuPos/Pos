@@ -9,4 +9,8 @@ public interface PaymentService {
 	int paymentPrice(int tableNo);
 	
 	ArrayList<OrderMenu> selectOrderList(int tableNo);
+
+	int billInsert(int fristPrice, ArrayList<OrderMenu> orderList);
+	
+	
 }

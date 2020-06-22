@@ -45,7 +45,7 @@
 	<%@ include file="/views/common/menubar.jsp" %>
 	
 	<div class="payment" id="orderView">
-		<h2><input type="text" name="tableNo" value="${tableNo }">번 테이블</h2>
+		<h2><input type="text" id="tableNo" name="tableNo" value="${tableNo }">번 테이블</h2>
 		<div id="orderList">
 			<table>
 				<tr><th>시간</th><th>메뉴</th><th>수량</th><th>가격</th></tr>
@@ -108,11 +108,13 @@
 		$("#cash").click(function(){	//현금 결제 버튼
 			$resultPrice = (Number)($("#resultPrice").val());
 			$price = (Number)($("#price").val());
+			$tableNo = (Number)($("#tableNo").val());
+			
 			if($resultPrice >= $price){
 				$.ajax({
 					type:"get",
 					url : "<%=request.getContextPath()%>/payment",
-					data: {resultPrice:$resultPrice, price:$price, payMethod:"cash"},
+					data: {resultPrice:$resultPrice, price:$price, payMethod:"cash", tableNo:$tableNo},
 					success:function(data){
 						
 					},
@@ -130,11 +132,12 @@
 		$("#card").click(function(){	//카드 결제
 			$resultPrice = (Number)($("#resultPrice").val());
 			$price = (Number)($("#price").val());
+			$tableNo = (Number)($("#tableNo").val());
 			if($resultPrice >= $price){
 				$.ajax({
 					type:"get",
 					url : "<%=request.getContextPath()%>/payment",
-					data: {resultPrice:$resultPrice, price:$price, payMethod:"card"},
+					data: {resultPrice:$resultPrice, price:$price, payMethod:"card", tableNo:$tableNo},
 					success:function(data){
 						
 					},
@@ -152,11 +155,12 @@
 		$("#credit").click(function(){	//외상
 			$resultPrice = (Number)($("#resultPrice").val());
 			$price = (Number)($("#price").val());
+			$tableNo = (Number)($("#tableNo").val());
 			if($resultPrice >= $price){
 				$.ajax({
 					type:"get",
 					url : "<%=request.getContextPath()%>/payment",
-					data: {resultPrice:$resultPrice, price:$price, payMethod:"credit"},
+					data: {resultPrice:$resultPrice, price:$price, payMethod:"credit", tableNo:$tableNo},
 					success:function(data){
 						
 					},
