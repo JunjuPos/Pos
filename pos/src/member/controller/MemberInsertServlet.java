@@ -51,7 +51,7 @@ public class MemberInsertServlet extends HttpServlet {
 		
 		if(result>0) {
 			request.setAttribute("insertMsg", insertMsg);
-			request.getRequestDispatcher("/memberList.me").forward(request, response);;	
+			request.getRequestDispatcher("/memberList.me").forward(request, response);	
 		}else {
 			request.setAttribute("iErrorMsg", iErrorMsg);
 			request.getRequestDispatcher("/views/member/memberInsert.jsp").forward(request, response);;
