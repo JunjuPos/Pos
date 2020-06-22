@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.session.SqlSession;
 
-import order.model.vo.Order;
 import order.model.vo.OrderMenu;
 import payment.model.dao.PaymentDao;
 
@@ -30,6 +29,15 @@ public class PaymentServiceImpl implements PaymentService{
 		orderList = new PaymentDao().selectOrderList(session, tableNo);
 		
 		return orderList;
+	}
+
+	@Override
+	public int billInsert(int fristPrice, ArrayList<OrderMenu> orderList) {
+		SqlSession session = getSqlSession();
+		
+		int result = new PaymentDao().insertBill(session,fristPrice, orderList);
+		
+		return 0;
 	}
 
 }
