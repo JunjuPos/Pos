@@ -12,6 +12,7 @@
 
 		<typeAlias type="order.model.vo.Order" alias="Order"/>
 		<typeAlias type="order.model.vo.OrderMenu" alias="OrderMenu"/>
+		<typeAlias type="order.model.vo.OrderTotalPrice" alias="OrderTotalPrice"/>
 		<typeAlias type="menu.model.vo.Menu" alias="MENU"/>
 
 	</typeAliases>

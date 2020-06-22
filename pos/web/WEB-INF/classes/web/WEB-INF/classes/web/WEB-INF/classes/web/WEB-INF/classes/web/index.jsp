@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
 	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
 	<%
 		response.sendRedirect(request.getContextPath() + "/main/mainView");
