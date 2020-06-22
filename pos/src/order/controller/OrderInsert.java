@@ -75,9 +75,9 @@ public class OrderInsert extends HttpServlet {
 					totalPrice = 0;
 				}
 				
-				// 주문 목록 삽입
-				int result = oService.insertOrderList(orderList); 
 			}	// for end
+			// 주문 목록 삽입
+			int result = oService.insertOrderList(orderList); 
 			
 			System.out.println("servlet totalPrice : " + totalPrice);
 			
@@ -88,14 +88,9 @@ public class OrderInsert extends HttpServlet {
 			System.out.println("OTP : " + otp);
 			
 			request.getRequestDispatcher("/main/mainView").forward(request, response);
+			
 		}else {	// 주문을 한채로 주문버튼을 눌렀을 때
-			for(int i = 0 ; i < orderMenu.length ; i++) {
-			if(orderPrice[i] != null) {
-				totalPrice += Integer.valueOf(orderPrice[i]);
-			}else {
-				totalPrice = 0;
-			}
-			}
+			totalPrice = 0;
 			
 			// 합계금액 maintable update
 			otp = new OrderTotalPrice(Integer.valueOf(tableNo), Integer.valueOf(totalPrice));

@@ -96,13 +96,13 @@
                         </c:forEach>
                        <tr>    
                        <!-- ★ 주류/음료 list새로 불러오기  -->
-                     <%--    <c:forEach var="m" items="${requestScope.menuList }">
-                        <c:if test=${m.CATEGORY eq '주류/음료'}>
-                        <tr>
-                            <td><button class="menu" value="${m.PRICE }" >${m.MENU }</button></td>
-                        </tr>
-                        </c:if>
-                        </c:forEach> --%>
+	                        <tr>
+			                      <c:forEach var="menu" items="${requestScope.drinkList }" varStatus="ml">
+			                        <c:if test="${drinkList[ml.index].CATEGORY eq '주류/음료'}">
+				                            <td><button class="menu" value="${drinkList[ml.index].PRICE }" >${drinkList[ml.index].MENU }</button></td>
+			                        </c:if>
+			                      </c:forEach> 
+	                        </tr>
                        
                         <tr>
                             <td colspan="2"><button id="order" style="background: gray; width:365px;"  onclick="order();">주문</button></td>
