@@ -1,6 +1,6 @@
-package member.model.vo;
+package menu.model.vo;
 
-public class PageInfo {
+public class MenuPageInfo {
 
 	private int currentPage;
 	private int listCount;
@@ -9,26 +9,23 @@ public class PageInfo {
 	private int startPage;
 	private int endPage;
 	
-	private int memberLimit;
-	
-	
-	public PageInfo() {
+	private int menuLimit;
+
+	public MenuPageInfo() {
 	}
 
-	public PageInfo(int currentPage, int listCount, int limit, int maxPage, int startPage, int endPage,
-			int memberLimit) {
+	public MenuPageInfo(int currentPage, int listCount, int limit, int maxPage, int startPage, int endPage,
+			int menuLimit) {
 		this.currentPage = currentPage;
 		this.listCount = listCount;
 		this.limit = limit;
 		this.maxPage = maxPage;
 		this.startPage = startPage;
 		this.endPage = endPage;
-		this.memberLimit = memberLimit;
+		this.menuLimit = menuLimit;
 	}
-	
-	
 
-	public PageInfo(int currentPage, int listCount, int limit, int maxPage, int startPage, int endPage) {
+	public MenuPageInfo(int currentPage, int listCount, int limit, int maxPage, int startPage, int endPage) {
 		this.currentPage = currentPage;
 		this.listCount = listCount;
 		this.limit = limit;
@@ -85,18 +82,21 @@ public class PageInfo {
 		this.endPage = endPage;
 	}
 
-	public int getMemberLimit() {
-		return memberLimit;
+	public int getMenuLimit() {
+		return menuLimit;
 	}
 
-	public void setMemberLimit(int memberLimit) {
-		this.memberLimit = memberLimit;
+	public void setMenuLimit(int menuLimit) {
+		this.menuLimit = menuLimit;
 	}
 
 	@Override
 	public String toString() {
-		return "PageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit + ", maxPage="
-				+ maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", memberLimit=" + memberLimit + "]";
+		return "MenuPageInfo [currentPage=" + currentPage + ", listCount=" + listCount + ", limit=" + limit
+				+ ", maxPage=" + maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", menuLimit="
+				+ menuLimit + "]";
 	}
+	
+	
 	
 }
