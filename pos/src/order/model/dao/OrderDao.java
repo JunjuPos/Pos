@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import menu.model.vo.Menu;
 import order.model.vo.Order;
 import order.model.vo.OrderMenu;
+import order.model.vo.OrderTotalPrice;
 
 public class OrderDao {
 
@@ -27,13 +28,13 @@ public class OrderDao {
 		orderList = session.selectList("orderMapper.orderList",tableNo);
 		
 //		System.out.println("tableNo : " + tableNo);
-		System.out.println("dao orderList : " + orderList);
+//		System.out.println("dao orderList : " + orderList);
 		return orderList;
 	}
 	
 	// mainTable 주문 합계_혜린
-	public List<Order> selectOrderTotalList(SqlSession session) {
-		List<Order> list = session.selectList("orderMapper.selectOrderTotalList");
+	public List<OrderTotalPrice> selectOrderTotalList(SqlSession session) {
+		List<OrderTotalPrice> list = session.selectList("orderMapper.selectOrderTotalList");
 		System.out.println("전체금액list : " + list );
 		return list;
 	}
@@ -60,6 +61,15 @@ public class OrderDao {
 		System.out.println("dao 삭제 된 행의 갯수 : " + result);
 		
 		session.commit();
+		return result;
+	}
+
+	public int updateTotalPrice(SqlSession session, OrderTotalPrice otp) {
+		int result = session.update("orderMapper.updateTotalPrice", otp);
+		
+		System.out.println("dao totalPrice update : " + result);
+		session.commit();
+		
 		return result;
 	}
 

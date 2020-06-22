@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import order.model.service.OrderServiceImpl;
-import order.model.vo.Order;
+import order.model.vo.OrderTotalPrice;
+
 
 /**
  * Servlet implementation class MainServlet
@@ -31,7 +32,7 @@ public class MainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Order> list = new OrderServiceImpl().selectOrderTotalList();
+		List<OrderTotalPrice> list = new OrderServiceImpl().selectOrderTotalList();
 	
 		if(list.isEmpty()) {
 			request.setAttribute("list", list);

@@ -3,12 +3,16 @@
 <mapper namespace="orderMapper">
 
 	<!-- 주문 합계 불러오기 -->
-	<select id="selectOrderTotalList" resultMap="selectOrderTotal">
+	<!-- <select id="selectOrderTotalList" resultMap="selectOrderTotal">
 		SELECT TABLE_NO, SUM(PRICE * AMOUNT) AS PRICE
 		FROM JUMUN J
 		JOIN MENU M ON J.MENU = M.MENU
 		GROUP BY TABLE_NO, J.TABLE_NO
 		ORDER BY TABLE_NO
+	</select> -->
+	<select id="selectOrderTotalList" resultType="OrderTotalPrice">
+		SELECT TABLE_NO, TOTAL_PRICE
+        FROM MAINTABLE
 	</select>
 	<resultMap type="OrderMenu" id="selectOrderTotal" >
 		<id property="ORDER_NO" column="ORDER_NO"/>
@@ -71,30 +75,15 @@
 		SELECT SEQ_JUMUN.NEXTVAL , J.*
 		FROM (
 		<foreach collection="list" item="item" index="ix" separator="UNION ALL">
-			SELECT #{item.MENU} AS MENU , #{item.AMOUNT} AS AMOUNT , TO_CHAR(TO_DATE(SYSDATE,'YYYY-MM-DD HH24:MI:SS')) AS ORDER_DATE , #{item.TABLE_NO} AS TABLE_NO, 'N'
+			SELECT #{item.MENU} AS MENU , #{item.AMOUNT} AS AMOUNT , SYSDATE AS ORDER_DATE , #{item.TABLE_NO} AS TABLE_NO, 'N'
 			FROM DUAL 
 		</foreach>
 		)J
-	
-	
-<!-- 	INSERT INTO JUMUN(ORDER_NO, MENU, AMOUNT, ORDER_DATE, TABLE_NO, PAY_YN)
-		SELECT SEQ_JUMUN.NEXTVAL , J.*
-		FROM (
-			SELECT '부대찌개' AS MENU , 3 AS AMOUNT , TO_CHAR(TO_DATE(SYSDATE,'YYYY-MM-DD HH24:MI:SS')) AS ORDER_DATE, 3 AS TABLE_NO, 'N'
-			FROM DUAL
-		)J -->
-		<!-- <foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
-		INTO JUMUN(ORDER_NO, MENU, AMOUNT, ORDER_DATE, TABLE_NO, PAY_YN) 
-		VALUES(SEQ_JUMUN.NEXTVAL, #{item.MENU}, #{item.AMOUNT}, TO_CHAR(TO_DATE(SYSDATE,'YYYY-MM-DD HH24:MI:SS')), #{item.TABLE_NO}, 'N')
-		</foreach> -->
-		<!-- 
-		INSERT INTO JUMUN(ORDER_PRI, ORDER_NO, AMOUNT, MENU2, ORDER_DATE, TABLE_NO, PAY_YN, TOTAL_PRICE)
-		VALUES
-		<foreach collection="list" item="o" separator=" , ">
-			(SEQ_JUMUN.NEXTVAL, "${o.ORDER_NO}", "${o.AMOUNT}", "${o.MENU2}", "${o.ORDER_DATE}", "${o.TABLE_NO}", 'N', 1000 )
-		</foreach>
-		 -->
 	</insert>
+	
+	<update id="updateTotalPrice" parameterType="OrderTotalPrice">
+		UPDATE MAINTABLE SET TOTAL_PRICE = #{TOTAL_PRICE} WHERE TABLE_NO = #{TABLE_NO}
+	</update>
 	
 	<!-- 상원 payment용 -->
 	<select id="selectPaymentPrice" parameterType="_int" resultMap="selectTotalPrice">

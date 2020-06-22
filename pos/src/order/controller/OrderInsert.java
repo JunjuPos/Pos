@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import order.model.service.OrderServiceImpl;
 import order.model.vo.OrderMenu;
+import order.model.vo.OrderTotalPrice;
 
 
 
@@ -36,7 +37,10 @@ public class OrderInsert extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		OrderServiceImpl oService = new OrderServiceImpl();
 		
+		OrderMenu om = null;
+		List<OrderMenu> orderList = new ArrayList<>();
 		
+		int totalPrice = 0;
 		
 		String[] orderDate = request.getParameterValues("orderDate");
 		String[] orderMenu = request.getParameterValues("orderMenu");
@@ -44,32 +48,46 @@ public class OrderInsert extends HttpServlet {
 		String[] orderAmount = request.getParameterValues("orderAmount");
 		String tableNo = request.getParameter("tableNo");
 		
+		OrderTotalPrice otp = null;
+		
+		// 주문 목록 삭제
 		int deleteResult = oService.deleteOrderList(tableNo);
 		
-		OrderMenu om = null;
-		List<OrderMenu> orderList = new ArrayList<>();
-//		  System.out.println("servlet orderNo :" + orderNo.length);
-//		  System.out.println("servlet orderMenu :" + orderMenu.length);
-//		  System.out.println("servlet orderAmount :" + orderAmount.length);
-//		  System.out.println("servlet orderPrice :" + orderPrice.length);
-//		  System.out.println("servlet orderDate :" + orderDate.length);
 		
-
-		  for(int i = 0 ; i < orderMenu.length ; i++) {
-			  
-//			  System.out.println("servlet orderMenu :" + orderMenu[i]);
-//			  System.out.println("servlet orderAmount :" + orderAmount[i]);
-//			  System.out.println("servlet orderPrice :" + orderPrice[i]);
-//			  System.out.println("servlet orderDate :" + orderDate[i]);
-//			  
-			  om= new OrderMenu(orderAmount[i], orderMenu[i], orderDate[i], tableNo, orderPrice[i] );
-			  orderList.add(om);
-			  System.out.println("orderList : "+ orderList);
-		  }	// for end
+		if(orderDate != null) {	// 주문을 하지 않은채로 주문버튼 눌렀을 때
+			for(int i = 0 ; i < orderMenu.length ; i++) {
+				
+//				System.out.println("servlet orderMenu :" + orderMenu[i]);
+//				System.out.println("servlet orderAmount :" + orderAmount[i]);
+//				System.out.println("servlet orderPrice :" + orderPrice[i]);
+//				System.out.println("servlet orderDate :" + orderDate[i]);
+				
+				om= new OrderMenu(orderAmount[i], orderMenu[i], orderDate[i], tableNo, orderPrice[i] );
+				orderList.add(om);
+				
+//			  System.out.println("orderList : "+ orderList);
+				
+				
+				if(orderPrice[i] != null) {
+					totalPrice += Integer.valueOf(orderPrice[i]);
+				}else {
+					totalPrice = 0;
+				}
+				
+			}	// for end
+			
+		}else {	// 주문을 한채로 주문버튼을 눌렀을 때
+			request.getRequestDispatcher("/main/mainView").forward(request, response);
+		}
+		 System.out.println("servlet totalPrice : " + totalPrice);
+		 // 주문 목록 삽입
+		 int result = oService.insertOrderList(orderList); 
 		 
-		 int result = oService.insertOrderList(orderList);
+		 // 합계금액 maintable update
+		 otp = new OrderTotalPrice(Integer.valueOf(tableNo), Integer.valueOf(totalPrice));
+		 int totalUpdate = oService.updateTotalPrice(otp);
 	
-		 response.sendRedirect("/main/mainView");
+		 request.getRequestDispatcher("/main/mainView").forward(request, response);
 	}
 
 	/**

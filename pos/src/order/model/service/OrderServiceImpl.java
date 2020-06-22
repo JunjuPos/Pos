@@ -2,7 +2,6 @@ package order.model.service;
 
 import static common.Template.getSqlSession;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -11,6 +10,7 @@ import menu.model.vo.Menu;
 import order.model.dao.OrderDao;
 import order.model.vo.Order;
 import order.model.vo.OrderMenu;
+import order.model.vo.OrderTotalPrice;
 public class OrderServiceImpl implements OrderService {
 
 
@@ -39,9 +39,9 @@ public class OrderServiceImpl implements OrderService {
 
 	
 	@Override
-	public List<Order> selectOrderTotalList() {
+	public List<OrderTotalPrice> selectOrderTotalList() {
 		SqlSession session = getSqlSession();
-		List<Order> list = new OrderDao().selectOrderTotalList(session);
+		List<OrderTotalPrice> list = new OrderDao().selectOrderTotalList(session);
 		return list;
 	}
 
@@ -55,6 +55,12 @@ public class OrderServiceImpl implements OrderService {
 	public int deleteOrderList(String tableNo) {
 		SqlSession session = getSqlSession();
 		int result = new OrderDao().deleteOrderList(session,tableNo);
+		return result;
+	}
+
+	public int updateTotalPrice(OrderTotalPrice otp) {
+		SqlSession session = getSqlSession();
+		int result = new OrderDao().updateTotalPrice(session, otp);
 		return result;
 	}
 
