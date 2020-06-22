@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="orderMapper">
-	<select id="selectOrderTotalList" resultMap="selectOrderTotal">
-		SELECT TABLE_NO, SUM(PRICE) AS PRICE
+
+	<!-- 주문 합계 불러오기 -->
+	<!-- <select id="selectOrderTotalList" resultMap="selectOrderTotal">
+		SELECT TABLE_NO, SUM(PRICE * AMOUNT) AS PRICE
 		FROM JUMUN J
 		JOIN MENU M ON J.MENU = M.MENU
 		GROUP BY TABLE_NO, J.TABLE_NO
 		ORDER BY TABLE_NO
+	</select> -->
+	<select id="selectOrderTotalList" resultType="OrderTotalPrice">
+		SELECT TABLE_NO, TOTAL_PRICE
+        FROM MAINTABLE
 	</select>
-	<resultMap type="Order" id="selectOrderTotal" >
+	<resultMap type="OrderMenu" id="selectOrderTotal" >
 		<id property="ORDER_NO" column="ORDER_NO"/>
 		<result property="MENU" column="MENU"/>
 		<result property="AMOUNT" column="AMOUNT"/>
@@ -18,18 +24,33 @@
 		<result property="PRICE" column="PRICE"/>
 	</resultMap>
 	
+	<!-- 메뉴리스트 불러오기 -->
 	<select id="menuList" resultType="MENU">
 		SELECT MENU, PRICE, CATEGORY
 		FROM MENU
 		WHERE MENU_YN = 'Y'
 	</select>
 	
+	<!-- 주문 목록 불러오기 -->
 	<select id="orderList" parameterType="string" resultMap="orderMenuList">
-		SELECT ORDER_NO, AMOUNT, M.MENU, ORDER_DATE, TABLE_NO, PRICE
+		 SELECT TABLE_NO, MAX(ORDER_DATE) AS ORDER_DATE, J.MENU AS MENU , SUM(AMOUNT) AS AMOUNT, SUM(PRICE * AMOUNT) AS PRICE
+        FROM JUMUN J
+		JOIN MENU M ON J.MENU = M.MENU
+		WHERE TABLE_NO = #{tableNo}   AND PAY_YN = 'N'
+        GROUP BY TABLE_NO, J.MENU
+		<!--
+		SELECT TABLE_NO, ORDER_DATE, J.MENU, SUM(AMOUNT) AS AMOUNT, SUM(PRICE * AMOUNT) AS PRICE
+		FROM JUMUN J
+		JOIN MENU M ON J.MENU = M.MENU
+		WHERE TABLE_NO =  #{tableNo}  AND PAY_YN = 'N'
+		GROUP BY TABLE_NO, ORDER_DATE, J.MENU
+		-->
+		<!-- 
+		SELECT ORDER_NO, AMOUNT, M.MENU, ORDER_DATE, TABLE_NO, PRICE * AMOUNT AS PRICE
 		FROM JUMUN J 
         LEFT JOIN MENU M ON (J.MENU = M.MENU)
 		WHERE TABLE_NO = #{tableNo}  AND PAY_YN = 'N'
-		
+		 -->
 	</select>
 	<resultMap type="OrderMenu" id="orderMenuList">
 		<result property="ORDER_NO" column="ORDER_NO"/>
@@ -43,14 +64,26 @@
 		<result property="CATEGORY" column="CATEGORY"/>
 	</resultMap> 
 	
-	<insert id="insertZeroOrder" parameterType="java.util.List">
-		INSERT INTO JUMUN(ORDER_PRI, ORDER_NO, AMOUNT, MENU2, ORDER_DATE, TABLE_NO, PAY_YN, TOTAL_PRICE)
-		VALUES
-		<foreach collection="list" item="o" separator=" , ">
-			(SEQ_ORDER.NEXTVAL, "${o.ORDER_NO}", "${o.AMOUNT}", "${o.MENU2}", "${o.ORDER_DATE}", "${o.TABLE_NO}", 'N', 1000 )
+	<!-- 주문 목록 delete  -->
+	<delete id="deleteOrderList" parameterType="string">
+		DELETE JUMUN WHERE TABLE_NO =  #{tableNo} AND PAY_YN ='N'
+	</delete>
+	
+	<!-- 주문 목록 insert -->
+	<insert id="insertOrderList" parameterType="java.util.List">
+		INSERT INTO JUMUN(ORDER_NO, MENU, AMOUNT, ORDER_DATE, TABLE_NO, PAY_YN)
+		SELECT SEQ_JUMUN.NEXTVAL , J.*
+		FROM (
+		<foreach collection="list" item="item" index="ix" separator="UNION ALL">
+			SELECT #{item.MENU} AS MENU , #{item.AMOUNT} AS AMOUNT , SYSDATE AS ORDER_DATE , #{item.TABLE_NO} AS TABLE_NO, 'N'
+			FROM DUAL 
 		</foreach>
-		
+		)J
 	</insert>
+	
+	<update id="updateTotalPrice" parameterType="OrderTotalPrice">
+		UPDATE MAINTABLE SET TOTAL_PRICE = #{TOTAL_PRICE} WHERE TABLE_NO = #{TABLE_NO}
+	</update>
 	
 	<!-- 상원 payment용 -->
 	<select id="selectPaymentPrice" parameterType="_int" resultMap="selectTotalPrice">
@@ -70,13 +103,10 @@
 		<result property="PRICE" column="PRICE"/>
 	</resultMap>
 	<select id="orderList1" parameterType="_int" resultMap="orderMenuList">
-		
-		
 		SELECT TABLE_NO, ORDER_DATE, J.MENU, SUM(AMOUNT) AS AMOUNT, SUM(PRICE) AS PRICE
 		FROM JUMUN J
 		JOIN MENU M ON J.MENU = M.MENU
 		WHERE TABLE_NO = #{tableNo} AND PAY_YN = 'N'
-		GROUP BY TABLE_NO, ORDER_DATE, J.MENU
-		
+		GROUP BY TABLE_NO, ORDER_DATE, J.MENU		
 	</select>
 </mapper>

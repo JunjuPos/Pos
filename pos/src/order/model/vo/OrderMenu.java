@@ -19,6 +19,18 @@ public class OrderMenu {
 		super();
 	}
 
+	
+	// order insert 생성자
+	public OrderMenu(String aMOUNT, String mENU, String oRDER_DATE, String tABLE_NO, String pRICE) {
+		super();
+		AMOUNT = aMOUNT;
+		MENU = mENU;
+		ORDER_DATE = oRDER_DATE;
+		TABLE_NO = tABLE_NO;
+		PRICE = pRICE;
+	}
+
+
 	public OrderMenu(String oRDER_NO, String aMOUNT, String mENU, String oRDER_DATE, String tABLE_NO, String pAY_YN,
 			String pRICE, String mENU_YN, String cATEGORY) {
 		super();
@@ -109,7 +121,7 @@ public class OrderMenu {
 	public String toString() {
 		return "OrderMenu [ORDER_NO=" + ORDER_NO + ", AMOUNT=" + AMOUNT + ", MENU=" + MENU + ", ORDER_DATE="
 				+ ORDER_DATE + ", TABLE_NO=" + TABLE_NO + ", PAY_YN=" + PAY_YN + ", PRICE=" + PRICE + ", MENU_YN="
-				+ MENU_YN + ", CATEGORY=" + CATEGORY + "]";
+				+ MENU_YN + ", CATEGORY=" + CATEGORY + "]\n";
 	}
 	
 	
