@@ -14,17 +14,18 @@
             span{display: inline-block;}
 
             button{background: white; font-size: 20px; font-weight:700; width:180px; height: 71px; border-radius: 10px; }
-         button:hover{background:#A593E0; color:#fffff3; cursor:pointer;}
+         	button:hover{background:#A593E0; color:#fffff3; cursor:pointer;}
             #menuarea{width: 750px; height: 600px; background: rgb(46, 44, 44); color: white; border-radius: 10px; padding-top:-100px;}
             #menuarea>table{width: 750px; height:50px; border-collapse; font-size:20px;}
             #menuarea>table>tr>th{height:100px; width:150px; background: black; font-size:16px;}
             #menuarea>table>tr>td{text-align:center; height:20px; width:170px; font-size:16px;}
             
-         .orderInfo{text-align:center; height:20px; width:170px; font-size:16px; background: rgb(46, 44, 44); color:white; border:0px; }
+            #removeOrderBtn{width:50px; height:30px; font-size:13px;}
+       	   .orderInfo{text-align:center; height:20px; width:150px; font-size:16px; background: rgb(46, 44, 44); color:white; border:0px; }
          
-         .menuTable{width:800px;padding-left:50px; padding-top:15px;}
-         .menuTable td{display:inline-block;}
-            
+       	  .menuTable{width:800px;padding-left:50px; padding-top:15px;}
+       	  .menuTable td{display:inline-block;}
+       	     
             #pricearea{margin-left:452px; width: 300px; height: 50px; line-height: 30px; background: rgb(46, 44, 44); color: white; border-radius: 10px;}
             #totalPrice{background:rgb(46, 44, 44); color:#fffff3; font-size:20px; border:0px; border-radius:10px;}
             
@@ -44,7 +45,7 @@
                     <div id="menuarea" style="overflow: auto;">
                         <table id="orderZone" class="orderZone">
                            <tr><input type="hidden" name="tableNo" value="${tableNo }"></tr>
-                            <tr><th>시간</th><th>메뉴</th><th>가격</th><th>수량</th></tr>
+                            <tr><th>시간</th><th>메뉴</th><th>가격</th><th>수량</th><th></th></tr>
                             <c:if test="${!empty requestScope.orderList}">
                                <c:forEach var = "o" items="${requestScope.orderList}">
                                <c:url var="orderNo" value="/order/orderInsert">
@@ -55,7 +56,8 @@
                                      <td><input type="text" id="orderDate" class="orderInfo" value="${o.ORDER_DATE }" name="orderDate" readonly></td>
                                      <td><input type="text" class="orderInfo" value="${o.MENU }" name="orderMenu" readonly></td>
                                      <td><input type="text" id="orderPrice" class="orderInfo orderPrice" value="${o.PRICE }" name="orderPrice" readonly></td>
-                                     <td><input type="number"  class="orderInfo orderAmount" min="1" value="${o.AMOUNT }"  name="orderAmount" ></td>   
+                                     <td><input type="number"  class="orderInfo orderAmount" min="1" value="${o.AMOUNT }"  name="orderAmount" ></td>
+                                     <td><button type="button" id="removeOrderBtn" onclick="removeOrder();">삭제</button></td>   
                                </tr>
                             </c:forEach>
                             </c:if>
@@ -130,18 +132,19 @@
                         var menu = $(this).text();
                         var price = (Number)($(this).val());
                 		$input = $("<input type='hidden' class='basicPrice' name='basicPrice' value=" + (Number)($(this).val())+ " readonly>"); 
+                		$removeBtn = $("<td><button type='button' id='removeOrderBtn' onclick='removeOrder();'>삭제</button></td>");
 						$tr.prepend($input);
                         $tr.append(
                             "<td><input type='text' class='orderInfo' name='orderDate' value=  " + d.getFullYear()+(d.getMonth()+1)+d.getDate()+'-'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds() + " readonly></td>" + 
                             "<td><input type='text' class='orderInfo' name='orderMenu' value=  " + $(this).text() + " readonly></td>" +
                             "<td> <input type='text' class='orderInfo orderPrice' name='orderPrice' value=  " + (Number)($(this).val())+ " readonly></td>" +
-                            "<td><input type='number' class='orderInfo orderAmount' name='orderAmount' min='1' value='1'></td>" 
-                            
+                            "<td><input type='number' class='orderInfo orderAmount' name='orderAmount' min='1' value='1'></td>"                            
                         )
+                        $tr.append($removeBtn);
 
                         console.log("$input " + $input.val());
                         $orderZone.append($tr);
-
+						
                        
                     })
                       
