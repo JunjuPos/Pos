@@ -43,12 +43,20 @@
 	
 	<!-- 주문 목록 불러오기 -->
 	<select id="orderList" parameterType="string" resultMap="orderMenuList">
-		 SELECT TABLE_NO, MAX(ORDER_DATE) AS ORDER_DATE, J.MENU AS MENU , SUM(AMOUNT) AS AMOUNT, SUM(PRICE * AMOUNT) AS PRICE
+		
+        
+        SELECT TABLE_NO, MAX(ORDER_DATE) AS ORDER_DATE, J.MENU AS MENU , SUM(AMOUNT) AS AMOUNT, SUM(PRICE * AMOUNT) AS PRICE, M.PRICE AS MENUPRICE 
+        FROM JUMUN J
+		JOIN MENU M ON J.MENU = M.MENU
+		WHERE TABLE_NO =  #{tableNo}  AND PAY_YN = 'N'
+        GROUP BY TABLE_NO, J.MENU, M.PRICE
+		<!--
+		 SELECT TABLE_NO, MAX(ORDER_DATE) AS ORDER_DATE, J.MENU AS MENU , SUM(AMOUNT) AS AMOUNT, SUM(PRICE * AMOUNT) AS PRICE, 
         FROM JUMUN J
 		JOIN MENU M ON J.MENU = M.MENU
 		WHERE TABLE_NO = #{tableNo}   AND PAY_YN = 'N'
         GROUP BY TABLE_NO, J.MENU
-		<!--
+        
 		SELECT TABLE_NO, ORDER_DATE, J.MENU, SUM(AMOUNT) AS AMOUNT, SUM(PRICE * AMOUNT) AS PRICE
 		FROM JUMUN J
 		JOIN MENU M ON J.MENU = M.MENU
@@ -72,6 +80,7 @@
 		<result property="PRICE" column="PRICE"/>
 		<result property="MENU_YN" column="MENU_YN"/>
 		<result property="CATEGORY" column="CATEGORY"/>
+		<result property="MENUPRICE" column="MENUPRICE"/>
 	</resultMap> 
 	
 	<!-- 주문 목록 delete  -->

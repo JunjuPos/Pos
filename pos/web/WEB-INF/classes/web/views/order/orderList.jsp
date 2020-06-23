@@ -54,11 +54,11 @@
                                <c:url var="orderNo" value="/order/orderInsert">
                                   <c:param name="orderDate" value="${o.ORDER_DATE}"/>
                                </c:url> 
-                               <tr>
-                               		 <input type="hidden" id="basicPrice" class="basicPrice" value="${o.PRICE }" name="orderBasic" readonly>
+                               <tr>	
+                               		
+                               		 <input type="hidden" id="basicPrice" class="basicPrice" value="${o.MENUPRICE }" name="orderBasic" readonly>
                                      <td><input type="text" id="orderDate" class="orderInfo" value="${o.ORDER_DATE }" name="orderDate" readonly></td>
                                      <td><input type="text" class="orderInfo" value="${o.MENU }" name="orderMenu" readonly></td>
-                               <%--       <td><input type="text" id="orderPrice" class="orderInfo orderPrice" value="${o.PRICE }" name="orderPrice" readonly></td> --%>
                                      <td><input type="text" id="orderPrice" class="orderInfo orderPrice" value="${o.PRICE }" name="orderPrice" readonly></td>
                                      <td><input type="number"  class="orderInfo orderAmount" min="1" value="${o.AMOUNT }"  name="orderAmount" ></td>
                                      <td><button type="button" id="removeOrderBtn" >취소</button></td>   
@@ -171,7 +171,7 @@
                        var $amount = (Number)($(this).val()); 											// 수량
                    		
                        $upPrice =  $basicPrice * $amount;
-                       $(this).parents().children().children().eq(2).val($upPrice);
+                        $(this).parents().children().children().eq(2).val($upPrice); 
                        
                        
                        // append 합계금액
