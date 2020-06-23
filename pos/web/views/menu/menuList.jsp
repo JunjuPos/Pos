@@ -29,8 +29,8 @@
 
 </head>
 <body>
-<%-- 	<%@ include file="/views/common/header.jsp" %>
-	<%@ include file="/views/common/menubar.jsp" %> --%>
+< 	<%@ include file="/views/common/header.jsp" %>
+	<%@ include file="/views/common/menubar.jsp" %> 
  
 	<div id="menuListArea">
 		<h1 align="center">메뉴관리</h1>
@@ -44,10 +44,10 @@
 		<br><br><br>
 		<table id="category">
 			<tr>
-				<td><button type="button" id="rice" class="cate" value="rice">밥</button></td>
-				<td><button type="button" id="noodle" class="cate" value="noodle">면</button></td>
-				<td><button type="button" id="drinks" class="cate" value="drinks">주류/음료</button></td>
-				<td><button type="button" id="etc" class="cate" value="etc">기타</button></td>
+				<td><button type="button" id="rice" class="cate" value="1">밥</button></td>
+				<td><button type="button" id="noodle" class="cate" value="2">면</button></td>
+				<td><button type="button" id="drinks" class="cate" value="3">주류/음료</button></td>
+				<td><button type="button" id="etc" class="cate" value="4">기타</button></td>
 			</tr>
 		</table>
 		
@@ -56,7 +56,7 @@
 		<div id="riceContent">
 			<table id="riceContent_table">
 				<tr>
-					<td><button type="button" class="btn" onclick="location.href='#'">bobbbbbbbbbbbbbbbbbbbbbbbbbb</button></td>
+					<td><button type="button" class="btn" onclick="location.href='#'"></button></td>
 				</tr>
 			</table>
 		</div>
@@ -66,7 +66,7 @@
 		<div id="noodleContent">
 			<table id="noddleContent_table">
 				<tr>
-					<td><button type="button" class="btn" onclick="location.href='#'">noooooodleleleleleleleleleleleleleel</button></td>
+					<td><button type="button" class="btn" onclick="location.href='#'"></button></td>
 				</tr>	
 			</table>
 		</div>
@@ -76,7 +76,7 @@
 		<div id="drinksContent">
 			<table id="drinksContent_table">
 				<tr>
-					<td><button type="button" class="btn" onclick="location.href='#'">drinkkkkkkkkkkkkkkkks</button></td>
+					<td><button type="button" class="btn" onclick="location.href='#'"></button></td>
 				</tr>
 			</table>
 		</div>
@@ -86,7 +86,7 @@
 		<div id="etcContent">
 			<table>
 				<tr>
-					<td><button type="button" class="btn" onclick="location.href='#'">etcccccccccccccccccccccccccccccc</button></td>
+					<td><button type="button" class="btn" onclick="location.href='#'"></button></td>
 				</tr>	
 			</table>
 		</div>
@@ -140,9 +140,6 @@
 						</c:forEach>
 					</tr>
 				</c:if><!-- 카테고리가 4일 때 if end -->
-				
-				
-				
 			</c:forEach>
 				
 		</table> --%>
@@ -192,10 +189,7 @@
 		
 		</div><!-- pageinArea end --> --%>
 		
-		
 	</div> 
-	
-	
 	
 	<script>
 		function menuInsert(){
@@ -238,26 +232,30 @@
 		})
 		
 		$(function(){
-		// 클릭 시 값 불러오는 에잇
-		$(".cate").click(function(){
-			var option = $(this).val();
-			console.log(option);
-		     $.ajax({
-				url:"menuList.mn",
-				type:"post",
-				success:function(data){
-					console.log("gd");
+			// 클릭 시 값 불러오는 에잇
+			$(".cate").click(function(){
+				var option = $(this).val();
+				console.log(option);
+			     $.ajax({
+					url:"<%=request.getContextPath()%>/menuList.mn",
+					type:"post",
+					data:{option:option},
+					success:function(data){
+						/* console.log("gd"); */
+						
+						
+						
+						
+						
+						
+					},
+					error:function(request,status,error){
+						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+					}
 					
-					
-					
-				},
-				error:function(request,status,error){
-					alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-				}
-				
+				})  
 			}) 
-		}) 
-	})
+		})
 	</script>
 	
 	
