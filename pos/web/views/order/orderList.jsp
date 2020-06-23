@@ -164,6 +164,7 @@
                         var $date = d.yyyymmdd();
                         var $time = d.hhmmss();
 
+
                         var $tr = $("<tr>");
                         var menu = $(this).text();
                         var price = (Number)($(this).val());
