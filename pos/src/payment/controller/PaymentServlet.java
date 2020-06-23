@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import order.model.vo.OrderMenu;
+import payment.exception.PaymentException;
 import payment.model.service.PaymentServiceImpl;
+import payment.model.vo.Bill;
+import payment.model.vo.Payment;
 
 /**
  * Servlet implementation class PaymentServlet
@@ -33,6 +36,8 @@ public class PaymentServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PaymentServiceImpl paymentServiceImpl = new PaymentServiceImpl();
 		ArrayList<OrderMenu> orderList = new ArrayList<>(); 
+		ArrayList<Bill> billList = new ArrayList<>();
+		
 		System.out.println("paymentServlet");
 		
 		int tableNo = Integer.valueOf(request.getParameter("tableNo"));
@@ -48,6 +53,29 @@ public class PaymentServlet extends HttpServlet {
 		//해당 테이블의 메뉴, 메뉴합계 금액, 수량 가져오기
 		orderList = paymentServiceImpl.selectOrderList(tableNo);
 		
+		//billList에 넣기
+		
+		for(OrderMenu o : orderList)
+		{
+			Bill b = new Bill();
+			b.setAmount(Integer.valueOf(o.getAMOUNT()));
+			b.setMenu(o.getMENU());
+			b.setPrice(Integer.valueOf(o.getPRICE()));
+			b.setTotalPrice(originPrice);
+			billList.add(b);
+		}
+		
+		//payment객체 만들기
+		Payment payment = new Payment();
+		payment.setPay_method(payMethod);
+		payment.setPrice(price);
+		payment.setTotal_Price(originPrice);
+		
+		//billList출력
+//		for(Bill b : billList)
+//		{
+//			System.out.println(b);
+//		}
 		//외상
 		if(payMethod.equals("credit"))
 		{
@@ -75,17 +103,31 @@ public class PaymentServlet extends HttpServlet {
 			//총 결재금액과 결제 금액과 같으면 바로 tablePage로 이동
 			if(resultPrice == price)
 			{
-				//영수증 테이블 insert
-				int billInsert = paymentServiceImpl.billInsert(originPrice, orderList);
-				//payment insert
+				try {
+					//영수증 테이블 insert
+					int billInsert = paymentServiceImpl.billInsert(billList);
+					//payment insert
+					int paymentInsert = paymentServiceImpl.paymentInsert(payment);
+					//jumun테이블에 해당 테이블번호의 데이터 delete
+					int jumunDelete = paymentServiceImpl.jumunDelete(tableNo);
+					//mainTable UPDATE
+					int mainTableUpdate = paymentServiceImpl.mainTableUpdate(tableNo);
+					
+					
+				} catch (PaymentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-				//jumun테이블에 해당 테이블번호의 데이터 delete
-
+				
+				
+				request.getRequestDispatcher("/main/mainView").forward(request, response);
 				
 			}
 			else if(resultPrice > price)
 			{
 				//payment insert
+				
 				
 			}
 		}
