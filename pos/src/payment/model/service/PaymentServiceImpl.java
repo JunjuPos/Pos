@@ -49,7 +49,16 @@ public class PaymentServiceImpl implements PaymentService{
 		SqlSession session = getSqlSession();
 		
 		int result = new PaymentDao().paymentInsert(session, payment);
-		return 0;
+		
+		return result;
+	}
+
+	@Override
+	public int jumunDelete(int tableNo) throws BillException {
+		SqlSession session = getSqlSession();
+		
+		int result = new PaymentDao().jumunDelete(session, tableNo);
+		return result;
 	}
 
 }

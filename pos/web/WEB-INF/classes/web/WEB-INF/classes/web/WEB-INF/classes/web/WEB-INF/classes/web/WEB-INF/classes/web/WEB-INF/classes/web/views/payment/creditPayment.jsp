@@ -8,11 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-	<c:set var="contextPath" value="${pageContext.servletContext.contextPath }" scope="application"/>
-	<%
-		response.sendRedirect(request.getContextPath() + "/main/mainView");
-	%>
+	<jsp:include page="${contextPatn }/views/common/header.jsp"/>
+	<jsp:include page="${contextPath }/views/common/menubar.jsp"/>
 	
 </body>
 </html>

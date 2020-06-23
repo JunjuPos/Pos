@@ -3,11 +3,14 @@ package payment.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.sun.corba.se.impl.protocol.RequestDispatcherRegistryImpl;
 
 import order.model.vo.OrderMenu;
 import payment.exception.BillException;
@@ -103,18 +106,22 @@ public class PaymentServlet extends HttpServlet {
 			//총 결재금액과 결제 금액과 같으면 바로 tablePage로 이동
 			if(resultPrice == price)
 			{
-				//영수증 테이블 insert
 				try {
+					//영수증 테이블 insert
 					int billInsert = paymentServiceImpl.billInsert(billList);
+					//payment insert
 					int paymentInsert = paymentServiceImpl.paymentInsert(payment);
+					//jumun테이블에 해당 테이블번호의 데이터 delete
+					int jumunDelete = paymentServiceImpl.jumunDelete(tableNo);
+					
 				} catch (BillException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				//payment insert
 
-				//jumun테이블에 해당 테이블번호의 데이터 delete
-
+				
+				
+				request.getRequestDispatcher("/main/mainView").forward(request, response);
 				
 			}
 			else if(resultPrice > price)

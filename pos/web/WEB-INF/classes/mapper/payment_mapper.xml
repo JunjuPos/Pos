@@ -27,4 +27,8 @@
 		INSERT INTO PAYMENT
 		VALUES(SEQ_PAYROW.NEXTVAL, SEQ_PAYNO.NEXTVAL, SYSDATE, #{pay_method}, 'Y', #{price}, #{total_Price})
 	</insert>
+	
+	<delete id="jumunDelete" parameterType="_int">
+		DELETE FROM JUMUN WHERE TABLE_NO = #{tableNo}
+	</delete>
 </mapper>

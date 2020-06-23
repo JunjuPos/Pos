@@ -17,6 +17,8 @@ public interface PaymentService {
 	int billInsert(ArrayList<Bill> billList) throws BillException;
 
 	int paymentInsert(Payment payment) throws BillException;
+
+	int jumunDelete(int tableNo) throws BillException;
 	
 	
 }

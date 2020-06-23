@@ -45,7 +45,7 @@
 	<%@ include file="/views/common/menubar.jsp" %>
 	
 	<div class="payment" id="orderView">
-		<h2><input type="text" id="tableNo" name="tableNo" value="${tableNo }">번 테이블</h2>
+		<h2><input type="text" name="tableNo" value="${tableNo }">번 테이블</h2>
 		<div id="orderList">
 			<table>
 				<tr><th>시간</th><th>메뉴</th><th>수량</th><th>가격</th></tr>
@@ -105,17 +105,14 @@
 			$("#price").val($number);
 		})
 		
-		
 		$("#cash").click(function(){	//현금 결제 버튼
 			$resultPrice = (Number)($("#resultPrice").val());
 			$price = (Number)($("#price").val());
-			$tableNo = (Number)($("#tableNo").val());
-			
-			if($resultPrice > $price){
+			if($resultPrice >= $price){
 				$.ajax({
 					type:"get",
 					url : "<%=request.getContextPath()%>/payment",
-					data: {resultPrice:$resultPrice, price:$price, payMethod:"cash", tableNo:$tableNo},
+					data: {resultPrice:$resultPrice, price:$price, payMethod:"cash"},
 					success:function(data){
 						
 					},
@@ -123,9 +120,6 @@
 						
 					}
 				});				
-			}
-			else if($resultPrice == $price){
-				location.href="<%=request.getContextPath()%>/payment?resultPrice=" + $resultPrice + "&price=" + $price + "&tableNo=" + $tableNo + "&payMethod=cash";
 			}
 			else{
 				alert("총 결제금액보다 많습니다.");
@@ -136,12 +130,11 @@
 		$("#card").click(function(){	//카드 결제
 			$resultPrice = (Number)($("#resultPrice").val());
 			$price = (Number)($("#price").val());
-			$tableNo = (Number)($("#tableNo").val());
 			if($resultPrice >= $price){
 				$.ajax({
 					type:"get",
 					url : "<%=request.getContextPath()%>/payment",
-					data: {resultPrice:$resultPrice, price:$price, payMethod:"card", tableNo:$tableNo},
+					data: {resultPrice:$resultPrice, price:$price, payMethod:"card"},
 					success:function(data){
 						
 					},
@@ -149,9 +142,6 @@
 						
 					}
 				});
-			}
-			else if($resultPrice == $price){
-				location.href="<%=request.getContextPath()%>/payment?resultPrice=" + $resultPrice + "&price=" + $price + "&tableNo=" + $tableNo + "&payMethod=card";
 			}
 			else{
 				alert("총 결제금액보다 많습니다.");
@@ -162,12 +152,11 @@
 		$("#credit").click(function(){	//외상
 			$resultPrice = (Number)($("#resultPrice").val());
 			$price = (Number)($("#price").val());
-			$tableNo = (Number)($("#tableNo").val());
 			if($resultPrice >= $price){
 				$.ajax({
 					type:"get",
 					url : "<%=request.getContextPath()%>/payment",
-					data: {resultPrice:$resultPrice, price:$price, payMethod:"credit", tableNo:$tableNo},
+					data: {resultPrice:$resultPrice, price:$price, payMethod:"credit"},
 					success:function(data){
 						
 					},
@@ -175,9 +164,6 @@
 						
 					}
 				});				
-			}
-			else if($resultPrice == $price){
-				location.href="<%=request.getContextPath()%>/payment?resultPrice=" + $resultPrice + "&price=" + $price + "&tableNo=" + $tableNo + "&payMethod=credit";
 			}
 			else{
 				alert("총 결제금액보다 많습니다.");

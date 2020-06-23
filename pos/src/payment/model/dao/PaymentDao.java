@@ -65,5 +65,21 @@ public class PaymentDao {
 		return 0;
 	}
 
+	public int jumunDelete(SqlSession session, int tableNo) throws BillException {
+
+		int result = session.delete("paymentMapper.jumunDelete", tableNo);
+		
+		if(result > 0)
+		{
+			session.commit();
+		}
+		else
+		{
+			session.rollback();
+			throw new BillException("jumun Delete실패");
+		}
+		return 0;
+	}
+
 
 }
