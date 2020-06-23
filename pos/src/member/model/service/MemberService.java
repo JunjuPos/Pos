@@ -11,8 +11,14 @@ public interface MemberService {
 	
 	ArrayList<Member> selectMemberList(PageInfo pi);
 
-	Member selectMemberDetail(String mNo);
+
 
 	int insertMember(Member m);
+
+	Member selectMemberDetail(int mNo);
+
+	int updateMember(Member m, int mNo);
+
+	int updateMember(Member m);
 	
 }

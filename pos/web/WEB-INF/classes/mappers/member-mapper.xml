@@ -4,7 +4,7 @@
 
  
  	<resultMap type="member.model.vo.Member" id="memberResultSet">
- 		<id property="mNo" column="	M_NO"/>
+ 		<id property="mNo" column="M_NO"/>
  		<result property="company" column="COMPANY"/>
  		<result property="dept" column="DEPARTMENT"/>
  		<result property="phone" column="PHONE"/>
@@ -42,5 +42,24 @@
  		INSERT INTO MEMBER
  		VALUES(SEQ_MNO.NEXTVAL, #{company}, #{dept}, #{phone}, #{cMoney}, #{mDeposit}, #{status})
  	</insert>
+ 
+ 
+ 	<!-- updateMember -->
+ 	<update id="updateMember" parameterType="member.model.vo.Member">
+ 		UPDATE MEMBER
+ 		SET COMPANY=#{company},
+ 			DEPARTMENT=#{dept},
+ 			PHONE=#{phone},
+ 			C_MONEY=#{cMoney},
+ 			M_DEPOSIT=#{mDeposit},
+ 			M_YN=#{status}
+ 		WHERE M_NO=#{mNo}
+ 	</update>
+ 
+ 
+ 
+ 
+ 
+ 
  
 </mapper>

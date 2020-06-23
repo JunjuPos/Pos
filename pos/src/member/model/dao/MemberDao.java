@@ -44,7 +44,7 @@ public class MemberDao {
 	}
 
 
-	public Member selectMemberDetail(SqlSession session, String mNo) {
+	public Member selectMemberDetail(SqlSession session, int mNo) {
 		
 		Member m = null;
 		
@@ -53,6 +53,8 @@ public class MemberDao {
 		if(m == null) {
 			session.close();
 		}
+		
+//		System.out.println("dao에서 detail객체" + m);
 		
 		return m;
 	}
@@ -67,6 +69,25 @@ public class MemberDao {
 //		System.out.println("dao에서 result : " + result);
 		
 		if(result > 0) {
+			session.commit();
+		}else {
+			session.rollback();
+			session.close();
+		}
+		
+		return result;
+	}
+
+
+	public int updateMember(SqlSession session, Member m) {
+		
+		int result = 0;
+		
+		result = session.update("memberMapper.insertMember", m);
+		
+//		System.out.println("dao에서 update result : " + result);
+		
+		if(result>0) {
 			session.commit();
 		}else {
 			session.rollback();
