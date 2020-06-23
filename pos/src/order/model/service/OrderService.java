@@ -12,6 +12,7 @@ public interface OrderService {
 
 	List<OrderTotalPrice> selectOrderTotalList();
 	List<Menu> selectMenuList();
+	List<Menu> selectDrinkList();
 	List<OrderMenu> selectOrderList(String tableNo);
 	
 //	int insertOrderList(ArrayList<OrderMenu> orderList);

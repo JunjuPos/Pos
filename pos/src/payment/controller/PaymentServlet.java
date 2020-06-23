@@ -43,7 +43,7 @@ public class PaymentServlet extends HttpServlet {
 		System.out.println("tableNo : " + tableNo + ", resultPrice : " + resultPrice + ", price : " + price + ", payMethod : " + payMethod);
 		
 		//처음 최종 결제금액 가져오기
-		int fristPrice = paymentServiceImpl.paymentPrice(tableNo);
+		int originPrice = paymentServiceImpl.paymentPrice(tableNo);
 		
 		//해당 테이블의 메뉴, 메뉴합계 금액, 수량 가져오기
 		orderList = paymentServiceImpl.selectOrderList(tableNo);
@@ -76,7 +76,7 @@ public class PaymentServlet extends HttpServlet {
 			if(resultPrice == price)
 			{
 				//영수증 테이블 insert
-				int billInsert = paymentServiceImpl.billInsert(fristPrice, orderList);
+				int billInsert = paymentServiceImpl.billInsert(originPrice, orderList);
 				//payment insert
 
 				//jumun테이블에 해당 테이블번호의 데이터 delete

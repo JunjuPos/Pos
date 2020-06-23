@@ -36,16 +36,20 @@ public class OrderMenuList extends HttpServlet {
 		String tableNo = request.getParameter("tableNo");
 
 		List<Menu> menuList = oService.selectMenuList(); 
+		List<Menu> drinkList = oService.selectDrinkList();
 		List<OrderMenu> orderList = oService.selectOrderList(tableNo);
+		
 		
 		if(orderList.isEmpty()) {
 			request.setAttribute("orderList", orderList);
 			request.setAttribute("menuList", menuList);
+			request.setAttribute("drinkList", drinkList);
 			request.setAttribute("tableNo", tableNo);
 			request.getRequestDispatcher("/views/order/orderList.jsp").forward(request, response);
 		}else {
 			request.setAttribute("orderList", orderList);
 			request.setAttribute("menuList", menuList);
+			request.setAttribute("drinkList", drinkList);
 			request.setAttribute("tableNo", tableNo);
 			request.getRequestDispatcher("/views/order/orderList.jsp").forward(request, response);
 		}

@@ -24,6 +24,12 @@ public class OrderServiceImpl implements OrderService {
 		 */
 		return menuList;
 	}
+	
+	public List<Menu> selectDrinkList() {
+		SqlSession session = getSqlSession();
+		List<Menu> menuList = new OrderDao().selectDrinkList(session);
+		return menuList;
+	}
 
 	@Override
 	public List<OrderMenu> selectOrderList(String tableNo) {
