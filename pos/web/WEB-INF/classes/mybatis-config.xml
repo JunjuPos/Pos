@@ -9,6 +9,7 @@
 	</settings>
 	
 	<typeAliases>
+
 		<typeAlias type="order.model.vo.Order" alias="Order"/>
 		<typeAlias type="order.model.vo.OrderMenu" alias="OrderMenu"/>
 		<typeAlias type="menu.model.vo.Menu" alias="MENU"/>
@@ -27,10 +28,9 @@
 			</dataSource>
 		</environment>
 	</environments>
-	
 	<mappers>
 			<mapper resource="/mapper/order-mapper.xml"/>
 			<mapper resource="/mapper/sales-mapper.xml"/>
-			
+			<mapper resource="/mappers/member-mapper.xml"/>
 	</mappers>
 </configuration>

@@ -156,5 +156,4 @@
       <Context docBase="pos" path="/pos" reloadable="true" source="org.eclipse.jst.jee.server:pos"/></Host>
     </Engine>
   </Service>
->>>>>>> refs/remotes/origin/master
 </Server>
