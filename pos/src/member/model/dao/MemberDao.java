@@ -83,9 +83,9 @@ public class MemberDao {
 		
 		int result = 0;
 		
-		result = session.update("memberMapper.insertMember", m);
+		result = session.update("memberMapper.updateMember", m);
 		
-//		System.out.println("dao에서 update result : " + result);
+		System.out.println("dao에서 update result : " + result);
 		
 		if(result>0) {
 			session.commit();
