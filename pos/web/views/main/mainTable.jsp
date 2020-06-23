@@ -18,16 +18,18 @@
             .area1{background: white; color: black; height: 30px; line-height: 30px; font-size: 20px; font-weight: 600;padding-left:20px;}
 			a:link { color: red; text-decoration: none;}
  			a:visited { color: black; text-decoration: none;}
- 			a:hover { color: #fffff3; text-decoration: none;}          
+ 			a:hover { color: #fffff3; text-decoration: none;}
+ 			.orderTable{margin-top:150px;}          
         </style>
 </head>
 <body>
 		<jsp:include page="../common/header.jsp"/>
 		<jsp:include page="../common/menubar.jsp"/>
+		
         <section id="table">
             <article>
             <c:if test="${empty requestScope.list}">
-                <table>
+                <table class="orderTable">
                     <tr>
                         <c:url var="tableNo" value="/order/orderMenu"><c:param name="tableNo" value="1"/></c:url>
                         <td><button id="btn" class="table1 btn" type="button" onclick="location.href='${tableNo}'">1번 테이블</button></td>
@@ -73,7 +75,8 @@
                 </c:if> <!-- requestScope.zeroPrice == 0 일 때 -->
                 
                 <c:if test="${!empty requestScope.list}">
-                <table>
+                
+                <table class="orderTable">
                
                 
                     <tr>

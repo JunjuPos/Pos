@@ -3,17 +3,14 @@ package payment.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.corba.se.impl.protocol.RequestDispatcherRegistryImpl;
-
 import order.model.vo.OrderMenu;
-import payment.exception.BillException;
+import payment.exception.PaymentException;
 import payment.model.service.PaymentServiceImpl;
 import payment.model.vo.Bill;
 import payment.model.vo.Payment;
@@ -113,8 +110,11 @@ public class PaymentServlet extends HttpServlet {
 					int paymentInsert = paymentServiceImpl.paymentInsert(payment);
 					//jumun테이블에 해당 테이블번호의 데이터 delete
 					int jumunDelete = paymentServiceImpl.jumunDelete(tableNo);
+					//mainTable UPDATE
+					int mainTableUpdate = paymentServiceImpl.mainTableUpdate(tableNo);
 					
-				} catch (BillException e) {
+					
+				} catch (PaymentException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -127,6 +127,7 @@ public class PaymentServlet extends HttpServlet {
 			else if(resultPrice > price)
 			{
 				//payment insert
+				
 				
 			}
 		}

@@ -34,6 +34,10 @@
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml"/>
 		<mapper resource="/mapper/order-mapper.xml"/>
+<<<<<<< HEAD
 		<mapper resource="/mapper/payment_mapper.xml"/>
+=======
+		<mapper resource="/mappers/menu-mapper.xml"/>
+>>>>>>> refs/remotes/origin/master
 	</mappers>
 </configuration>

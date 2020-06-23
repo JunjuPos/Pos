@@ -41,6 +41,7 @@ public class OrderInsert extends HttpServlet {
 		List<OrderMenu> orderList = new ArrayList<>();
 		
 		int totalPrice = 0;
+		int totalUpdate = 0;
 		
 		String[] orderDate = request.getParameterValues("orderDate");
 		String[] orderMenu = request.getParameterValues("orderMenu");
@@ -75,19 +76,33 @@ public class OrderInsert extends HttpServlet {
 				}
 				
 			}	// for end
+			// 주문 목록 삽입
+			int result = oService.insertOrderList(orderList); 
+			
+			System.out.println("servlet totalPrice : " + totalPrice);
+			
+			// 합계금액 maintable update
+			otp = new OrderTotalPrice(Integer.valueOf(tableNo), Integer.valueOf(totalPrice));
+			totalUpdate = oService.updateTotalPrice(otp);
+			
+			System.out.println("OTP : " + otp);
+			
+			request.getRequestDispatcher("/main/mainView").forward(request, response);
 			
 		}else {	// 주문을 한채로 주문버튼을 눌렀을 때
+			totalPrice = 0;
+			
+			// 합계금액 maintable update
+			otp = new OrderTotalPrice(Integer.valueOf(tableNo), Integer.valueOf(totalPrice));
+			totalUpdate = oService.updateTotalPrice(otp);
+			
+			System.out.println("OTP : " + otp);
 			request.getRequestDispatcher("/main/mainView").forward(request, response);
+
+			
 		}
-		 System.out.println("servlet totalPrice : " + totalPrice);
-		 // 주문 목록 삽입
-		 int result = oService.insertOrderList(orderList); 
+		
 		 
-		 // 합계금액 maintable update
-		 otp = new OrderTotalPrice(Integer.valueOf(tableNo), Integer.valueOf(totalPrice));
-		 int totalUpdate = oService.updateTotalPrice(otp);
-	
-		 request.getRequestDispatcher("/main/mainView").forward(request, response);
 	}
 
 	/**

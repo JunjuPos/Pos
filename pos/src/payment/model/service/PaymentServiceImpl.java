@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import org.apache.ibatis.session.SqlSession;
 
 import order.model.vo.OrderMenu;
-import payment.exception.BillException;
 import payment.exception.PaymentException;
 import payment.model.dao.PaymentDao;
 import payment.model.vo.Bill;
@@ -36,7 +35,7 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public int billInsert(ArrayList<Bill> billList) throws BillException {
+	public int billInsert(ArrayList<Bill> billList) throws PaymentException {
 		SqlSession session = getSqlSession();
 		
 		int result = new PaymentDao().insertBill(session, billList);
@@ -45,7 +44,7 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public int paymentInsert(Payment payment) throws BillException {
+	public int paymentInsert(Payment payment) throws PaymentException {
 		SqlSession session = getSqlSession();
 		
 		int result = new PaymentDao().paymentInsert(session, payment);
@@ -54,10 +53,19 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 	@Override
-	public int jumunDelete(int tableNo) throws BillException {
+	public int jumunDelete(int tableNo) throws PaymentException {
 		SqlSession session = getSqlSession();
 		
 		int result = new PaymentDao().jumunDelete(session, tableNo);
+		return result;
+	}
+
+	@Override
+	public int mainTableUpdate(int tableNo) throws PaymentException {
+		SqlSession session = getSqlSession();
+		
+		int result = new PaymentDao().mainTableUpdate(session, tableNo);
+		
 		return result;
 	}
 

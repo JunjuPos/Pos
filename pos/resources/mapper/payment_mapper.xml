@@ -31,4 +31,8 @@
 	<delete id="jumunDelete" parameterType="_int">
 		DELETE FROM JUMUN WHERE TABLE_NO = #{tableNo}
 	</delete>
+	
+	<update id="mainTablePriceUpdate" parameterType="_int">
+		UPDATE MAINTABLE SET TOTAL_PRICE = 0 WHERE TABLE_NO = #{tableNo}
+	</update>
 </mapper>

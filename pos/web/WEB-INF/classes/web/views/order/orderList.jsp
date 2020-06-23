@@ -10,32 +10,36 @@
  <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
         <style>
             .middle{margin:0; margin-left:100px; width: 90%;}
-         h2{text-align:center; color:#fffff3;}
+         h1{text-align:center; color:#fffff3;}
             span{display: inline-block;}
 
             button{background: white; font-size: 20px; font-weight:700; width:180px; height: 71px; border-radius: 10px; }
-         button:hover{background:#A593E0; color:#fffff3; cursor:pointer;}
+         	button:hover{background:#A593E0; color:#fffff3; cursor:pointer;}
             #menuarea{width: 750px; height: 600px; background: rgb(46, 44, 44); color: white; border-radius: 10px; padding-top:-100px;}
             #menuarea>table{width: 750px; height:50px; border-collapse; font-size:20px;}
             #menuarea>table>tr>th{height:100px; width:150px; background: black; font-size:16px;}
             #menuarea>table>tr>td{text-align:center; height:20px; width:170px; font-size:16px;}
             
-         .orderInfo{text-align:center; height:20px; width:170px; font-size:16px; background: rgb(46, 44, 44); color:white; border:0px; }
+            #removeOrderBtn{width:80px; height:50px; font-size:18px;}
+       	   .orderInfo{text-align:center; height:20px; width:150px; font-size:16px; background: rgb(46, 44, 44); color:white; border:0px; }
          
-         .menuTable{width:800px;padding-left:50px; padding-top:15px;}
-         .menuTable td{display:inline-block;}
-            
+       	  .menuTable{width:800px;padding-left:50px; padding-top:15px;}
+       	  .menuTable td{display:inline-block;}
+       	     
             #pricearea{margin-left:452px; width: 300px; height: 50px; line-height: 30px; background: rgb(46, 44, 44); color: white; border-radius: 10px;}
-            #totalPrice{background:rgb(46, 44, 44); color:#fffff3; font-size:20px; border:0px; border-radius:10px;}
+            #totalPrice{background:rgb(46, 44, 44); color:#fffff3; font-size:20px; border:0px; border-radius:10px; margin-top:13px; width:90%; text-align:right;}
             
             .basicPrice{maigin:0px; padding:0px; width:0px; height:0px;}
+            
+            h2{color:#fffff3; margin-left:100px;}
         </style>
 </head>
 <body>
    <jsp:include page="../common/header.jsp"/>
    <jsp:include page="../common/menubar.jsp"/>
    
-      <h2>메뉴 주문</h2>
+      <h1 align="center">메뉴 주문</h1>
+      <h2 align="left">${tableNo}번 테이블</h2>  
         <section class="middle">
         
         	<!-- 주문 시작 -->
@@ -44,18 +48,20 @@
                     <div id="menuarea" style="overflow: auto;">
                         <table id="orderZone" class="orderZone">
                            <tr><input type="hidden" name="tableNo" value="${tableNo }"></tr>
-                            <tr><th>시간</th><th>메뉴</th><th>가격</th><th>수량</th></tr>
+                            <tr><th>시간</th><th>메뉴</th><th>가격</th><th>수량</th><th></th></tr>
                             <c:if test="${!empty requestScope.orderList}">
                                <c:forEach var = "o" items="${requestScope.orderList}">
                                <c:url var="orderNo" value="/order/orderInsert">
                                   <c:param name="orderDate" value="${o.ORDER_DATE}"/>
                                </c:url> 
-                               <tr>
-                               		 <input type="hidden" id="basicPrice" class="basicPrice" value="${o.PRICE }" name="orderBasic" readonly>
+                               <tr>	
+                               		
+                               		 <input type="hidden" id="basicPrice" class="basicPrice" value="${o.MENUPRICE }" name="orderBasic" readonly>
                                      <td><input type="text" id="orderDate" class="orderInfo" value="${o.ORDER_DATE }" name="orderDate" readonly></td>
                                      <td><input type="text" class="orderInfo" value="${o.MENU }" name="orderMenu" readonly></td>
                                      <td><input type="text" id="orderPrice" class="orderInfo orderPrice" value="${o.PRICE }" name="orderPrice" readonly></td>
-                                     <td><input type="number"  class="orderInfo orderAmount" min="1" value="${o.AMOUNT }"  name="orderAmount" ></td>   
+                                     <td><input type="number"  class="orderInfo orderAmount" min="1" value="${o.AMOUNT }"  name="orderAmount" ></td>
+                                     <td><button type="button" id="removeOrderBtn" >취소</button></td>   
                                </tr>
                             </c:forEach>
                             </c:if>
@@ -90,18 +96,17 @@
                         </c:forEach>
                        <tr>    
                        <!-- ★ 주류/음료 list새로 불러오기  -->
-                     <%--    <c:forEach var="m" items="${requestScope.menuList }">
-                        <c:if test=${m.CATEGORY eq '주류/음료'}>
-                        <tr>
-                            <td><button class="menu" value="${m.PRICE }" >${m.MENU }</button></td>
-                        </tr>
-                        </c:if>
-                        </c:forEach> --%>
+	                        <tr>
+			                      <c:forEach var="menu" items="${requestScope.drinkList }" varStatus="ml">
+			                        <c:if test="${drinkList[ml.index].CATEGORY eq '주류/음료'}">
+				                            <td><button class="menu" value="${drinkList[ml.index].PRICE }" >${drinkList[ml.index].MENU }</button></td>
+			                        </c:if>
+			                      </c:forEach> 
+	                        </tr>
                        
                         <tr>
-                            <td><button id="order" style="background: gray;" onclick="order();">주문</button></td>
-                            <td><button style="background: gray;">주문 취소</button></td>
-                            <td><button id="payment" style="background: gray;">결제</button></td>
+                            <td colspan="2"><button id="order" style="background: gray; width:365px;"  onclick="order();">주문</button></td>
+                            <td colspan="2"><button id="payment" style="background: gray; width:365px;">결제</button></td>
                         </tr>
                     </table>
                 </article>
@@ -123,6 +128,16 @@
                     $appendPrice = 0;	// append 된 가격
                     
                     
+                    // select된 것 totalPrice
+                 /*   	$('.orderPrice').each(function(){
+                   		total += (Number)($(this).val());
+                   		
+                   	})
+                   
+                   		console.log("total 가격 : " + total); */
+
+
+                    
                     $(".menu").click(function(){		// 메뉴를 클릭했을 때 주문칸에 메뉴와 가격 입력
                         
                         var d = new Date();
@@ -130,19 +145,20 @@
                         var menu = $(this).text();
                         var price = (Number)($(this).val());
                 		$input = $("<input type='hidden' class='basicPrice' name='basicPrice' value=" + (Number)($(this).val())+ " readonly>"); 
+                		$removeBtn = $("<td><button type='button' id='removeOrderBtn' >취소</button></td>");
 						$tr.prepend($input);
                         $tr.append(
                             "<td><input type='text' class='orderInfo' name='orderDate' value=  " + d.getFullYear()+(d.getMonth()+1)+d.getDate()+'-'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds() + " readonly></td>" + 
                             "<td><input type='text' class='orderInfo' name='orderMenu' value=  " + $(this).text() + " readonly></td>" +
                             "<td> <input type='text' class='orderInfo orderPrice' name='orderPrice' value=  " + (Number)($(this).val())+ " readonly></td>" +
-                            "<td><input type='number' class='orderInfo orderAmount' name='orderAmount' min='1' value='1'></td>" 
-                            
+                            "<td><input type='number' class='orderInfo orderAmount' name='orderAmount' min='1' value='1'></td>"                            
                         )
+                        $tr.append($removeBtn);
 
                         console.log("$input " + $input.val());
                         $orderZone.append($tr);
-
-                       
+						
+                    	
                     })
                       
                     $toPrice = (Number)($(this).parents().children().children().eq(2).val());
@@ -155,7 +171,7 @@
                        var $amount = (Number)($(this).val()); 											// 수량
                    		
                        $upPrice =  $basicPrice * $amount;
-                       $(this).parents().children().children().eq(2).val($upPrice);
+                        $(this).parents().children().children().eq(2).val($upPrice); 
                        
                        
                        // append 합계금액
@@ -167,32 +183,23 @@
                        $totalPrice.val(total);   */
                    })
                    
-
                    
-                    $(document).on("mouseenter",".orderPrice",function(){	
+				// ★ 되는 합계 코드
+                    
+                    $(document).on("mouseenter","#orderform",function(){	
                     	 $appendPrice = 0;
                     	  $('.orderPrice').each(function(){
                     		  
                        	   $appendPrice += (Number)($(this).val());
                        	   
                        	   })
-                       	   
                        	 console.log("$appendPrice : " + $appendPrice);
                     	  $totalPrice.val($appendPrice);
                        	  
                    })
+                    
                    
-                   
-                // select된 것 totalPrice
-               	
-               	
-               	$('.orderPrice').each(function(){
-               		total += (Number)($(this).val());
-               		
-               	})
-               		console.log("total 가격 : " + total);
-
-
+      
                    $("#payment").click(function(){
                 	   var tableNo = $('input[name=tableNo]').val();
                 	   location.href="<%=request.getContextPath()%>/paymentSelect?tableNo=" + tableNo;
@@ -206,9 +213,14 @@
                     $("#orderform").submit();
                 }
                 
-                	
+
+				$("removeOrderBtn").click(function(){
+					$(this).closest('tr').remove();
+				})
                
-               
+               	$(document).on("click","#removeOrderBtn",function(){
+               		$(this).closest('tr').remove();
+               	})
         </script>
 </body>
 </html>

@@ -36,8 +36,6 @@
 	<%@ include file="/views/common/header.jsp" %>
 	<%@ include file="/views/common/menubar.jsp" %>
 	
-	
-	
 	<div id="memberArea">
 		<h1 align="center">고객관리</h1>
 		<br>
