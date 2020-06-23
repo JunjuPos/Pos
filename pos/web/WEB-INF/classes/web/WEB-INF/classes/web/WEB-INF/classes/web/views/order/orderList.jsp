@@ -140,40 +140,15 @@
                     
                     $(".menu").click(function(){		// 메뉴를 클릭했을 때 주문칸에 메뉴와 가격 입력
                         
-                    	// 시간 포맷
-                    	Date.prototype.yyyymmdd = function(){
-                    		
-                    		var mm = this.getMonth() + 1;
-                    		var dd = this.getDate();
-                    		
-                    		return [this.getFullYear(),"-", (mm > 9 ? '' : '0') + mm, "-", (dd > 9 ? '' : '0') + dd  ].join('');
-                    	}
-                    	Date.prototype.hhmmss = function(){
-                    		var hh = this.getHours();
-                    		var mm = this.getMinutes();
-                    		var ss = this.getSeconds();
-                    		
-                    		return [(hh > 9 ? '' : '0') + hh, ":", (mm > 9 ? '' : '0') + mm, ":", (ss > 9 ? '' : '0') + ss].join(''); 
-                    	}
-                    	Date.prototype.yyyymmddhhmmss = function(){
-                    		return this.yyyymmdd() + this.hhmmss();
-                    	}
-                    	
-                    	
                         var d = new Date();
-                        var $date = d.yyyymmdd();
-                        var $time = d.hhmmss();
-
                         var $tr = $("<tr>");
                         var menu = $(this).text();
                         var price = (Number)($(this).val());
-                        var orderDate =  d.getFullYear()+(d.getMonth()+1)+d.getDate()+'-'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds() 
                 		$input = $("<input type='hidden' class='basicPrice' name='basicPrice' value=" + (Number)($(this).val())+ " readonly>"); 
                 		$removeBtn = $("<td><button type='button' id='removeOrderBtn' >취소</button></td>");
 						$tr.prepend($input);
                         $tr.append(
-                            /* "<td><input type='text' class='orderInfo' name='orderDate' value=  " + d.getFullYear()+(d.getMonth()+1)+d.getDate()+'-'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds() + " readonly></td>" + */
-                            "<td><input type='text' class='orderInfo' name='orderDate' value=  " + $date + "&nbsp;"+ $time +  " readonly></td>" +
+                            "<td><input type='text' class='orderInfo' name='orderDate' value=  " + d.getFullYear()+(d.getMonth()+1)+d.getDate()+'-'+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds() + " readonly></td>" + 
                             "<td><input type='text' class='orderInfo' name='orderMenu' value=  " + $(this).text() + " readonly></td>" +
                             "<td> <input type='text' class='orderInfo orderPrice' name='orderPrice' value=  " + (Number)($(this).val())+ " readonly></td>" +
                             "<td><input type='number' class='orderInfo orderAmount' name='orderAmount' min='1' value='1'></td>"                            

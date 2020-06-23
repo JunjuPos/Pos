@@ -98,15 +98,8 @@
 			FROM DUAL 
 		</foreach>
 		)J
-	</insert> 
-	<!--
-	 <insert id="insertOrderList" parameterType="java.util.List">
-      <foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
-      INTO JUMUN(ORDER_NO, MENU, AMOUNT, ORDER_DATE, TABLE_NO, PAY_YN) 
-      VALUES(SEQ_JUMUN.NEXTVAL, #{item.MENU}, #{item.AMOUNT}, TO_CHAR(TO_DATE(SYSDATE,'YYYY-MM-DD HH24:MI:SS')), #{item.TABLE_NO}, 'N')
-      </foreach>
-     </insert>
- -->	
+	</insert>
+	
 	<update id="updateTotalPrice" parameterType="OrderTotalPrice">
 		UPDATE MAINTABLE SET TOTAL_PRICE = #{TOTAL_PRICE} WHERE TABLE_NO = #{TABLE_NO}
 	</update>
