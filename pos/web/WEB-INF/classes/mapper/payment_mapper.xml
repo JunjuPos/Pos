@@ -12,17 +12,33 @@
 		<result property="pay_row" column="PAY_ROW"/>
 	</resultMap>
 	
-	<insert id="billInsert" parameterType="java.util.List">
-		INSERT INTO BILL(BILL_ROW, BI_NO, MENU, PRICE, TOTALPRICE, AMOUNT, PAY_ROW)
+	
+	 <!-- <insert id="billInsert" parameterType="java.util.List">
+		INSERT INTO BILL(BILL_ROW, BI_NO, MENU, PRICE, TOTALPRICE, AMOUNT, BILL_DATE PAY_ROW)
 		SELECT SEQ_BILLROW.NEXTVAL, SEQ_BNO.NEXTVAL, B.*
 		FROM (
 		<foreach collection="list" item="item" index="ix" separator="UNION ALL" >
-			SELECT #{item.menu}, #{item.price}, #{item.totalPrice}, #{item.amount}, 0
+			SELECT #{item.menu}, #{item.price}, #{item.totalPrice}, #{item.amount}, SYSDATE, 0
 			FROM DUAL
 		</foreach>
 		)B
+	</insert> -->
+	
+	<insert id="billInsert" parameterType="java.util.List">
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
+		INSERT INTO BILL(BILL_ROW, BI_NO, MENU, PRICE, TOTALPRICE, AMOUNT, BILL_DATE , PAY_ROW)
+		VALUES(SEQ_BILLROW.NEXTVAL, SEQ_BNO.NEXTVAL, #{item.menu}, #{item.price}, #{item.totalPrice}, #{item.amount}, SYSDATE, 0)
+		</foreach>
 	</insert>
 	
+	<!-- <insert id="insertOrderList" parameterType="java.util.List">
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
+			INTO JUMUN(ORDER_NO, MENU, AMOUNT, ORDER_DATE, TABLE_NO, PAY_YN) 
+			VALUES(SEQ_JUMUN.NEXTVAL, #{item.MENU}, #{item.AMOUNT}, TO_CHAR(TO_DATE(SYSDATE,'YYYY-MM-DD HH24:MI:SS')), #{item.TABLE_NO}, 'N')
+		</foreach>
+	</insert>  -->
+	 
+	 
 	<insert id="paymentInsert" parameterType="Payment">
 		INSERT INTO PAYMENT
 		VALUES(SEQ_PAYROW.NEXTVAL, SEQ_PAYNO.NEXTVAL, SYSDATE, #{pay_method}, 'Y', #{price}, #{total_Price})
