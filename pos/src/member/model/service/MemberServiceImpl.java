@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public Member selectMemberDetail(String mNo) {
+	public Member selectMemberDetail(int mNo) {
 		SqlSession session = getSqlSession();
 		
 		Member m = null;
@@ -55,7 +55,28 @@ public class MemberServiceImpl implements MemberService{
 		
 		int result = new MemberDao().insertMember(session,m);
 		
+		session.close();
+		
 		return result;
+	}
+
+	@Override
+	public int updateMember(Member m) {
+		
+		SqlSession session = getSqlSession();
+		
+		int result = new MemberDao().updateMember(session, m);
+		
+		session.close();
+		
+		return result;
+	}
+
+
+	@Override
+	public int updateMember(Member m, int mNo) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

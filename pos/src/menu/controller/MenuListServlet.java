@@ -2,7 +2,9 @@ package menu.controller;
 
 
 import static common.MenuPagination.getPageInfo;
+
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -11,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.vo.PageInfo;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import menu.model.service.MenuServiceImpl;
 import menu.model.vo.Menu;
 import menu.model.vo.MenuPageInfo;
@@ -53,10 +57,35 @@ public class MenuListServlet extends HttpServlet {
 //		System.out.println(list.get(3).getCATE_NO());
 		
 		
-		request.setAttribute("pi", pi);
-		request.setAttribute("mnlist", list);
-		request.getRequestDispatcher("views/menu/menuList.jsp").forward(request, response);
+//		request.setAttribute("pi", pi);
+//		request.setAttribute("mnlist", list);
+//		request.getRequestDispatcher("views/menu/menuList.jsp").forward(request, response);
 	
+//		response.setContentType("application/json;charset=utf-8");
+//		
+//		new Gson().toJson(list,response.getWriter());
+		
+		JSONObject userObj = null;
+		JSONArray userArray = new JSONArray();
+		
+		for(Menu mn : list) {
+			userObj = new JSONObject();
+			
+			userObj.put("MENU", mn.getMENU());
+			userObj.put("CATEGORY", mn.getCATEGORY());
+		
+			userArray.add(userObj);
+		}
+		
+		response.setContentType("application/json;charset=utf-8");
+		
+		PrintWriter out = response.getWriter();
+		System.out.println("userArray는? : " + userArray);
+		out.print(userArray);
+		out.flush();
+		out.close();
+		
+		
 	}
 
 	/**
