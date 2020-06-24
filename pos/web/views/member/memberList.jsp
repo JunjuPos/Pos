@@ -8,7 +8,6 @@
 	String insertMsg = (String)request.getAttribute("insertMsg");
 	
 	String updateMsg = (String)request.getAttribute("updateMsg");
-	
 %>   
 <!DOCTYPE html>
 <html>
@@ -54,7 +53,7 @@
 			<label>검색조건</label>
 			&nbsp;
 			<select id="searchCondition" name="searchCondition">
-				<option>------------------</option>	
+				<option value="">------------------</option>	
 				<option value="cName">회사명</option>
 				<option value="dept">부서명</option>
 			</select>
@@ -216,15 +215,21 @@
 		
 		// 검색 기능
 		function searchMember(){
-			var searchCondition = $("#searchCondition").val();
-			var searchValue = $("#searchValue").val();
-			
+			  var searchCondition = $("#searchCondition").val();
+			  var searchValue = $("#searchValue").val();
+			  
+			  // ------ 선택하고 입력했을 때
+			  if(searchCondition === ""){
+				  alert("검색 옵션을 선택하세요.");
+				  	return;
+			  }
+			  
 			location.href="<%=request.getContextPath()%>/memberSearch.me?searchCondition=" + searchCondition
 					+ "&searchValue=" + searchValue;
-		}
+		};
 		
 		
-		
+	
 	</script>
 	
 	
