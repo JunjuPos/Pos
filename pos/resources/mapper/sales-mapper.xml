@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="salesMapper">
+ 	<select id="selectSalesMenuList" resultMap="selectSalesMenu">
+		SELECT MENU, SUM(AMOUNT) AS COUNT, SUM(AMOUNT * PRICE) AS PRICE
+		FROM BILL
+		GROUP BY MENU
+	</select> 
+	<resultMap type="SalesTotalMenu" id="selectSalesMenu">
+		<id property="salesMenu" column="MENU"/>
+		<result property="salesCount" column="COUNT"/>
+		<result property="salesCountPrice" column="PRICE"/>
+	</resultMap>
+
+
+	<resultMap type="SalesTotalPrice" id="salesTotalList">
+		<id property="salesDate" column="PAY_DATE"/>
+		<result property="salesTotal" column="PRICE"/>
+	</resultMap>
+	
+	<select id="selectSalesTotalPriceList" resultMap="salesTotalList">
+		SELECT PAY_DATE,SUM(TOTAL_PRICE) AS PRICE
+		FROM PAYMENT
+		GROUP BY PAY_DATE
+	</select>
+
+	<select id="selectSalesCardTotalPriceList" resultMap="salesTotalList">
+		SELECT PAY_DATE,SUM(TOTAL_PRICE) AS PRICE
+		FROM PAYMENT
+		WHERE PAY_METHOD='카드'
+		GROUP BY PAY_DATE
+	</select>
+
+	<select id="selectSalesCashTotalPriceList" resultMap="salesTotalList">
+		SELECT PAY_DATE,SUM(TOTAL_PRICE) AS PRICE
+		FROM PAYMENT
+		WHERE PAY_METHOD='현금'
+		GROUP BY PAY_DATE
+	</select>
+
+	<select id="selectSalesCreditTotalPriceList" resultMap="salesTotalList">
+		SELECT PAY_DATE,SUM(TOTAL_PRICE) AS PRICE
+		FROM PAYMENT
+		WHERE PAY_METHOD='외상'
+		GROUP BY PAY_DATE
+	</select>
+
+	
+</mapper>
