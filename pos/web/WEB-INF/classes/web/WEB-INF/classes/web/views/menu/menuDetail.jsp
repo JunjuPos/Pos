@@ -21,8 +21,8 @@
 </style>
 </head>
 <body>
-	<jsp:include page="${contextPath }/views/common/header.jsp"/>
-	<jsp:include page="${contextPath }/views/common/menubar.jsp"/>
+	<%@ include file="/views/common/header.jsp" %>
+	<%@ include file="/views/common/menubar.jsp" %>
 	
 	
 	<div id="menuArea">
