@@ -65,8 +65,8 @@
 	</div>
 	
 	<div class="payment" id="inputArea">
-		<p><label>회사명 : </label><input type="text" name="company"></p>
-		<p><label>부서명 : </label><input type="text" name="department"></p>
+		<p><label>회사명 : </label><input type="text" id="company" name="company"></p>
+		<p><label>부서명 : </label><input type="text" id="department" name="department"></p>
 		<p><label>결제 금액 : </label><input type="text" id="price" name="price" style="text-align:right;"></p>
 		<p><label>결제 시간 : </label><input type="text" id="payment_toDate" readonly></p>
 		<br clear="both">
@@ -117,10 +117,12 @@
 					url : "<%=request.getContextPath()%>/payment",
 					data: {resultPrice:$resultPrice, price:$price, payMethod:"cash", tableNo:$tableNo},
 					success:function(data){
-						
+						$("#price").val("");
+						$number = 0;
+						$("#resultPrice").val(data.resultPrice);
 					},
 					error:function(data){
-						
+						alert("결제 실패!");
 					}
 				});				
 			}
@@ -129,24 +131,27 @@
 			}
 			else{
 				alert("총 결제금액보다 많습니다.");
-				$("#price").val("");
+				$("#price").val(0);
 				$("#price").focus();
 			}
 		})
+		
 		$("#card").click(function(){	//카드 결제
 			$resultPrice = (Number)($("#resultPrice").val());
 			$price = (Number)($("#price").val());
 			$tableNo = (Number)($("#tableNo").val());
-			if($resultPrice >= $price){
+			if($resultPrice > $price){
 				$.ajax({
 					type:"get",
 					url : "<%=request.getContextPath()%>/payment",
 					data: {resultPrice:$resultPrice, price:$price, payMethod:"card", tableNo:$tableNo},
 					success:function(data){
-						
+						$("#price").val("");
+						$number = 0;
+						$("#resultPrice").val(data.resultPrice);
 					},
 					error:function(data){
-						
+						alert("결제 실패!");
 					}
 				});
 			}
@@ -160,29 +165,34 @@
 			}
 		})
 		$("#credit").click(function(){	//외상
-			$resultPrice = (Number)($("#resultPrice").val());
-			$price = (Number)($("#price").val());
-			$tableNo = (Number)($("#tableNo").val());
-			if($resultPrice >= $price){
-				$.ajax({
-					type:"get",
-					url : "<%=request.getContextPath()%>/payment",
-					data: {resultPrice:$resultPrice, price:$price, payMethod:"credit", tableNo:$tableNo},
-					success:function(data){
-						
-					},
-					error:function(data){
-						
-					}
-				});				
-			}
-			else if($resultPrice == $price){
-				location.href="<%=request.getContextPath()%>/payment?resultPrice=" + $resultPrice + "&price=" + $price + "&tableNo=" + $tableNo + "&payMethod=credit";
+			if($("#company").val() == '' || $("#department").val() == '' ){
+				alert("company null");
 			}
 			else{
-				alert("총 결제금액보다 많습니다.");
-				$("#price").val("");
-				$("#price").focus();
+				$resultPrice = (Number)($("#resultPrice").val());
+				$price = (Number)($("#price").val());
+				$tableNo = (Number)($("#tableNo").val());
+				if($resultPrice > $price){
+					$.ajax({
+						type:"get",
+						url : "<%=request.getContextPath()%>/payment",
+						data: {resultPrice:$resultPrice, price:$price, payMethod:"credit", tableNo:$tableNo},
+						success:function(data){
+							
+						},
+						error:function(data){
+							
+						}
+					});				
+				}
+				else if($resultPrice == $price){
+					location.href="<%=request.getContextPath()%>/payment?resultPrice=" + $resultPrice + "&price=" + $price + "&tableNo=" + $tableNo + "&payMethod=credit";
+				}
+				else{
+					alert("총 결제금액보다 많습니다.");
+					$("#price").val("");
+					$("#price").focus();
+				}		
 			}
 		})
 	})

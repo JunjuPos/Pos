@@ -1,6 +1,7 @@
 package payment.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -8,6 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 
 import order.model.vo.OrderMenu;
 import payment.exception.PaymentException;
@@ -127,7 +130,25 @@ public class PaymentServlet extends HttpServlet {
 			else if(resultPrice > price)
 			{
 				//payment insert
-//				int paymentInsert = paymentServiceImpl.paymentInsert(payment);
+				try {
+					int paymentInsert = paymentServiceImpl.paymentInsert(payment);
+					
+					int returnPrice = resultPrice - price;
+					
+					JSONObject userObj = new JSONObject();
+					
+					userObj.put("resultPrice", returnPrice);
+					
+					response.setContentType("application/json;charset=utf-8");
+					
+					PrintWriter out = response.getWriter();
+					out.print(userObj);
+					out.flush();
+					out.close();
+				} catch (PaymentException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 		}

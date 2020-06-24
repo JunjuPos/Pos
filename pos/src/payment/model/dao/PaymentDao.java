@@ -62,13 +62,13 @@ public class PaymentDao {
 		if(result > 0)
 		{
 			session.commit();
+			return result;
 		}
 		else
 		{
 			session.rollback();
 			throw new PaymentException("payment insert실패");
 		}
-		return 0;
 	}
 
 	public int jumunDelete(SqlSession session, int tableNo) throws PaymentException {
