@@ -44,12 +44,10 @@ public class PaymentSelectServlet extends HttpServlet {
 		
 		if(!orderList.isEmpty())
 		{
-			
-			request.setAttribute("tableNo", tableNo);
-			request.setAttribute("totalPrice", totalPrice);
-			request.setAttribute("orderList", orderList);
-			request.getRequestDispatcher("/views/payment/payment.jsp").forward(request, response);
-			
+			request.setAttribute("tableNo", tableNo);		//테이블 번호
+			request.setAttribute("totalPrice", totalPrice);	//테이블 총 가격
+			request.setAttribute("orderList", orderList);	//주문 리스트
+			request.getRequestDispatcher("/views/payment/payment.jsp").forward(request, response);	
 		}
 		else
 		{

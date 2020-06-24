@@ -4,7 +4,7 @@
 
  
  	<resultMap type="member.model.vo.Member" id="memberResultSet">
- 		<id property="mNo" column="	M_NO"/>
+ 		<id property="mNo" column="M_NO"/>
  		<result property="company" column="COMPANY"/>
  		<result property="dept" column="DEPARTMENT"/>
  		<result property="phone" column="PHONE"/>
@@ -42,5 +42,56 @@
  		INSERT INTO MEMBER
  		VALUES(SEQ_MNO.NEXTVAL, #{company}, #{dept}, #{phone}, #{cMoney}, #{mDeposit}, #{status})
  	</insert>
+ 
+ 
+ 	<!-- updateMember -->
+ 	<update id="updateMember" parameterType="member.model.vo.Member">
+ 		UPDATE MEMBER
+ 		SET COMPANY=#{company},
+ 			DEPARTMENT=#{dept},
+ 			PHONE=#{phone},
+ 			C_MONEY=#{cMoney},
+ 			M_DEPOSIT=#{mDeposit},
+ 			M_YN=#{status}
+ 		WHERE M_NO=#{mNo}
+ 	</update>
+ 
+ 
+ 	<!-- searchListCount -->
+ 	<select id="selectSearchResultListCount" parameterType="member.model.vo.SearchCondition" resultType="_int">
+ 		SELECT COUNT(*)
+ 		FROM MEMBER
+ 			<if test="cName != null">
+ 			WHERE COMPANY LIKE '%' || #{cName} || '%'
+ 			</if> 
+ 			<if test="dept != null">
+ 			AND DEPARTMENT LIKE '%' || #{dept} || '%'
+ 			</if>
+ 	</select>
+ 
+ 
+ 	<!-- searchList -->
+ 	<select id="selectSearchResultList" parameterType="member.model.vo.SearchCondition" resultMap="memberResultSet">
+ 		SELECT *
+ 		FROM MEMBER
+ 			<choose>
+ 				<when test="cName != null">
+ 					WHERE COMPANY LIKE '%' || #{cName} || '%'
+ 				</when>
+ 				<otherwise>
+ 					AND DEPARTMENT LIKE '%' || #{dept} || '%'
+ 				</otherwise>
+ 			</choose>
+ 		ORDER BY M_NO
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 
  
 </mapper>

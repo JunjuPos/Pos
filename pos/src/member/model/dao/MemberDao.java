@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import member.model.vo.Member;
 import member.model.vo.PageInfo;
+import member.model.vo.SearchCondition;
 
 public class MemberDao {
 
@@ -44,7 +45,7 @@ public class MemberDao {
 	}
 
 
-	public Member selectMemberDetail(SqlSession session, String mNo) {
+	public Member selectMemberDetail(SqlSession session, int mNo) {
 		
 		Member m = null;
 		
@@ -53,6 +54,8 @@ public class MemberDao {
 		if(m == null) {
 			session.close();
 		}
+		
+//		System.out.println("dao에서 detail객체" + m);
 		
 		return m;
 	}
@@ -74,6 +77,58 @@ public class MemberDao {
 		}
 		
 		return result;
+	}
+
+
+	public int updateMember(SqlSession session, Member m) {
+		
+		int result = 0;
+		
+		result = session.update("memberMapper.updateMember", m);
+		
+		System.out.println("dao에서 update result : " + result);
+		
+		if(result>0) {
+			session.commit();
+		}else {
+			session.rollback();
+			session.close();
+		}
+		
+		return result;
+	}
+
+
+	public int getResultListCount(SqlSession session, SearchCondition sc) {
+		
+		int listCount = 0;
+		
+		listCount = session.selectOne("memberMapper.selectSearchResultListCount", sc);
+		
+		System.out.println("dao에서 검색 리스트 갯수 : " + listCount);
+		
+		
+		return listCount;
+	}
+
+
+	public ArrayList<Member> selectSearchResultList(SqlSession session, SearchCondition sc, PageInfo pi) {
+		
+		ArrayList<Member> list = null;
+		
+		int offset = (pi.getCurrentPage()-1) * pi.getMemberLimit();
+		
+		RowBounds rowBounds= new RowBounds(offset,pi.getMemberLimit());
+		
+		list = (ArrayList)session.selectList("memberMapper.selectSearchResultList", sc, rowBounds);
+		
+		System.out.println("dao에서 검색 리스트 : " + list);
+		
+		if(list.isEmpty()) {
+			session.close();
+		}
+		
+		return list;
 	}
 
 }

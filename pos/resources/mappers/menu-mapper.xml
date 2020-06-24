@@ -11,10 +11,10 @@
   
   
   <!-- menuList -->
-  <select id="selectMenuList" resultType="menu.model.vo.Menu">
+  <select id="selectMenuList" parameterType="_int" resultType="menu.model.vo.Menu">
   	SELECT *
   	FROM MENU
-  	ORDER BY CATE_NO
+  	WHERE CATE_NO=#{option}
   </select>
   
   

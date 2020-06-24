@@ -105,12 +105,13 @@
 			$("#price").val($number);
 		})
 		
+		
 		$("#cash").click(function(){	//현금 결제 버튼
 			$resultPrice = (Number)($("#resultPrice").val());
 			$price = (Number)($("#price").val());
 			$tableNo = (Number)($("#tableNo").val());
 			
-			if($resultPrice >= $price){
+			if($resultPrice > $price){
 				$.ajax({
 					type:"get",
 					url : "<%=request.getContextPath()%>/payment",
@@ -122,6 +123,9 @@
 						
 					}
 				});				
+			}
+			else if($resultPrice == $price){
+				location.href="<%=request.getContextPath()%>/payment?resultPrice=" + $resultPrice + "&price=" + $price + "&tableNo=" + $tableNo + "&payMethod=cash";
 			}
 			else{
 				alert("총 결제금액보다 많습니다.");
@@ -146,6 +150,9 @@
 					}
 				});
 			}
+			else if($resultPrice == $price){
+				location.href="<%=request.getContextPath()%>/payment?resultPrice=" + $resultPrice + "&price=" + $price + "&tableNo=" + $tableNo + "&payMethod=card";
+			}
 			else{
 				alert("총 결제금액보다 많습니다.");
 				$("#price").val("");
@@ -168,6 +175,9 @@
 						
 					}
 				});				
+			}
+			else if($resultPrice == $price){
+				location.href="<%=request.getContextPath()%>/payment?resultPrice=" + $resultPrice + "&price=" + $price + "&tableNo=" + $tableNo + "&payMethod=credit";
 			}
 			else{
 				alert("총 결제금액보다 많습니다.");
