@@ -69,6 +69,7 @@ google.charts.load('current', {'packages':['bar','corechart']});
 	   	    	         		price = stm.getSalesCountPrice();
 			   	         		/* System.out.println(m.getMENU()+"/"+stm.getSalesMenu());
 			   	         		System.out.println(stm.getSalesMenu()+"/"+stm.getSalesCount()); */
+			   	         		break;
 	   	         			}else{
 	   	         				menu=m.getMENU();
 	   	         				count=0;

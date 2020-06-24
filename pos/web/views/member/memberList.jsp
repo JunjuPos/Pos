@@ -7,6 +7,8 @@
 	
 	String insertMsg = (String)request.getAttribute("insertMsg");
 	
+	String updateMsg = (String)request.getAttribute("updateMsg");
+	
 %>   
 <!DOCTYPE html>
 <html>
@@ -36,11 +38,21 @@
 	<%@ include file="/views/common/header.jsp" %>
 	<%@ include file="/views/common/menubar.jsp" %>
 	
-	
-	
 	<div id="memberArea">
 		<h1 align="center">고객관리</h1>
 		<br>
+		
+		<!-- 검색 부분 -->
+		<div id="searchArea" align="center">
+			<label>검색조건</label>
+			<select id="searchCondition" name="searchCondition">
+				<option>검색조건</option>	
+				
+			
+			</select>
+		</div>
+		
+		
 		<table>
 			<tr>
 				<th id="firstTh">번호</th><th>회사명</th><th>부서명</th><th>연락처</th><th>외상금액</th><th>선불금액</th><th>탈퇴여부</th>
@@ -144,6 +156,12 @@
 		<%if(insertMsg != null){%>
 			alert("<%=insertMsg%>");
 		<%}%>
+		
+		
+		<%if(updateMsg != null){%>
+			alert("<%=updateMsg%>");
+		<%}%>
+		
 		
 	</script>
 	

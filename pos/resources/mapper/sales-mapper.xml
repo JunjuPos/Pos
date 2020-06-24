@@ -11,37 +11,39 @@
 		<result property="salesCount" column="COUNT"/>
 		<result property="salesCountPrice" column="PRICE"/>
 	</resultMap>
+
+
+	<resultMap type="SalesTotalPrice" id="salesTotalList">
+		<id property="salesDate" column="PAY_DATE"/>
+		<result property="salesTotal" column="PRICE"/>
+	</resultMap>
 	
-	<select id="selectSalesTotalPriceList" resultMap="salesTotalPriceList">
+	<select id="selectSalesTotalPriceList" resultMap="salesTotalList">
 		SELECT PAY_DATE,SUM(TOTAL_PRICE) AS PRICE
 		FROM PAYMENT
 		GROUP BY PAY_DATE
 	</select>
-	<resultMap type="SalesTotalPrice" id="salesTotalPriceList">
-		<id property="salesDate" column="PAY_DATE"/>
-		<result property="salesTotal" column="PRICE"/>
-	</resultMap>
 
-	<select id="selectSalesCardTotalPriceList" resultMap="salesCardTotalPriceList">
+	<select id="selectSalesCardTotalPriceList" resultMap="salesTotalList">
 		SELECT PAY_DATE,SUM(TOTAL_PRICE) AS PRICE
 		FROM PAYMENT
 		WHERE PAY_METHOD='카드'
 		GROUP BY PAY_DATE
 	</select>
-	<resultMap type="SalesTotalPrice" id="salesCardTotalPriceList">
-		<id property="salesDate" column="PAY_DATE"/>
-		<result property="salesTotal" column="PRICE"/>
-	</resultMap>
 
-	<select id="selectSalesCashTotalPriceList" resultMap="salesCashTotalPriceList">
+	<select id="selectSalesCashTotalPriceList" resultMap="salesTotalList">
 		SELECT PAY_DATE,SUM(TOTAL_PRICE) AS PRICE
 		FROM PAYMENT
 		WHERE PAY_METHOD='현금'
 		GROUP BY PAY_DATE
 	</select>
-	<resultMap type="SalesTotalPrice" id="salesCashTotalPriceList">
-		<id property="salesDate" column="PAY_DATE"/>
-		<result property="salesTotal" column="PRICE"/>
-	</resultMap>
+
+	<select id="selectSalesCreditTotalPriceList" resultMap="salesTotalList">
+		SELECT PAY_DATE,SUM(TOTAL_PRICE) AS PRICE
+		FROM PAYMENT
+		WHERE PAY_METHOD='외상'
+		GROUP BY PAY_DATE
+	</select>
+
 	
 </mapper>

@@ -13,11 +13,22 @@ public class Menu implements Serializable{
 	private String MENU_YN;
 	private String CATEGORY;
 	
+	private int CATE_NO;
+	private int inPrice;
+	
+	
 	public Menu() {
 		super();
 	}
-
 	
+	public Menu(String mENU, String mENU_YN, String cATEGORY, int cATE_NO, int inPrice) {
+		MENU = mENU;
+		MENU_YN = mENU_YN;
+		CATEGORY = cATEGORY;
+		CATE_NO = cATE_NO;
+		this.inPrice = inPrice;
+	}
+
 	public Menu(String mENU, String pRICE, String mENU_YN, String cATEGORY) {
 		super();
 		MENU = mENU;
@@ -26,12 +37,32 @@ public class Menu implements Serializable{
 		CATEGORY = cATEGORY;
 	}
 
+	
+	
+	public Menu(String mENU, String pRICE, String mENU_YN, String cATEGORY, int cATE_NO) {
+		MENU = mENU;
+		PRICE = pRICE;
+		MENU_YN = mENU_YN;
+		CATEGORY = cATEGORY;
+		CATE_NO = cATE_NO;
+	}
+
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
 	
+	
+	public int getCATE_NO() {
+		return CATE_NO;
+	}
+
+
+	public void setCATE_NO(int cATE_NO) {
+		CATE_NO = cATE_NO;
+	}
+
 
 	public String getMENU() {
 		return MENU;
@@ -65,13 +96,32 @@ public class Menu implements Serializable{
 		CATEGORY = cATEGORY;
 	}
 
-	@Override
-	public String toString() {
-		return "Menu [MENU=" + MENU + ", PRICE=" + PRICE + ", MENU_YN=" + MENU_YN + ", CATEGORY=" + CATEGORY + "]\n";
+	
+	
+	
+	public int getInPrice() {
+		return inPrice;
 	}
 
-	
-	
+
+
+
+	public void setInPrice(int inPrice) {
+		this.inPrice = inPrice;
+	}
+
+
+
+
+	@Override
+	public String toString() {
+		return "Menu [MENU=" + MENU + ", PRICE=" + PRICE + ", MENU_YN=" + MENU_YN + ", CATEGORY=" + CATEGORY
+				+ ", CATE_NO=" + CATE_NO + ", inPrice=" + inPrice + "]";
+	}
+
+
+
+
 
 	
 

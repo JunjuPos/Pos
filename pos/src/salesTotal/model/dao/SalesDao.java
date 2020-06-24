@@ -32,6 +32,10 @@ public class SalesDao {
 		return CashTotalPriceList;
 	}
 
+	public List<SalesTotalPrice> salesCreditTotalPrice(SqlSession session) {
+		List<SalesTotalPrice> CreditTotalPriceList = session.selectList("salesMapper.selectSalesCreditTotalPriceList");
+		return CreditTotalPriceList;
+	}
 	public List<SalesTotalMenu> selectMenuCountList(SqlSession session) {
 		List<SalesTotalMenu> menuCountList = session.selectList("salesMapper.selectSalesMenuList");
 		return menuCountList;
@@ -41,5 +45,6 @@ public class SalesDao {
 		List<Menu> menu = session.selectList("orderMapper.menuList");
 		return menu;
 	}
+
 
 }

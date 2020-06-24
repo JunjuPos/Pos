@@ -38,6 +38,7 @@ public class salesCalendarServlet extends HttpServlet {
 		List<SalesTotalPrice> salesTotalPrice = scs.salesTotalPriceaboutMonth();
 		List<SalesTotalPrice> salesCardTotalPrice = scs.salesCardTotalPrice();
 		List<SalesTotalPrice> salesCashTotalPrice = scs.salesCashTotalPrice();
+		List<SalesTotalPrice> salesCreditTotalPrice = scs.salesCreditTotalPrice();
 		System.out.println(salesTotalPrice);
 		System.out.println(salesCardTotalPrice);
 		System.out.println(salesCashTotalPrice);

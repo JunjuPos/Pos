@@ -39,7 +39,7 @@
 		location.href="${contextPath}/sales/cal";
 	}
 	function menuManage(){
-		location.href="${contextPath}/#";
+		location.href="<%=request.getContextPath()%>/menuList.mn";
 	}
 	function memberManage(){
 		location.href="<%=request.getContextPath()%>/memberList.me";

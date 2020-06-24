@@ -15,8 +15,8 @@
 	#memberArea>table td{width:16.66%; text-align:center; border-bottom:1px solid #fffff3;}
 	#memberArea>table input{width: 50%; height: 40px; margin-left: 10px; font-size:23px;}
 	#memberArea>table select{width: 50%; height: 40px; margin-left: 10px; font-size:23px;}
-	#memberArea>#btnArea{margin:auto; width:30%; top:800px; left:580px;}
-	#memberArea>#btnArea>button{width:60%; height:50px; border-radius:10px; font-size:28px; font-weight:600;}
+	#memberArea>#btnArea{margin:auto; width:30%; top:800px; left:580px; text-align:center;}
+	#memberArea>#btnArea>button{width:60%; height:70px; border-radius:10px; font-size:28px; font-weight:600;}
 	#btnArea button:hover{background-color:#A593E0; color:#fffff3;}
 </style>
 </head>
@@ -65,6 +65,7 @@
 			</div>
 		</div>
 	</form>
+	
 	
 	<!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
 </body>

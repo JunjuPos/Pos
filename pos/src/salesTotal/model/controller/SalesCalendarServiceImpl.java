@@ -34,4 +34,10 @@ public class SalesCalendarServiceImpl implements SalesService{
 		return totalCashPriceList;
 	}
 
+	public List<SalesTotalPrice> salesCreditTotalPrice() {
+		SqlSession session = getSqlSession();
+		List<SalesTotalPrice> totalCashPriceList = new SalesDao().salesCreditTotalPrice(session);
+		return totalCashPriceList;
+	}
+
 }

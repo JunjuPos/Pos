@@ -10,7 +10,8 @@ public class PageInfo {
 	private int endPage;
 	
 	private int memberLimit;
-
+	
+	
 	public PageInfo() {
 	}
 

@@ -7,6 +7,7 @@
 	List<SalesTotalPrice> salesTotalPriceList = (List<SalesTotalPrice>)request.getAttribute("salesTotalPriceList"); 
 	List<SalesTotalPrice> salesCardTotalPriceList = (List<SalesTotalPrice>)request.getAttribute("salesCardTotalPrice");
 	List<SalesTotalPrice> salesCashTotalPriceList = (List<SalesTotalPrice>)request.getAttribute("salesCashPrice");
+	List<SalesTotalPrice> salesCreditTotalPriceList = (List<SalesTotalPrice>)request.getAttribute("salesCreditPrice");
 
 	DateFormat dataFormat = new SimpleDateFormat("yyyy-mm-dd");
 	DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
@@ -112,6 +113,20 @@
 		  		<%}%>
 		  	<%}else{%>
 		  	<%}%>
+		  	<%if(salesCreditTotalPriceList!=null){%>
+	  		<%for(SalesTotalPrice stpCash : salesCreditTotalPriceList){%>
+	  		<%  String total = "외상: "+decimalFormat.format(stpCash.getSalesTotal());
+	  			Date date = stpCash.getSalesDate();
+	  		%>
+		  		{
+		  			title:'<%=total%>',
+		  			color:'#E0E3DA',
+		  			start:'<%=date%>'
+		  		},
+	  		<%}%>
+	  	<%}else{%>
+	  	<%}%>
+		  	
 
 
 		],

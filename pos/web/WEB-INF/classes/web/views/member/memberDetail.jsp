@@ -15,25 +15,26 @@
 	#memberArea>table td{width:16.66%; text-align:center; border-bottom:1px solid #fffff3;}
 	#memberArea>table input{width: 50%; height: 40px; margin-left: 10px; font-size:23px;}
 	#memberArea>table select{width: 50%; height: 40px; margin-left: 10px; font-size:23px;}
-	#memberArea>#btnArea{margin:auto; width:30%; top:800px; left:580px;}
-	#memberArea>#btnArea>button{width:49%; height:50px; border-radius:10px; font-size:28px; font-weight:600;}
+	#memberArea>#btnArea{margin:auto; width:30%; top:800px; left:580px; text-align:center;}
+	#memberArea>#btnArea>button{width:55%; height:70px; border-radius:10px; font-size:28px; font-weight:600;}
 	#btnArea button:hover{background-color:#A593E0; color:#fffff3;}
 </style>
 </head>
 <body>
-	<jsp:include page="${contextPath }/views/common/header.jsp"/>
-	<jsp:include page="${contextPath }/views/common/menubar.jsp"/>
 	
+	<%@ include file="/views/common/header.jsp" %>
+	<%@ include file="/views/common/menubar.jsp" %>
 	
+	<form action="<%=request.getContextPath() %>/memberUpdate.me?mNo=${m.mNo}" method="post">
 	<div id="memberArea">
-		<h1 align="center">고객등록/수정</h1>
+		<h1 align="center">고객수정</h1>
 		<br>
 		<table>
 			<tr>
 				<th>회사명</th><td><input type="text" id="cName" name="cName" value="${m.company }"></td>
 			</tr>
 			<tr>
-				<th>부서명</th><td><input type="text" id="dep" name="dep" value="${m.dept }"></td>
+				<th>부서명</th><td><input type="text" id="dept" name="dept" value="${m.dept }"></td>
 			</tr>
 			<tr>
 				<th>연락처</th><td><input type="tel" id="phone" name="phone" value="${m.phone }"></td>
@@ -42,7 +43,7 @@
 				<th>외상금액</th><td><input type="number" id="charge" name="charge" value="${m.cMoney }"></td>
 			</tr>
 			<tr>
-				<th>선불금액</th><td><input type="number" id="prePaid" name="perPaid" value="${m.Deposit }"></td>
+				<th>선불금액</th><td><input type="number" id="prePaid" name="prePaid" value="${m.mDeposit }"></td>
 			</tr>
 			<tr>
 				<th>탈퇴여부</th>
@@ -58,12 +59,11 @@
 	
 		<br><br>
 		<div id="btnArea">
-			<button type="button" id="memberInsert">등록</button>
-			<button type="button" id="memberUpdate">수정/삭제</button>	
+			<button type="submit" id="memberUpdate">수정하기</button>	
 			<!-- <button type="button" id="goBack">이전으로</button> -->
 		</div>
 	</div>
-	
+	</form>
 	
 	<!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
 </body>

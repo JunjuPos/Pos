@@ -29,13 +29,13 @@ public class MemberDetailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mNo = request.getParameter("mNo");
+		int mNo = Integer.valueOf(request.getParameter("mNo"));
 		System.out.println("servlet에서의 mNo" + mNo);
 		
 		Member m = new MemberServiceImpl().selectMemberDetail(mNo);
 		
 		request.setAttribute("m", m);
-		request.getRequestDispatcher("views/member/memberDetail.jsp");
+		request.getRequestDispatcher("views/member/memberDetail.jsp").forward(request, response);
 		
 		
 	}
