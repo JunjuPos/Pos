@@ -36,7 +36,8 @@
 	#memberInsertBtn{width:80%; height:50px; border-radius:10px; font-size:20px; font-weight:600;}
 	#memberInsertBtn:hover{background-color:#A593E0; color:#fffff3;}
 
-	#pagingArea{font-size:20px;}
+	#pagingArea{font-size:30px; color:#E0E3DA;}
+	#pagingArea a{text-decoration:none; font-size:30px; color:#E0E3DA;}
 	
 </style>
 </head>
@@ -156,7 +157,7 @@
 			<!-- '이후' 버튼 -->
 			<!-- 끝페이지 일때는 클릭이 되지 않겠금 -->
 			<c:if test="${pi.currentPage == pi.maxPage}">
-				&nbsp;&nbsp;[이후]
+				&nbsp;[이후]
 			</c:if>
 			
 			<!-- 마지막 페이지가 아닐경우 -->
@@ -168,14 +169,14 @@
 							<c:param name="searchCondition" value="${condition }"/>
 							<c:param name="searchValue" value="${value }"/>
 						</c:url>
-						<a href="${mListEnd }">&nbsp;&nbsp;[이후]</a>
+						<a href="${mListEnd }">&nbsp;[이후]</a>
 					</c:when>
 				
 					<c:otherwise>
 						<c:url var="mListEnd" value="memberList.me">
 							<c:param name="currentPage" value="${pi.currentPage+1}"/>
 						</c:url>
-						<a href="${mListEnd }">&nbsp;&nbsp;[이후]</a>
+						<a href="${mListEnd }">&nbsp;[이후]</a>
 					</c:otherwise>
 				</c:choose>
 			</c:if>
@@ -186,6 +187,7 @@
 	
 	
 	<script>
+		// Detail넘어가는 함수
 		$(function(){
 			$("#memberArea").find("td").mouseenter(function(){
 				$(this).parents("tr").css({"background" : "#E0E3DA", "cursor" : "pointer"});
@@ -195,6 +197,12 @@
 			
 			}).click(function(){
 				var mNo = $(this).parents().children("td").eq(0).text();
+				
+				// 등록된 고객이 없을 때 detail페이지 넘어가지 않게 하는 함수
+				if(mNo === "등록된 고객이 없습니다."){
+					return;
+				}
+				
 				location.href="<%=request.getContextPath()%>/selectOne.me?mNo=" + mNo;
 			});
 		});
@@ -218,7 +226,7 @@
 			  var searchCondition = $("#searchCondition").val();
 			  var searchValue = $("#searchValue").val();
 			  
-			  // ------ 선택하고 입력했을 때
+			  // ------ 선택하고 입력했을 때의 오류 해결
 			  if(searchCondition === ""){
 				  alert("검색 옵션을 선택하세요.");
 				  	return;
