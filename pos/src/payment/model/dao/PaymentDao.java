@@ -34,7 +34,11 @@ public class PaymentDao {
 	public int insertBill(SqlSession session, ArrayList<Bill> billList) throws PaymentException {
 		int bNo = session.selectOne("paymentMapper.bNoSelect");
 		
-		System.out.println("insertBill seq_bNo : " + bNo);
+		for(Bill b : billList)
+		{
+			b.setBi_no(bNo);
+		}
+		
 		int result = session.insert("paymentMapper.billInsert", billList);
 		
 		

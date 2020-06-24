@@ -127,7 +127,7 @@ public class PaymentServlet extends HttpServlet {
 			else if(resultPrice > price)
 			{
 				//payment insert
-				
+//				int paymentInsert = paymentServiceImpl.paymentInsert(payment);
 				
 			}
 		}
