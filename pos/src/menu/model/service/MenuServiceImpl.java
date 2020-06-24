@@ -25,10 +25,10 @@ public class MenuServiceImpl implements MenuService{
 	}
 
 	@Override
-	public ArrayList<Menu> selectMenuList(MenuPageInfo pi) {
+	public ArrayList<Menu> selectMenuList(int option) {
 		SqlSession session = getSqlSession();
 		
-		ArrayList<Menu> list = new MenuDao().selectMenuList(session,pi);
+		ArrayList<Menu> list = new MenuDao().selectMenuList(session,option);
 		
 		session.close();
 		

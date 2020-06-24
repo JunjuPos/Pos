@@ -10,10 +10,8 @@ public interface MenuService {
 
 	int getListCount();
 
-
-	ArrayList<Menu> selectMenuList(MenuPageInfo pi);
-
-
 	int insertMenu(Menu menu);
+
+	ArrayList<Menu> selectMenuList(int option);
 
 }

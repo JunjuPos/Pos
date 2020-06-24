@@ -21,26 +21,24 @@ public class MenuDao {
 		return listCount;
 	}
 
-	public ArrayList<Menu> selectMenuList(SqlSession session, MenuPageInfo pi) {
+	
+	public ArrayList<Menu> selectMenuList(SqlSession session, int option) {
 		ArrayList<Menu> list = new ArrayList<>();
 		
-		int offset = (pi.getCurrentPage()-1)*pi.getMenuLimit();
-
-		RowBounds rowBounds = new RowBounds(offset,pi.getMenuLimit());
+		list = (ArrayList)session.selectList("menuMapper.selectMenuList", option);
 		
-		list = (ArrayList)session.selectList("menuMapper.selectMenuList", null, rowBounds);
-		
-		System.out.println("dao에서 매뉴 리스트 : " + list);
+//		System.out.println("dao에서 매뉴 리스트 : " + list);
 		
 		return list;
 	}
 
+	
 	public int insertMenu(SqlSession session, Menu menu) {
 		int result = 0;
 		
 		result = session.insert("menuMapper.insertMenu",menu);
 		
-		System.out.println("dao에서 menu insert result : " + result);
+//		System.out.println("dao에서 menu insert result : " + result);
 		
 		if(result>0) {
 			session.commit();
