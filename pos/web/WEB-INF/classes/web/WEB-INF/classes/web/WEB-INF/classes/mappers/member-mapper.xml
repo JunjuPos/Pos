@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+
+ 
+ 	<resultMap type="member.model.vo.Member" id="memberResultSet">
+ 		<id property="mNo" column="M_NO"/>
+ 		<result property="company" column="COMPANY"/>
+ 		<result property="dept" column="DEPARTMENT"/>
+ 		<result property="phone" column="PHONE"/>
+ 		<result property="cMoney" column="C_MONEY"/>
+ 		<result property="mDeposit" column="M_DEPOSIT"/>
+ 		<result property="status" column="M_YN"/>
+ 	</resultMap>
+ 
+ 
+ 	<!-- listCount -->
+ 	<select id="selectListCount" resultType="_int">
+ 		SELECT COUNT(*)
+ 		FROM MEMBER
+ 	</select>
+ 
+ 
+ 	<!-- memberList -->
+ 	<select id="selectMemberList" resultMap="memberResultSet">
+ 		SELECT *
+ 		FROM MEMBER
+ 		ORDER BY 1
+ 	</select>
+ 	
+ 	
+ 	<!-- detail -->
+ 	<select id="selectMemberDetail" parameterType="_int" resultMap="memberResultSet">
+ 		SELECT *
+ 		FROM MEMBER
+ 		WHERE M_NO = #{mNo}
+ 	</select>
+ 	
+ 	
+ 	<!-- insertMember -->
+ 	<insert id="insertMember" parameterType="member.model.vo.Member">
+ 		INSERT INTO MEMBER
+ 		VALUES(SEQ_MNO.NEXTVAL, #{company}, #{dept}, #{phone}, #{cMoney}, #{mDeposit}, #{status})
+ 	</insert>
+ 
+ 
+ 	<!-- updateMember -->
+ 	<update id="updateMember" parameterType="member.model.vo.Member">
+ 		UPDATE MEMBER
+ 		SET COMPANY=#{company},
+ 			DEPARTMENT=#{dept},
+ 			PHONE=#{phone},
+ 			C_MONEY=#{cMoney},
+ 			M_DEPOSIT=#{mDeposit},
+ 			M_YN=#{status}
+ 		WHERE M_NO=#{mNo}
+ 	</update>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+</mapper>
