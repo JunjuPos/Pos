@@ -57,9 +57,41 @@
  	</update>
  
  
+ 	<!-- searchListCount -->
+ 	<select id="selectSearchResultListCount" parameterType="member.model.vo.SearchCondition" resultType="_int">
+ 		SELECT COUNT(*)
+ 		FROM MEMBER
+ 			<if test="cName != null">
+ 			WHERE COMPANY LIKE '%' || #{cName} || '%'
+ 			</if> 
+ 			<if test="dept != null">
+ 			AND DEPARTMENT LIKE '%' || #{dept} || '%'
+ 			</if>
+ 	</select>
  
  
- 
+ 	<!-- searchList -->
+ 	<select id="selectSearchResultList" parameterType="member.model.vo.SearchCondition" resultMap="memberResultSet">
+ 		SELECT *
+ 		FROM MEMBER
+ 			<choose>
+ 				<when test="cName != null">
+ 					WHERE COMPANY LIKE '%' || #{cName} || '%'
+ 				</when>
+ 				<otherwise>
+ 					AND DEPARTMENT LIKE '%' || #{dept} || '%'
+ 				</otherwise>
+ 			</choose>
+ 		ORDER BY M_NO
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
  
  
 </mapper>

@@ -8,7 +8,6 @@
 	String insertMsg = (String)request.getAttribute("insertMsg");
 	
 	String updateMsg = (String)request.getAttribute("updateMsg");
-	
 %>   
 <!DOCTYPE html>
 <html>
@@ -22,7 +21,14 @@
 	#memberArea>table th{ border-bottom:1px solid #fffff3; color:#E0E3DA;}
 	#memberArea>table td{text-align:center; }
 	#lastTh{width:250px;}
- 
+ 	
+ 	#searchArea label{font-size:24px; color:#E0E3DA; font-weight:bold;}
+ 	#searchArea select{width:170px; height:50px; font-size:23px;}
+ 	#searchArea select option{width:170px; height:50px; font-size:23px;}
+ 	#searchArea input{width:300px; height:50px; font-size:23px;}
+ 	#searchArea button{width:150px; height:52px; font-size:23px; font-weight:bold; border-radius:10px;}
+ 	#searchArea button:hover{background-color:#A593E0; color:#fffff3;}
+ 	
 	#memberChargeBtn{width:45%; height:50px; border-radius:10px; font-size:20px; font-weight:600;}
 	#memberUpdateBtn{width:45%; height:50px; border-radius:10px; font-size:20px; font-weight:600;}
 	#memberChargeBtn:hover{background-color:#A593E0; color:#fffff3;}
@@ -30,7 +36,8 @@
 	#memberInsertBtn{width:80%; height:50px; border-radius:10px; font-size:20px; font-weight:600;}
 	#memberInsertBtn:hover{background-color:#A593E0; color:#fffff3;}
 
-	#pagingArea{font-size:20px;}
+	#pagingArea{font-size:30px; color:#E0E3DA;}
+	#pagingArea a{text-decoration:none; font-size:30px; color:#E0E3DA;}
 	
 </style>
 </head>
@@ -45,13 +52,17 @@
 		<!-- 검색 부분 -->
 		<div id="searchArea" align="center">
 			<label>검색조건</label>
+			&nbsp;
 			<select id="searchCondition" name="searchCondition">
-				<option>검색조건</option>	
-				
-			
+				<option value="">------------------</option>	
+				<option value="cName">회사명</option>
+				<option value="dept">부서명</option>
 			</select>
+			
+			<input type="search" id="searchValue">
+			<button onclick="searchMember();">검색하기</button>
 		</div>
-		
+		<br>
 		
 		<table>
 			<tr>
@@ -92,15 +103,28 @@
 		<!-- pagingArea -->
 		<div id="pagingArea" align="center">
 			<!-- '이전'버튼 -->
-			<c:if test="${pi.currentPage ==1 }">
-				이전&nbsp;
+			<c:if test="${pi.currentPage ==1}">
+				[이전]&nbsp;&nbsp;
 			</c:if>
 	
-			<c:if test="${pi.currentPage >1 }">
-				<c:url var="mlistBack" value="memberList.me">
-					<c:param name="currentPage" value="${pi.currentPage-1 }"/>
-				</c:url>
-				<a href="${mlistBack }">이전</a>
+			<c:if test="${pi.currentPage >1}">
+				<c:choose>
+					<c:when test="${condition !=null }">
+						<c:url var="mlistBack" value="memberSearch.me">
+							<c:param name="currentPage" value="${pi.currentPage-1 }"/>
+							<c:param name="searchCondition" value="${condition }"/>
+							<c:param name="searchValue" value="${value }"/>
+						</c:url>
+						<a href="${mlistBack}">[이전]</a>
+					</c:when>
+					
+					<c:otherwise>
+						<c:url var="mlistBack" value="memberList.me">
+							<c:param name="currentPage" value="${pi.currentPage-1}"/>
+						</c:url>
+						<a href="${mlistBack}">[이전]</a>
+					</c:otherwise>
+				</c:choose>
 			</c:if>
 			
 			<!-- '번호' 버튼 -->
@@ -110,24 +134,51 @@
 				</c:if>
 				
 				<c:if test="${p ne pi.currentPage }">
-					<c:url var="mlistCheck" value="memberList.me">
-						<c:param name="currentPage" value="${p }"/>
-					</c:url>
-					<a href="${mlistCheck }">${p }</a>
+					<c:choose>
+						<c:when test="${condition !=null }">
+							<c:url var="mlistCheck" value="memberSearch.me">
+								<c:param name="currentPage" value="${p}"/>
+								<c:param name="searchCondition" value="${condition }"/>
+								<c:param name="searchValue" value="${value }"/>
+							</c:url>
+							<a href="${mlistCheck }">${p }</a>
+						</c:when>
+						
+						<c:otherwise>
+							<c:url var="mlistCheck" value="memberList.me">
+								<c:param name="currentPage" value="${p }"/>
+							</c:url>
+							<a href="${mlistCheck }">${p }</a>
+						</c:otherwise>
+					</c:choose>
 				</c:if>
 			</c:forEach>
 		
 			<!-- '이후' 버튼 -->
 			<!-- 끝페이지 일때는 클릭이 되지 않겠금 -->
-			<c:if test="${pi.currentPage == pi.maxPage }">
-				&nbsp;이후
+			<c:if test="${pi.currentPage == pi.maxPage}">
+				&nbsp;[이후]
 			</c:if>
 			
 			<!-- 마지막 페이지가 아닐경우 -->
-			<c:if test="${pi.currentPage < pi.maxPage }">
-				<c:url var="mListEnd" value="memberList.me">
-					<c:param name="currentPage" value="${pi.currentPage +1 }"/>
-				</c:url>
+			<c:if test="${pi.currentPage < pi.maxPage}">
+				<c:choose>
+					<c:when test="${condition !=null }">
+						<c:url var="mListEnd" value="memberSearch.me">
+							<c:param name="currentPage" value="${pi.currentPage +1}"/>
+							<c:param name="searchCondition" value="${condition }"/>
+							<c:param name="searchValue" value="${value }"/>
+						</c:url>
+						<a href="${mListEnd }">&nbsp;[이후]</a>
+					</c:when>
+				
+					<c:otherwise>
+						<c:url var="mListEnd" value="memberList.me">
+							<c:param name="currentPage" value="${pi.currentPage+1}"/>
+						</c:url>
+						<a href="${mListEnd }">&nbsp;[이후]</a>
+					</c:otherwise>
+				</c:choose>
 			</c:if>
 		
 		</div><!-- pageinArea end -->
@@ -136,6 +187,7 @@
 	
 	
 	<script>
+		// Detail넘어가는 함수
 		$(function(){
 			$("#memberArea").find("td").mouseenter(function(){
 				$(this).parents("tr").css({"background" : "#E0E3DA", "cursor" : "pointer"});
@@ -145,6 +197,12 @@
 			
 			}).click(function(){
 				var mNo = $(this).parents().children("td").eq(0).text();
+				
+				// 등록된 고객이 없을 때 detail페이지 넘어가지 않게 하는 함수
+				if(mNo === "등록된 고객이 없습니다."){
+					return;
+				}
+				
 				location.href="<%=request.getContextPath()%>/selectOne.me?mNo=" + mNo;
 			});
 		});
@@ -163,6 +221,23 @@
 		<%}%>
 		
 		
+		// 검색 기능
+		function searchMember(){
+			  var searchCondition = $("#searchCondition").val();
+			  var searchValue = $("#searchValue").val();
+			  
+			  // ------ 선택하고 입력했을 때의 오류 해결
+			  if(searchCondition === ""){
+				  alert("검색 옵션을 선택하세요.");
+				  	return;
+			  }
+			  
+			location.href="<%=request.getContextPath()%>/memberSearch.me?searchCondition=" + searchCondition
+					+ "&searchValue=" + searchValue;
+		};
+		
+		
+	
 	</script>
 	
 	
