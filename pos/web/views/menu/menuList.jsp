@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.ArrayList, menu.model.vo.Menu"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
+<%
+	String insertMsg = (String)request.getAttribute("insertMsg");
+	String updateMsg = (String)request.getAttribute("updateMsg");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +34,7 @@
 
 </head>
 <body>
-< 	<%@ include file="/views/common/header.jsp" %>
+ 	<%@ include file="/views/common/header.jsp" %>
 	<%@ include file="/views/common/menubar.jsp" %> 
  
 	<div id="menuListArea">
@@ -56,7 +60,7 @@
 		<div id="content">
 			<table id="content_table">
 				<tr>
-					<td><button type="button" class="btn" onclick="location.href='#'"></button></td>
+					<td><button type="button"></button></td>
 				</tr>
 			</table>
 		</div>
@@ -66,14 +70,15 @@
 	<script>
 		function menuInsert(){
 			location.href="<%=request.getContextPath()%>/views/menu/menuInsert.jsp";
-		}
+		};
 	
-		<%-- <%if(insertMsg != null){%>
+		<%if(insertMsg != null){%>
 			alert("<%=insertMsg%>");
-		<%}%> --%>
+		<%}%>
 		
-		
-	
+		<%if(updateMsg != null){%>
+			alert("<%=updateMsg%>");
+		<%}%>
 		
 		$(function(){
 			// 클릭 시 값 불러오는 에잇
@@ -120,7 +125,7 @@
 						
 						for(var key in data){
 							var $td = $("<td>");
-							var $menu = $("<button>").text(data[key].MENU);
+							var $menu = $("<button>").text(data[key].MENU).addClass("btn").attr("value", data[key].MENU);
 							
 							$td.append($menu);
 							$tr.append($td);
@@ -132,9 +137,17 @@
 						alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 					}
 					
-				})  
-			}) 
-		})
+				});  
+			}); 
+		});
+		
+		
+		$(document).on("click",".btn",function(){	
+			var MENU = $(this).val();
+			location.href="<%=request.getContextPath()%>/menuDetail.mn?MENU=" + MENU;
+        });
+		
+		
 	</script>
 	
 	

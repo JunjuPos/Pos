@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import member.model.vo.PageInfo;
 import menu.model.dao.MenuDao;
 import menu.model.vo.Menu;
+import menu.model.vo.Menu2;
 import menu.model.vo.MenuPageInfo;
 
 public class MenuServiceImpl implements MenuService{
@@ -44,6 +45,37 @@ public class MenuServiceImpl implements MenuService{
 		session.close();
 		
 		return result;
+	}
+
+	@Override
+	public Menu selectMenuDetail(String mENU) {
+		SqlSession session = getSqlSession();
+		
+		Menu mn = null;
+		
+		mn = new MenuDao().selectMenuDetail(session, mENU);
+		
+		session.close();
+		
+		return mn;
+	}
+
+	@Override
+	public int updateMenu(Menu2 m) {
+		SqlSession session = getSqlSession();
+		
+		int result = new MenuDao().updateMenu(session, m);
+		
+		System.out.println("servie에서 updateResult : " + result);
+		session.close();
+		
+		return result;
+	}
+
+	@Override
+	public int updateMenu(Menu m) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

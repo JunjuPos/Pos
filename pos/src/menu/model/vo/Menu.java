@@ -15,6 +15,7 @@ public class Menu implements Serializable{
 	
 	private int CATE_NO;
 	private int inPrice;
+	private String name;
 	
 	
 	public Menu() {
@@ -47,6 +48,17 @@ public class Menu implements Serializable{
 		CATE_NO = cATE_NO;
 	}
 
+	
+	
+
+	public Menu(String mENU, String mENU_YN, String cATEGORY, int cATE_NO, int inPrice, String name) {
+		MENU = mENU;
+		MENU_YN = mENU_YN;
+		CATEGORY = cATEGORY;
+		CATE_NO = cATE_NO;
+		this.inPrice = inPrice;
+		this.name = name;
+	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -111,17 +123,23 @@ public class Menu implements Serializable{
 	}
 
 
+	
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	@Override
 	public String toString() {
 		return "Menu [MENU=" + MENU + ", PRICE=" + PRICE + ", MENU_YN=" + MENU_YN + ", CATEGORY=" + CATEGORY
-				+ ", CATE_NO=" + CATE_NO + ", inPrice=" + inPrice + "]";
+				+ ", CATE_NO=" + CATE_NO + ", inPrice=" + inPrice + ", name=" + name + "]";
 	}
 
-
-
-
+	
 
 	
 

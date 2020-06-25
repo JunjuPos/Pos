@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import member.model.vo.PageInfo;
 import menu.model.vo.Menu;
+import menu.model.vo.Menu2;
 import menu.model.vo.MenuPageInfo;
 
 public class MenuDao {
@@ -39,6 +40,37 @@ public class MenuDao {
 		result = session.insert("menuMapper.insertMenu",menu);
 		
 //		System.out.println("dao에서 menu insert result : " + result);
+		
+		if(result>0) {
+			session.commit();
+		}else {
+			session.rollback();
+			session.close();
+		}
+		
+		return result;
+	}
+
+
+	public Menu selectMenuDetail(SqlSession session, String mENU) {
+		Menu mn = null;
+		
+		mn = session.selectOne("menuMapper.selectMenuDetail", mENU);
+		
+		if(mn == null) {
+			session.close();
+		}
+		
+		return mn;
+	}
+
+
+	public int updateMenu(SqlSession session, Menu2 m) {
+		int result = 0;
+		
+		result = session.update("menuMapper.updateMenu",m);
+		
+		System.out.println("dao에서 updateMenu : " + result);
 		
 		if(result>0) {
 			session.commit();

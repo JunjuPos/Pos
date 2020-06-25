@@ -25,8 +25,23 @@
   </insert>
   
   
+  <!-- menuDetail -->
+  <select id="selectMenuDetail" parameterType="string" resultType="menu.model.vo.Menu">
+  	SELECT *
+  	FROM MENU
+  	WHERE MENU = #{mENU}
+  </select>
   
   
+  <update id="updateMenu" parameterType="menu.model.vo.Menu2">
+  	UPDATE MENU
+  	SET MENU=#{name},
+  		PRICE=#{price},
+  		MENU_YN=#{status},
+  		CATEGORY=#{category},
+  		CATE_NO=#{cateNo}
+  	WHERE MENU=#{oriName}
+  </update>
   
   
 </mapper>
