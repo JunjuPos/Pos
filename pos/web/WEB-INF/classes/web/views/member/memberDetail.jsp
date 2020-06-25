@@ -49,7 +49,6 @@
 				<th>탈퇴여부</th>
 				<td>
 					<select name="status" id="status">
-					
 						<c:if test="${m.status eq Y }">
 							<option value="Y" selected>Y</option>
 							<option value="N">N</option>

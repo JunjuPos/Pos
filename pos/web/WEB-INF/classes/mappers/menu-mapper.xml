@@ -37,7 +37,7 @@
   	UPDATE MENU
   	SET MENU=#{name},
   		PRICE=#{price},
-  		MENU_YN=#{status},
+  		MENU_YN=#{menuStatus},
   		CATEGORY=#{category},
   		CATE_NO=#{cateNo}
   	WHERE MENU=#{oriName}

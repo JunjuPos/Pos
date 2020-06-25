@@ -5,7 +5,7 @@ public class Menu2 {
 	private String oriName;
 	private String name;
 	private int price;
-	private String status;
+	private String menuStatus;
 	private String category;
 	private int cateNo;
 	
@@ -14,11 +14,11 @@ public class Menu2 {
 	}
 
 
-	public Menu2(String oriName, String name, int price, String status, String category, int cateNo) {
+	public Menu2(String oriName, String name, int price, String menuStatus, String category, int cateNo) {
 		this.oriName = oriName;
 		this.name = name;
 		this.price = price;
-		this.status = status;
+		this.menuStatus = menuStatus;
 		this.category = category;
 		this.cateNo = cateNo;
 	}
@@ -54,13 +54,13 @@ public class Menu2 {
 	}
 
 
-	protected String getStatus() {
-		return status;
+	protected String getMenuStatus() {
+		return menuStatus;
 	}
 
 
-	protected void setStatus(String status) {
-		this.status = status;
+	protected void setMenuStatus(String menuStatus) {
+		this.menuStatus = menuStatus;
 	}
 
 
@@ -86,12 +86,10 @@ public class Menu2 {
 
 	@Override
 	public String toString() {
-		return "Menu2 [oriName=" + oriName + ", name=" + name + ", price=" + price + ", status=" + status
+		return "Menu2 [oriName=" + oriName + ", name=" + name + ", price=" + price + ", menuStatus=" + menuStatus
 				+ ", category=" + category + ", cateNo=" + cateNo + "]";
 	}
 
-	
-	
 	
 
 	

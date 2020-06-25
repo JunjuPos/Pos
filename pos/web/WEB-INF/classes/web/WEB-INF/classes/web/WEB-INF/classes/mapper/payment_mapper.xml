@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="paymentMapper">
+  
+	<resultMap id="billinsert" type="Bill">
+		<id property="bill_row" column="BILL_ROW"/>
+		<result property="bi_no" column="BI_NO"/>
+		<result property="menu" column="MENU"/>
+		<result property="price" column="PRICE"/>
+		<result property="totalPrice" column="TOTALPRICE"/>
+		<result property="amount" column="AMOUNT"/>
+		<result property="pay_row" column="PAY_ROW"/>
+	</resultMap>
+	
+	
+	<insert id="billInsert" parameterType="java.util.List">
+		INSERT INTO BILL(BILL_ROW, BI_NO, MENU, PRICE, TOTALPRICE, AMOUNT, BILL_DATE, PAY_ROW)
+		SELECT SEQ_BILLROW.NEXTVAL, SEQ_BNO.NEXTVAL, B.*
+		FROM (
+		<foreach collection="list" item="item" index="ix" separator="UNION ALL" >
+			SELECT #{item.menu}, #{item.price}, #{item.totalPrice}, #{item.amount}, SYSDATE, 0
+			FROM DUAL
+		</foreach>
+		)B
+	</insert>
+	
+	<select id="bNoSelect" resultType="_int">
+		SELECT SEQ_BNO.NEXTVAL FROM DUAL
+	</select>
+	<!-- <insert id="billInsert" parameterType="java.util.List">
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
+		INSERT INTO BILL(BILL_ROW, BI_NO, MENU, PRICE, TOTALPRICE, AMOUNT, BILL_DATE , PAY_ROW)
+		VALUES(SEQ_BILLROW.NEXTVAL, SEQ_BNO.NEXTVAL, #{item.menu}, #{item.price}, #{item.totalPrice}, #{item.amount}, SYSDATE, 0)
+		</foreach>
+	</insert> -->
+	
+	<!-- <insert id="insertOrderList" parameterType="java.util.List">
+		<foreach collection="list" item="item" open="INSERT ALL" close="SELECT * FROM SYS.DUAL" separator=" ">
+			INTO JUMUN(ORDER_NO, MENU, AMOUNT, ORDER_DATE, TABLE_NO, PAY_YN) 
+			VALUES(SEQ_JUMUN.NEXTVAL, #{item.MENU}, #{item.AMOUNT}, TO_CHAR(TO_DATE(SYSDATE,'YYYY-MM-DD HH24:MI:SS')), #{item.TABLE_NO}, 'N')
+		</foreach>
+	</insert>  -->
+	 
+	 
+	<insert id="paymentInsert" parameterType="Payment">
+		INSERT INTO PAYMENT
+		VALUES(SEQ_PAYROW.NEXTVAL, SEQ_PAYNO.NEXTVAL, SYSDATE, #{pay_method}, 'Y', #{price}, #{total_Price})
+	</insert>
+	
+	<delete id="jumunDelete" parameterType="_int">
+		DELETE FROM JUMUN WHERE TABLE_NO = #{tableNo}
+	</delete>
+	
+	<update id="mainTablePriceUpdate" parameterType="_int">
+		UPDATE MAINTABLE SET TOTAL_PRICE = 0 WHERE TABLE_NO = #{tableNo}
+	</update>
+</mapper>
